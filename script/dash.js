@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('logo').textContent = loggedInCompany.company;
     } else {
       alert('No user logged in');
-      window.location.href = 'auth.html'; // Redirect to login page
+      window.location.href = 'index.html'; // Redirect to login page
     }
 
     // Load and manage employees data
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logout function
     function logout() {
       localStorage.removeItem('loggedInCompany');
-      window.location.href = 'auth.html'; // Redirect to login page
+      window.location.href = 'index.html'; // Redirect to login page
     }
 
     // Display existing employees when page loads
