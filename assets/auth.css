@@ -1,0 +1,266 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Body and Background Colors */
+body {
+    background-color: #f9fafb;
+    color: #1f2937;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dark Mode Styles */
+body.dark {
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+/* Main container */
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Login container */
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode for login container */
+body.dark .login-container {
+    background-color: #2d3748;
+    color: #e5e7eb;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    background-color: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background-color: #e5e7eb;
+}
+
+/* Icons */
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.moon {
+    display: none;
+}
+
+.sun {
+    display: block;
+}
+
+/* Dark mode icons */
+body.dark .moon {
+    display: block;
+}
+
+body.dark .sun {
+    display: none;
+}
+
+/* Form Inputs */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background-color: #fff;
+    color: #1f2937;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+/* Dark mode for inputs */
+body.dark .input-field {
+    background-color: #2d3748;
+    color: #e5e7eb;
+    border-color: #4a5568;
+}
+
+.input-field:focus {
+    border-color: #3b82f6;
+    background-color: #f0f5ff;
+}
+
+/* Buttons */
+.login-btn,
+.create-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    border: none;
+}
+
+.login-btn:hover,
+.create-btn:hover {
+    background-color: #2563eb;
+}
+
+.create-btn {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+}
+
+.create-btn:hover {
+    background-color: #e5e7eb;
+}
+
+/* Separator */
+.separator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.separator .line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #e5e7eb;
+}
+
+.separator span {
+    margin: 0 10px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Hide elements with .hidden */
+.hidden {
+    display: none;
+}
+
+/* (Optional) Make theme toggle button look good */
+#themeToggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+#themeToggle:hover {
+    background-color: #e5e7eb;
+}
+
+/* Dark mode style for the button */
+body.dark #themeToggle {
+    background-color: #374151; /* Darker background */
+    color: #d1d5db; /* Light text */
+}
+
+
+
+/* The background overlay */
+#alertOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); /* semi-transparent black */
+    z-index: 900;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  /* The alert box */
+  .custom-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: #1f2937;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  /* When visible (custom "show" class) */
+  .show {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  /* Dark mode support */
+  body.dark .custom-alert {
+    background-color: #2d3748;
+    color: #e5e7eb;
+  }
+  
+  /* OK button inside alert */
+  .custom-alert button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .custom-alert button:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Hidden by default */
+  .hidden {
+    display: none;
+  }
+  
