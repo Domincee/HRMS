@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/navtop.css">
+
+</head>
+
+<body>
+    <header class="header"> 
+        <div class="logo" id="logo">CoreHRMS</div>
+        <div class="button-right-container">
+            <button class="button-mode" id="themeToggle">
+                <i id="moonIcon" class="ri-moon-clear-fill hidden"></i>
+                <i id="sunIcon"  class="ri-sun-fill"></i>           
+            </button>
+            <div class="form-group" >
+                <button class="logout-btn" 
+                onclick="logout()"><i class="ri-logout-box-line"></i></button>
+            </div>
+        </div>
+    </header>
+      
+
+    <div class="dashboard-container">
+        
+    </div>
+    <script>
+ document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const themeToggle = document.getElementById('themeToggle');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+
+    // Function to update icon visibility based on theme
+    function updateIcons() {
+        if (document.body.classList.contains('dark')) {
+            moonIcon.classList.remove('hidden');
+            sunIcon.classList.add('hidden');
+        } else {
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        }
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+    updateIcons(); // Important: set correct icon on page load!
+
+    // Theme toggle click event
+    themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark');
+        
+        // Save the theme
+        if (document.body.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+        
+        // Update icons after toggling
+        updateIcons();
+    });
+});
+
+    </script>
+</body>
+</html>

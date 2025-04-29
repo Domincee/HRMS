@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@keyframes  sinkIn {
+0% { transform: scale(0); }
+100% {  transform: scale(1); }
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Arial', sans-serif;
+}
+
+
+body {
+background-color: #f3f4f6;
+color:  #1f2937;
+transition: background-color 0.3s, color 0.3s;
+}
+body.dark{
+background-color: #19273c;    
+color: #ebeef1;
+}
+.logo{
+font-family: "Poppins", sans-serif;
+font-weight: 700;
+font-size: 30px;
+font-style: normal;
+color: #626b77;
+letter-spacing: 1px;
+transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.header{
+width: 100%;
+height: 80px;
+background-color: #ffffff;
+display: flex;
+justify-content: space-between;
+padding: 25px;
+
+}
+
+.button-right-container{
+display: flex;
+font-size: 25px;
+width: 100px;
+height: 54px;
+justify-content: space-between;
+align-items: center;
+}
+
+.button-mode{
+width: 35px;
+height: 35px;
+font-size: 15px;
+transform: rotate(50deg);
+border: none;
+cursor: pointer;
+box-shadow: 0 0 5px  #dceabe;
+transition: all 0.3s ease-in-out;
+}
+body.dark .button-mode{
+
+background-color: #1a63ca;
+border: 2px solid #0073ff;
+box-shadow: 0 0 5px  #0073ff;
+}
+#sunIcon {
+display: block;
+font-size: 25px;
+color: rgb(81, 201, 7);
+animation: rotate infinite 7s linear;
+}
+
+
+
+#moonIcon{
+display: block;
+font-size: 10px;
+transform: rotate(-50deg);
+}
+
+body.dark .button-mode{
+color: #c1cd9b;
+transform: rotate(250deg);
+transition: all 0.3s ease-in-out;
+
+}
+
+body.dark #sunIcon{
+display: block;
+font-size: 15px;
+color: rgb(182, 255, 137);
+transition: all 0.3s ease-in-out;
+}
+body.dark #moonIcon{
+display: block;
+font-size: 25px;
+transform: rotate(120deg);
+color: rgb(14, 3, 66);
+transition: all 0.3s ease-in-out;
+}
+
+
+body.dark .header,
+body.dark .logo{
+background-color: #273850;
+color: #0549a7;
+}
+
+.logout-btn{
+width: 40px;
+height: 45px;
+color: rgb(55, 53, 53);
+font-size: 20px;
+border-radius: 10px;
+cursor: pointer;
+background-color: #f8f8f6;
+overflow: hidden;
+border: 2px solid #c1e0ee;
+transition: all 0.3s ease-in-out;
+}
+
+.logout-btn:hover{
+background-color: #f5f5f5;
+box-shadow: 0 0 5px  #d6d9dc;
+transition: all 0.3s ease-in-out;
+}
+
+body.dark .logout-btn{
+background-color: #052d64;
+border: 2px solid #0d2848;
+box-shadow: 0 0 5px  #06254b;
+color: #d4dfeb;
+}
+body.dark .logout-btn:hover{
+box-shadow: 0 0 5px  #0767dc;
+}
