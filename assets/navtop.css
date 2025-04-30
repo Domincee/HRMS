@@ -52,15 +52,18 @@ padding: 25px;
 .button-right-container{
 display: flex;
 font-size: 25px;
-width: 100px;
+width: 100%;
 height: 54px;
 justify-content: space-between;
 align-items: center;
 }
 
 .button-mode{
+ position: absolute;
 width: 35px;
 height: 35px;
+bottom: 35px;
+right: 5vw;
 font-size: 15px;
 transform: rotate(50deg);
 border: none;
@@ -68,12 +71,14 @@ cursor: pointer;
 box-shadow: 0 0 5px  #dceabe;
 transition: all 0.3s ease-in-out;
 }
+
 body.dark .button-mode{
 
 background-color: #1a63ca;
 border: 2px solid #0073ff;
 box-shadow: 0 0 5px  #0073ff;
 }
+
 #sunIcon {
 display: block;
 font-size: 25px;
@@ -117,9 +122,11 @@ background-color: #273850;
 color: #0549a7;
 }
 
+
 .logout-btn{
-width: 40px;
+width: 100%;
 height: 45px;
+max-width: 45px;
 color: rgb(55, 53, 53);
 font-size: 20px;
 border-radius: 10px;
