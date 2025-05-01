@@ -61,7 +61,7 @@ body.dark .panel-container {
   
 body.dark .toggle-panel {
     background-color: #272a36a4;
-    color: #ffffffa7;
+    color:rgb(176, 176, 181);
 }
  .toggle-panel.collapsed #left-arrow {
     display: none;
@@ -85,8 +85,8 @@ body.dark .toggle-panel {
   .nav-list li {
     padding: 12px 25px;
     white-space: nowrap;
-    transition: opacity 0.3s ease, padding 0.3s ease;
     cursor: pointer;
+    transition: all 0.3s ease;
   }
   /* Hide labels when collapsed */
   .panel-container.collapsed .nav-list li {
@@ -94,12 +94,12 @@ body.dark .toggle-panel {
     opacity: 0;
     padding-left: 15px;  /* keep some padding so bullets/icons don’t jump */
     pointer-events: none;
+   
   }
   
   .nav-list li:hover {
     transform: scale(1.1);
-    transition: transform 0.3s ease;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.545); /* Example text-shadow */
+    transition: all 0.3s ease;
     /* You can also change the text color on hover */
   }
 
@@ -110,6 +110,7 @@ body.dark .toggle-panel {
 .nav-list-collapsed li{
     list-style: none;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 .panel-container.collapsed .nav-list-collapsed{
     display: flex;
@@ -118,12 +119,18 @@ body.dark .toggle-panel {
     margin-top: 25px;
     margin-left: 24px;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.582);
     font-size: 1.5rem;
 }
-.nav-list-collapsed i:hover{
-    color: rgb(255, 255, 255);
-    transition: all 0.3s ease-in-out;
+.nav-list-collapsed i{
+  color: rgb(102, 101, 101);
+}
+
+body.dark .nav-list-collapsed i{
+  color: rgb(176, 176, 181);
+}
+.nav-list-collapsed li:hover{
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
 }
 
 
@@ -147,7 +154,8 @@ body.dark .toggle-panel {
 }
 
 .company-img img {
-    padding: 12px 25px;
+    width: 100%;
+    height: 100%;
     border-radius: 1px solid black;
     max-width: 100%;
     max-height: 100%;

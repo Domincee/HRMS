@@ -8,9 +8,11 @@
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
     rel="stylesheet"/>
-    <link rel="stylesheet" href="assets/navtop.css">
-    <link rel="stylesheet" href="assets/alert.css">
-    <link rel="stylesheet" href="assets/panel.css">
+    <link rel="stylesheet" href="assets/css/navtop.css">
+    <link rel="stylesheet" href="assets/css/alert.css">
+    <link rel="stylesheet" href="assets/css/panel.css">
+    <link rel="stylesheet" href="assets/css/dash-section.css">
+
 </head>
 
 <body>
@@ -27,40 +29,50 @@
         <button class="logout-btn" 
         onclick="logout()"><i class="ri-logout-box-line"></i></button>
     </header>
-      
-<div class="board-container">
-    <div class="panel-container" id="panel">
-        <h2 id="CompanyName">Your Company's Name</h2>
 
-        <div class="company-img">
-            <img src="" alt="">
+
+<div class="sections-container">    
+    <div class="board-container">
+        <div class="panel-container" id="panel">
+            <h2 id="CompanyName">Your Company's Name</h2>
+
+            <div class="company-img">
+                <img src="/assets/img/company-logo-design-template-e089327a5c476ce5c70c74f7359c5898_screen.jpg" alt="">
+            </div>
+            <ul class="nav-list">
+                <li data-section="dashboard" class="dashboard-panel " >Dashboard</li>
+                <li data-section="employee" class="employee-panel" >Employee</li>
+                <li data-section="performance class="performance-panel" >Performance</li>
+                <li data-section="attendace" class="attendace-panel" ">Attendance</li>
+            </ul>
+            <ul class="nav-list-collapsed">
+                <li data-section="dashboard" class="dashboard-panel" ><i class="ri-dashboard-fill"></i></li>
+                <li data-section="employee" class="employee-panel" ><i class="ri-group-3-fill"></i></li>
+                <li data-section="performance" class="performance-panel" ><i class="ri-line-chart-line"></i></li>
+                <li data-section="attendace" class="attendace-panel" ><i class="ri-calendar-check-fill"></i></li>
+            </ul>    
         </div>
-      
-
-
-        <ul class="nav-list">
-            <li class="dashboard-panel" id="dashboard-toggle">Dashboard</li>
-            <li class="employee-panel" id="employee-toggle">Employee</li>
-            <li class="performance-panel" id="performace-toggle">Performance</li>
-            <li class="attendace-panel" id="attendace-toggle">Attendance</li>
-
-        </ul>
-        <ul class="nav-list-collapsed">
-            <li class="dashboard-panel" id="dashboard-toggle"><i class="ri-dashboard-fill"></i></li>
-            <li class="employee-panel" id="employee-toggle"><i class="ri-group-3-fill"></i></li>
-            <li class="performance-panel" id="performace-toggle"><i class="ri-line-chart-line"></i></li>
-            <li class="attendace-panel" id="attendace-toggle"><i class="ri-calendar-check-fill"></i></li>
-
-        </ul>
-     
+        <div class="toggle-panel">
+            <i id="left-arrow" class="ri-arrow-left-wide-line"></i>
+            <i id="right-arrow" class="ri-arrow-right-wide-line"></i>
+        </div>
     </div>
 
-    <div class="toggle-panel">
-        <i id="left-arrow" class="ri-arrow-left-wide-line"></i>
-        <i id="right-arrow" class="ri-arrow-right-wide-line"></i>
+
+    <div class="dashboard-section active-section">
+            <div class="dashboard-header ">
+                <h2>Dashboard</h2>
+                <div class="dashboard-header-right">
+                    <button class="add-btn" id="add-btn"><i class="ri-add-line"></i></button>
+                    <button class="edit-btn" id="edit-btn"><i class="ri-edit-line"></i></button>
+                    <button class="delete-btn" id="delete-btn"><i class="ri-delete-bin-5-line"></i></button>
+                </div>
+            </div>
     </div>
+
 
 </div>
+
 <!-- ALERT MESSAGES -->
     <div class="alert" id="alert">
         <div class="alert-content">
@@ -68,6 +80,8 @@
             <button id="alertCloseBtn" onclick="closeAlert()">OK</button>
     </div>
     <script>
+        
+
  document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const themeToggle = document.getElementById('themeToggle');
@@ -120,6 +134,8 @@
 
 const alertCloseBtn = document.getElementById('alertCloseBtn');
 const loggedInCompany = JSON.parse(localStorage.getItem('loggedInCompany'));
+
+
 if (loggedInCompany) {
     document.getElementById('CompanyName').textContent = loggedInCompany.companyName;   
 } else {
@@ -157,6 +173,41 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBtn.classList.toggle('collapsed');
   });
 });
-    </script>
+   
+   
+   
+
+const allNavItems = document.querySelectorAll('.nav-list li, .nav-list-collapsed li');
+const sections = document.querySelectorAll('.dashboard-section, .employee-section, .performance-section, .attendance-section');
+
+function showSection(sectionName) {
+  sections.forEach(sec => sec.classList.remove('active-section'));
+
+  const target = document.querySelector(`.${sectionName}-section`);
+  if (target) target.classList.add('active-section');
+}
+
+allNavItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const section = item.dataset.section;
+    if (!section) return;
+
+    // Remove .current from all nav items
+    allNavItems.forEach(el => el.classList.remove('current'));
+
+    // Add .current to all matching nav items (main and collapsed)
+    allNavItems.forEach(el => {
+      if (el.dataset.section === section) {
+        el.classList.add('current');
+      }
+    });
+
+    // Show the right section
+    showSection(section);
+  });
+});
+
+
+  </script>
 </body>
 </html>
