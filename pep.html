@@ -31,7 +31,7 @@
     </header>
 
 
-<div class="sections-container">    
+<div class="main-container">    
     <div class="board-container">
         <div class="panel-container" id="panel">
             <h2 id="CompanyName">Your Company's Name</h2>
@@ -59,19 +59,26 @@
     </div>
 
 
-    <div class="dashboard-section active-section">
-            <div class="dashboard-header ">
-                <h2>Dashboard</h2>
-                <div class="dashboard-header-right">
-                    <button class="add-btn" id="add-btn"><i class="ri-add-line"></i></button>
-                    <button class="edit-btn" id="edit-btn"><i class="ri-edit-line"></i></button>
-                    <button class="delete-btn" id="delete-btn"><i class="ri-delete-bin-5-line"></i></button>
-                </div>
-            </div>
+    <div class="sections-container">
+        <div class="dashboard-section active-section">
+                <div class="dashboard-header ">
+                    <h2>Dashboard</h2>
+                    <div class="dashboard-header-right">
+                        <button class="add-btn" id="add-btn"><i class="ri-add-line"></i></button>
+                        <button class="edit-btn" id="edit-btn"><i class="ri-edit-line"></i></button>
+                        <button class="delete-btn" id="delete-btn"><i class="ri-delete-bin-5-line"></i></button>
+                    </div>
+             </div>
+        </div>
     </div>
-
-
+        
+    
 </div>
+
+
+
+
+
 
 <!-- ALERT MESSAGES -->
     <div class="alert" id="alert">
@@ -177,37 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
    
    
 
-const allNavItems = document.querySelectorAll('.nav-list li, .nav-list-collapsed li');
-const sections = document.querySelectorAll('.dashboard-section, .employee-section, .performance-section, .attendance-section');
-
-function showSection(sectionName) {
-  sections.forEach(sec => sec.classList.remove('active-section'));
-
-  const target = document.querySelector(`.${sectionName}-section`);
-  if (target) target.classList.add('active-section');
-}
-
-allNavItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const section = item.dataset.section;
-    if (!section) return;
-
-    // Remove .current from all nav items
-    allNavItems.forEach(el => el.classList.remove('current'));
-
-    // Add .current to all matching nav items (main and collapsed)
-    allNavItems.forEach(el => {
-      if (el.dataset.section === section) {
-        el.classList.add('current');
-      }
-    });
-
-    // Show the right section
-    showSection(section);
-  });
-});
 
 
   </script>
+    <script src="sections.js"></script>
 </body>
 </html>

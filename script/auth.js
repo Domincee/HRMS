@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('theme', 'light');
         }
         
-        // Update icons after toggling
+   
         updateIcons();
     });
 });
@@ -47,11 +47,11 @@ function login() {
 
     let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
 
-    // Find account by company name and password
+    // find
     let account = accounts.find(acc => acc.company === companyName && acc.password === password);
 
     if (account) {
-      // Store logged-in user data in LocalStorage
+      // Store logged-in user
       localStorage.setItem('loggedInCompany', JSON.stringify(account));
 
       // Redirect to hr.html
