@@ -85,11 +85,11 @@ body.dark .toggle-panel {
   .nav-list li {
     padding: 12px 25px;
     white-space: nowrap;
-    cursor: pointer;
+    cursor: pointer; 
     transition: all 0.3s ease;
   }
   /* Hide labels when collapsed */
-  .panel-container.collapsed .nav-list li {
+  .panel-container.collapsed .nav-list li p {
     display: none;
     opacity: 0;
     padding-left: 15px;  /* keep some padding so bullets/icons don’t jump */
@@ -97,6 +97,13 @@ body.dark .toggle-panel {
    
   }
   
+  .panel-container .nav-list li i{
+    display: none;
+  }
+  .panel-container.collapsed .nav-list li i{
+    display: block;
+  }
+
   .nav-list li:hover {
     transform: scale(1.1);
     transition: all 0.3s ease;
@@ -112,22 +119,8 @@ body.dark .toggle-panel {
     text-decoration: none;
     transition: all 0.3s ease;
 }
-.panel-container.collapsed .nav-list-collapsed{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 25px;
-    margin-left: 24px;
-    cursor: pointer;
-    font-size: 1.5rem;
-}
-.nav-list-collapsed i{
-  color: rgb(102, 101, 101);
-}
 
-body.dark .nav-list-collapsed i{
-  color: rgb(176, 176, 181);
-}
+
 .nav-list-collapsed li:hover{
     transform: scale(1.2);
     transition: transform 0.3s ease;
@@ -164,4 +157,41 @@ body.dark .nav-list-collapsed i{
 
 #logoUpload {
     margin-top: 10px;
+
+    
+}/* Mobile-first approach */
+@media (max-width: 576px) {
+  /* Styles for small screens (tablets) */
+  .panel-container{
+    width: 120px;
+  }
+  #CompanyName{
+    font-size: 1rem;
+    margin: 15px;
+  }
+  .nav-list li p {
+    margin-left: -10px;
+  }
+  .nav-list li i{
+   font-size: 1.4rem;
+  }
 }
+
+@media (min-width: 579px) {
+  /* Styles for medium screens (laptops) */
+
+  .panel-container{
+    width: 200px;
+  }
+  #CompanyName{
+    font-size: 1.2rem;
+    margin: 15px;
+  }
+  .nav-list li p {
+    margin-left: -10px;
+  }
+  .nav-list li i{
+   font-size: 1.5rem;
+  } 
+}
+

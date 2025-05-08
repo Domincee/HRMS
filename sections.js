@@ -1,35 +1,19 @@
-const allNavItems = document.querySelectorAll('.nav-list li, .nav-list-collapsed li');
-const sectionContainers = document.querySelectorAll('.section-container'); // Ensure this selects all sections
 
+    // Get all navigation buttons and sections
+    const buttons = document.querySelectorAll(".nav-list li");
+    const sections = document.querySelectorAll(".board-sections li");
 
-function showSection(sectionName) {
+    // Loop through each button and add event listener
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+            // Remove 'active-section' class from all sections
+            sections.forEach(section => section.classList.remove("active-section"));
 
-  sectionContainers.forEach(sec => sec.classList.remove('active'));
+            // Add 'active-section' class to the clicked section
+            const sectionId = this.getAttribute("data-section");
+            document.getElementById(sectionId).classList.add("active-section");
+        });
+    }
 
-
-  const target = document.querySelector(`.section-container[data-section="${sectionName}"]`);
-  if (target) target.classList.add('active');
-}
-
-// Loop
-for (let i = 0; i < allNavItems.length; i++) {
-  allNavItems[i].addEventListener('click', () => {
-    const section = allNavItems[i].dataset.section;
-    if (!section) return;
-
-    console.log('Clicked on section:', section);
-
-  
-    allNavItems.forEach(el => el.classList.remove('active-section'));
-
-    
-    allNavItems.forEach(el => {
-      if (el.dataset.section === section) {
-        el.classList.add('active-section');
-      }
-    });
-
-    // Show the right section
-    showSection(section);
-  });
-}
+    // Show the default section (Dashboard) on page load
+    document.getElementById("dashboard").classList.add("active-section");

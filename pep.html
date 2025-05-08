@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    
     <header class="header"> 
         <div class="logo" id="logo">CoreHRMS</div>
         <div class="button-right-container">
@@ -33,25 +34,41 @@
 
 <div class="main-container">    
     <div class="board-container">
+
         <div class="panel-container" id="panel">
             <h2 id="CompanyName">Your Company's Name</h2>
-
+            
             <div class="company-img">
                 <img src="/assets/img/company-logo-design-template-e089327a5c476ce5c70c74f7359c5898_screen.jpg" alt="">
             </div>
+
             <ul class="nav-list">
-                <li data-section="dashboard" class="dashboard-panel " >Dashboard</li>
-                <li data-section="employee" class="employee-panel" >Employee</li>
-                <li data-section="performance class="performance-panel" >Performance</li>
-                <li data-section="attendace" class="attendace-panel" ">Attendance</li>
+                <li data-section="dashboard" class="dashboard-panel " >
+                    <p>Dashboard</p> 
+                    <i class="ri-dashboard-fill"></i>
+                </li>
+                <li data-section="employee" class="employee-panel" >
+                    <p>Employee</p>
+                    <i class="ri-group-3-fill"></i>
+                </li>
+                <li data-section="performance" class="performance-panel" >
+                    <p>Performance</p> 
+                    <i class="ri-line-chart-line"></i>
+                </li>
+                <li data-section="attendance" class="attendace-panel" >
+                    <p>Attendance</p>
+                    <i class="ri-calendar-check-fill"></i>
+                </li>
             </ul>
-            <ul class="nav-list-collapsed">
-                <li data-section="dashboard" class="dashboard-panel" ><i class="ri-dashboard-fill"></i></li>
-                <li data-section="employee" class="employee-panel" ><i class="ri-group-3-fill"></i></li>
-                <li data-section="performance" class="performance-panel" ><i class="ri-line-chart-line"></i></li>
-                <li data-section="attendace" class="attendace-panel" ><i class="ri-calendar-check-fill"></i></li>
-            </ul>    
+            
+            <ul class="board-sections">
+                <li class="dashboard" id="dashboard"></li>
+                <li class="employee" id="employee"></li>
+                <li class="performance" id="performance"></li>
+                <li class="attendance" id="attendance"></li>
+            </ul>
         </div>
+
         <div class="toggle-panel">
             <i id="left-arrow" class="ri-arrow-left-wide-line"></i>
             <i id="right-arrow" class="ri-arrow-right-wide-line"></i>
@@ -59,7 +76,7 @@
     </div>
 
 
-    <div class="sections-container">
+<!--     <div class="sections-container">
         <div class="dashboard-section active-section">
                 <div class="dashboard-header ">
                     <h2>Dashboard</h2>
@@ -71,7 +88,7 @@
              </div>
         </div>
     </div>
-        
+         -->
     
 </div>
 
