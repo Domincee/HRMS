@@ -1,52 +1,22 @@
 .sections-container{
     display: flex;
-
-}
-.dashboard-section,
-.employee-section,
-.performance-section,
-.attendance-section {
-  display: none;
-}
-
-/* Show only the active section */
-.active-section {
-  display: block;
-}
-
-/* Style for active nav item */
-.current {
-    background-color: rgb(216, 216, 231);
-    border-radius: 5px;
-    margin-left: 25px;
-    transition: all 0.3s ease-in-out;
-}
-
-body.dark .current {
-    background-color: rgb(15, 15, 179);
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-}
-
-.nav-list-collapsed .current{
-    padding: 5px;
-    border-radius: 5px;
-    z-index: 1;
-    margin-left: 0;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Style for dashboard section */
-
-
-.dashboard-section {
-    width: 100%;
-    margin: 15px 15px;
-    padding: 15px;
+    border: 2px solid blue;
     border-radius: 10px;
-    border: 2px solid #858894;
+    padding: 15px;
+    width: 100%;
+    margin: 15px;
 }
 
-body.dark .dashboard-section {
-    border: 2px solid #182877;
+.sections-container ul{
+    list-style-type: none;
+
+
+}
+
+.dashboard-section,.attendance-section,.performance-section,.employee-section{
+    display: none;
+}
+
+.active-section{
+    display: block;
 }

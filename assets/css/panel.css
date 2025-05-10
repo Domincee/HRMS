@@ -1,5 +1,8 @@
 /* Base panel styles */
-
+.main-container{
+  display: flex;
+ 
+}
 .board-container{
     display: flex;
     width: fit-content;
