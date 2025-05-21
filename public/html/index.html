@@ -4,20 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+
+    <link rel="stylesheet" href="/public/css/dashboard.css">
 </head>
 <body>
-
+  <p id="sizeDisplay" style="position: fixed; top: 0; right: 0; font-size: 0.7rem;"></p>
   
-    <div class="sidebar-container">
+    <div class="sidebar-container" >
+        
         <div class="sidebar">
             <h2>Sidebar</h2>
             <ul>
-                <button class="sidebar-button" id="dashboard">Dashboard</button>
-                <button class="sidebar-button" id="Employee">Employee</button>
-                <button class="sidebar-button" id="Employee">Employee</button>
+                <li class="sidebar-button" id="dashboard">Dashboard</li>
+                <li class="sidebar-button" id="Employee">Employee</li>
+                <li class="sidebar-button" id="Employee">Employee</li>
             </ul>
         </div>
     </div>
+    <script>
+    function displayWindowSize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      document.getElementById("sizeDisplay").textContent = `Width: ${width}px, Height: ${height}px`;
+    }
+
+    // Display size on page load
+    displayWindowSize();
+
+    // Update size when the window is resized
+    window.addEventListener("resize", displayWindowSize);
+  </script>
 </body>
 </html>
