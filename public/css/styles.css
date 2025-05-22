@@ -45,6 +45,10 @@ body{
     line-height: 1.5;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
 .primary-button{
     background-color: var(--primary-button-color);
     color: var(--primary-text-color);

@@ -6,10 +6,30 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="/public/css/dashboard.css">
-        <link rel="stylesheet" href="/public/css/alert-mess.css">
+     <link rel="stylesheet" href="/public/css/modals.css">
+         <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 <body>
+ 
 
+  <div class="form-modal">
+      <form id="employeeForm" class="employee-form">
+        <input type="text" id="firstName" placeholder="First Name" required />
+        <input type="text" id="lastName" placeholder="Last Name" required />
+       <select id="department" required>
+          <option value="" disabled selected>Department</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Marketing">Marketing</option>
+          <option value="HR">HR</option>
+          <option value="Sales">Sales</option>
+      </select>
+
+        <div class="btns">
+          <button type="submit">Add Employee</button>
+          <button class="cancel-add">Cancel</button>
+         </div>
+      </form>
+   </div> 
 
   <section class="dashboard" id="dashboard">
 
@@ -60,7 +80,7 @@
           <th>Department</th>
           <th>Acive</th>
           <th>Date Hired</th>
-          <th><button>Add new</button></th>
+          <th><button class="add-new">Add new</button></th>
         </tr>
       </thead>
 
