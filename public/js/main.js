@@ -20,16 +20,22 @@ const confiModal = document.getElementById("confirmationModal");
 /*SHOW FORM EMPLOYEE */
 const addNew = document.querySelector(".add-new");
 const cancelAdd = document.querySelector(".cancel-add");
- const dateInput = document.getElementById("dateHired");
+const dateInput = document.getElementById("dateHired");
+const status = document.getElementById("status");
 addNew.addEventListener("click", function() {
 
+    if (dateInput) {
+      dateInput.remove(); 
+      }
+
+    if (status){
+      status.remove(); 
+    }
     confiModal.style.display = "none"; 
     formModal.style.display = "flex"; 
     formEmp.style.flexDirection = "column";
    
-     if (dateInput) {
-    dateInput.style.display = "none"; // Hide the date input
-  }
+     
 
 });
 cancelAdd.addEventListener("click", function() {
@@ -153,21 +159,18 @@ window.editEmployee = function(index) {
   formEmp.style.flexDirection = "row";
 
   /* Add inputs dateHire*/  
-    if (!document.getElementById("dateHired")) {
-    const dateInput = document.createElement("input");
-    dateInput.type = "date";
-    dateInput.id = "dateHired";
-    dateInput.name = "dateHired";
-    dateInput.required = true;
+  
+    if(!status){
+      status.show()
+    }
 
-    // Set max date to today
     const today = new Date().toISOString().split("T")[0];
     dateInput.max = today;
 
     // Insert before buttons div
     const btnsDiv = formEmp.querySelector(".btns");
     formEmp.insertBefore(dateInput, btnsDiv);
-    }
+    
 
   // Fill inputs
   const emp = employees[index];
@@ -175,6 +178,7 @@ window.editEmployee = function(index) {
   document.getElementById("firstName").setAttribute("placeholder", emp.firstName);
   document.getElementById("lastName").value = emp.lastName;
     document.getElementById("lastName").setAttribute("placeholder", emp.lastName);
+    document.getElementById("dateHired").value = emp.dateHired;
   document.getElementById("department").value = emp.department;
  document.getElementById("department").setAttribute("placeholder", emp.department);
   editingIndex = index;
@@ -183,9 +187,44 @@ window.editEmployee = function(index) {
 
 };
 
+const prompt = document.getElementById("promptNewDep");
+const promtContainer = document.getElementById("promptContainer");
+const dep = document.getElementById("department");
+const checkDEp = document.getElementById("checkDep");
+
+ checkDEp.addEventListener("click", () => {
+      console.log("checked");
+    });
 
 
+dep.addEventListener("change", function () {
+  if (this.value === "AddOption") {
+    
+    promtContainer.style.display = "flex";
 
+
+    const newDep = prompt("Enter new department name:");
+    if (newDep) {
+      // Check if the department already exists
+      const existing = Array.from(this.options).some(
+        opt => opt.value.toLowerCase() === newDep.toLowerCase()
+      );
+
+
+      if (!existing) {
+        // Create new option and insert at the top (after default)
+        const newOption = new Option(newDep, newDep);
+        this.add(newOption, 1); // Insert after the default disabled option
+        this.selectedIndex = 1; // Select the new option
+      } else {
+        alert("Department already exists.");
+      }
+    }
+
+    // Reset back to default
+    this.selectedIndex = 0;
+  }
+});
 
 
 window.cancelDelete = function () {

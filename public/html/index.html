@@ -16,21 +16,38 @@
       <form id="employeeForm" class="employee-form">
         <input type="text" id="firstName" placeholder="First Name" required />
         <input type="text" id="lastName" placeholder="Last Name" required />
-       <select id="department" required>
+        <input type="date" id="dateHired" placeholder="Date Hired" required />  
+
+       <select id="department" class="department" required>
           <option value="" disabled selected>Department</option>
           <option value="Engineering">Engineering</option>
           <option value="Marketing">Marketing</option>
           <option value="HR">HR</option>
           <option value="Sales">Sales</option>
-      </select>
+          <option class="add-dep-btn" id="addDep" value="AddOption" style="text-align: center; align-self: center; font-size: 1rem;">+</option>
+         
+        </select>
+
+        <select id="status" placeholder="Status" required />
+         <option value="false">False</option>
+          <option value="true">True</option>
+        </select>
 
         <div class="btns">
           <button type="submit">Add Employee</button>
           <button class="cancel-add">Cancel</button>
          </div>
       </form>
+
+          
    </div> 
 
+     <div id="promptContainer">  
+              <input type="text" id="promptNewDep" autofocus>
+              <button  class="check" id="checkDep">✔️</button>
+              <button class="close" id="closeDep">❌</button>
+     </div>
+      
   <section class="dashboard" id="dashboard">
 
     

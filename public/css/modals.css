@@ -26,3 +26,25 @@
     text-align: center;
     gap: 10px;
 }
+
+
+
+
+
+#promptContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    gap:5px;
+
+}
+
+#promptContainer .promptNewDep{
+   width: 25px;
+}
