@@ -27,49 +27,42 @@
     }
 
     /* Bar Graph Styles */
-    #barGraph {
+     .chart {
       display: flex;
       align-items: flex-end;
-      gap: 15px;
-      height: 200px;
-      margin-top: 30px;
+      gap: 10px;
+      height: 300px;
       border-left: 2px solid #333;
       border-bottom: 2px solid #333;
-      padding-left: 10px;
-      font-family: Arial, sans-serif;
-    }
-
-    .bar-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 20px;
     }
 
     .bar {
       width: 30px;
-      background-color: #021603;
-      border-radius: 4px 4px 0 0;
-      transition: all 0.5s ease;
-      height: 0; /* start empty */
+      background-color: #4CAF50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
 
     .bar-label {
-      margin-top: 6px;
-      font-size: 14px;
-      text-align: center;
-      white-space: nowrap;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 12px;
+      margin-top: 5px;
     }
 
-    .bar-count {
+    .bar-value {
+      position: absolute;
+      top: -20px;
+      font-size: 12px;
       font-weight: bold;
-      margin-top: 3px;
     }
-    .table-container {
-  max-height: 400px; /* Adjust height as needed */
-  overflow-y: auto;
-  border: 1px solid #ccc; /* Optional: visible boundary */
-}
+
+    .highlight {
+      background-color: orange !important;
+    }
 
 /* Optional: keep table header fixed */
 .table-container table {
@@ -83,14 +76,25 @@
   background: #f2f2f2;
   z-index: 1;
 }
+.table-container {
+  max-height: 300px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
   </style>
 </head>
 <body>
 
   <label for="departmentFilter">Filter by Department:</label>
+  <label for="searchInput">Search:</label>
+    <input type="text" id="searchInput" placeholder="Search by name or department">
+
   <select id="departmentFilter">
     <option value="All">All</option>
   </select>
+ <button>EDIT</button>
+
 <div class="table-container">
   <table>
     <thead>
@@ -110,145 +114,131 @@
   </table>
 </div>
 
-<h3>Employees Count by Department</h3>
-  <div id="barGraph">
-    <div data-dept="HR" class="bar-container">
-      <div class="bar"></div>
-      <div class="bar-count">0</div>
-      <div class="bar-label">HR</div>
-    </div>
-    <div data-dept="IT" class="bar-container">
-      <div class="bar"></div>
-      <div class="bar-count">0</div>
-      <div class="bar-label">IT</div>
-    </div>
-    <div data-dept="Finance" class="bar-container">
-      <div class="bar"></div>
-      <div class="bar-count">0</div>
-      <div class="bar-label">Finance</div>
-    </div>
-    <div data-dept="Marketing" class="bar-container">
-      <div class="bar"></div>
-      <div class="bar-count">0</div>
-      <div class="bar-label">Marketing</div>
-    </div>
-    <div data-dept="Sales" class="bar-container">
-      <div class="bar"></div>
-      <div class="bar-count">0</div>
-      <div class="bar-label">Sales</div>
-    </div>
-
-  </div>
-  <script type="module">
-
+  <h2>Employees Per Department</h2>
+  <div class="chart" id="chart"></div>
+  
+  
+<script type="module">
 import { saveEmployees, loadEmployees } from '/public/js/storage.js';
 import { employeesFromRecord } from '/public/js/record.js';
 
-
-// Load from storage or default
 let employees = loadEmployees() || [...employeesFromRecord];
 
+const tableBody = document.getElementById("employeeTableBody");
+const departmentFilter = document.getElementById("departmentFilter");
+const chart = document.getElementById("chart");
 
-
-
-// DOM references
- const tableBody = document.getElementById("employeeTableBody");
-    const departmentFilter = document.getElementById("departmentFilter");
-    const barGraph = document.getElementById("barGraph");
-
-    // Populate dropdown with unique departments
-    function populateDepartmentFilter() {
-      const uniqueDepartments = new Set(employees.map(emp => emp.department));
-      departmentFilter.innerHTML = `<option value="All">All</option>`;
-      uniqueDepartments.forEach(dept => {
-        const option = document.createElement("option");
-        option.value = dept;
-        option.textContent = dept;
-        departmentFilter.appendChild(option);
-      });
-    }
-
-    // Render the employee table rows
-    function renderTable(data) {
-      tableBody.innerHTML = "";
-      if (data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No employees found.</td></tr>`;
-        return;
-      }
-      data.forEach(emp => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${emp.id}</td>
-          <td>${emp.firstName}</td>
-          <td>${emp.lastName}</td>
-          <td>${emp.age}</td>
-          <td>${emp.department}</td>
-          <td>${emp.dateHired}</td>
-          <td>${emp.active ? "Yes" : "No"}</td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-
-    // Render bar graph of counts by department
-    function renderBarGraph(data) {
-  barGraph.innerHTML = "";
-
-  // Count employees per department
-  const counts = {};
-  data.forEach(emp => {
-    counts[emp.department] = (counts[emp.department] || 0) + 1;
-  });
-
-  // Find max count for scaling
-  const maxCount = Math.max(...Object.values(counts), 1);
-
-  // Sort departments by count ascending (lowest to highest)
-  const sortedEntries = Object.entries(counts).sort((a, b) => a[1] - b[1]);
-
-  // Build bars in sorted order
-  sortedEntries.forEach(([dept, count]) => {
-    const barContainer = document.createElement("div");
-
-    const bar = document.createElement("div");
-    bar.classList.add("bar");
-    bar.style.height = (count / maxCount * 100) + "%";
-
-    const countLabel = document.createElement("div");
-    countLabel.classList.add("bar-count");
-    countLabel.textContent = count;
-
-    const label = document.createElement("div");
-    label.classList.add("bar-label");
-    label.textContent = dept;
-
-    barContainer.appendChild(bar);
-    barContainer.appendChild(countLabel);
-    barContainer.appendChild(label);
-
-    barGraph.appendChild(barContainer);
+// Populate department filter
+function populateDepartmentFilter() {
+  const uniqueDepartments = new Set(employees.map(emp => emp.department.trim()));
+  departmentFilter.innerHTML = `<option value="All">All</option>`;
+  uniqueDepartments.forEach(dept => {
+    const option = document.createElement("option");
+    option.value = dept;
+    option.textContent = dept;
+    departmentFilter.appendChild(option);
   });
 }
 
+// Render employee table
+function renderTable(data) {
+  tableBody.innerHTML = "";
+  if (data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No employees found.</td></tr>`;
+    return;
+  }
+  data.forEach(emp => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${emp.id}</td>
+      <td>${emp.firstName}</td>
+      <td>${emp.lastName}</td>
+      <td>${emp.age}</td>
+      <td>${emp.department}</td>
+      <td>${emp.dateHired}</td>
+      <td>${emp.active ? "Yes" : "No"}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
 
-    // Filter logic on dropdown change
-    departmentFilter.addEventListener("change", () => {
-      const selected = departmentFilter.value;
-      const filtered = selected === "All"
-        ? employees
-        : employees.filter(emp => emp.department === selected);
-      renderTable(filtered);
-      renderBarGraph(filtered);
-    });
+// Render chart with sorted and filtered data
+function renderChart(data) {
+  chart.innerHTML = "";
+  const departmentCounts = {};
 
-    // Initial render
-    populateDepartmentFilter();
-    renderTable(employees);
-    renderBarGraph(employees);
+  data.forEach(emp => {
+    const dept = emp.department.trim();
+    departmentCounts[dept] = (departmentCounts[dept] || 0) + 1;
+  });
+
+  const sortedDepartments = Object.entries(departmentCounts).sort((a, b) => a[1] - b[1]);
+  const maxCount = Math.max(...Object.values(departmentCounts));
+
+  sortedDepartments.forEach(([dept, count]) => {
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${(count / maxCount) * 100}%`;
+    if (count === maxCount) bar.classList.add("highlight");
+
+    const value = document.createElement("div");
+    value.className = "bar-value";
+    value.textContent = count;
+    bar.appendChild(value);
+
+    const label = document.createElement("div");
+    label.className = "bar-label";
+    label.textContent = dept;
+    bar.appendChild(label);
+
+    chart.appendChild(bar);
+  });
+}
+
+// Department dropdown change event
+departmentFilter.addEventListener("change", () => {
+  const selected = departmentFilter.value;
+  const filtered = selected === "All"
+    ? employees
+    : employees.filter(emp => emp.department.trim() === selected);
+  renderTable(filtered);
+  renderChart(filtered);
+});
+
+// For live updates
+function addEmployee(employee) {
+  employees.push(employee);
+  populateDepartmentFilter();
+  const selected = departmentFilter.value;
+  const filtered = selected === "All"
+    ? employees
+    : employees.filter(emp => emp.department.trim() === selected);
+  renderTable(filtered);
+  renderChart(filtered);
+}
 
 
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.trim().toLowerCase();
+
+  const filtered = employees.filter(emp => 
+    emp.firstName.toLowerCase().startsWith(query) ||
+    emp.lastName.toLowerCase().startsWith(query) ||
+    emp.department.toLowerCase().startsWith(query)
+  );
+
+  renderTable(filtered);
+  renderBarGraph(filtered);  // Update the bar chart based on filtered results
+});
 
 
-  </script>
+// Initial render
+populateDepartmentFilter();
+renderTable(employees);
+renderChart(employees);
+</script>
+
 </body>
 </html>

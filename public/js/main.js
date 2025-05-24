@@ -273,3 +273,103 @@ function updateTable() {
 
 /* Initial render */
 updateTable();
+
+
+
+const tableBody = document.getElementById("employeeTableBody");
+const departmentFilter = document.getElementById("departmentFilter");
+const chart = document.getElementById("chart");
+
+// Populate department filter
+function populateDepartmentFilter() {
+  const uniqueDepartments = new Set(employees.map(emp => emp.department.trim()));
+  departmentFilter.innerHTML = `<option value="All">All</option>`;
+  uniqueDepartments.forEach(dept => {
+    const option = document.createElement("option");
+    option.value = dept;
+    option.textContent = dept;
+    departmentFilter.appendChild(option);
+  });
+}
+
+// Render employee table
+function renderTable(data) {
+  tableBody.innerHTML = "";
+  if (data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No employees found.</td></tr>`;
+    return;
+  }
+  data.forEach(emp => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${emp.id}</td>
+      <td>${emp.firstName}</td>
+      <td>${emp.lastName}</td>
+      <td>${emp.age}</td>
+      <td>${emp.department}</td>
+      <td>${emp.dateHired}</td>
+      <td>${emp.active ? "Yes" : "No"}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
+// Render chart with sorted and filtered data
+function renderChart(data) {
+  chart.innerHTML = "";
+  const departmentCounts = {};
+
+  data.forEach(emp => {
+    const dept = emp.department.trim();
+    departmentCounts[dept] = (departmentCounts[dept] || 0) + 1;
+  });
+
+  const sortedDepartments = Object.entries(departmentCounts).sort((a, b) => a[1] - b[1]);
+  const maxCount = Math.max(...Object.values(departmentCounts));
+
+  sortedDepartments.forEach(([dept, count]) => {
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${(count / maxCount) * 100}%`;
+    if (count === maxCount) bar.classList.add("highlight");
+
+    const value = document.createElement("div");
+    value.className = "bar-value";
+    value.textContent = count;
+    bar.appendChild(value);
+
+    const label = document.createElement("div");
+    label.className = "bar-label";
+    label.textContent = dept;
+    bar.appendChild(label);
+
+    chart.appendChild(bar);
+  });
+}
+
+// Department dropdown change event
+departmentFilter.addEventListener("change", () => {
+  const selected = departmentFilter.value;
+  const filtered = selected === "All"
+    ? employees
+    : employees.filter(emp => emp.department.trim() === selected);
+  renderTable(filtered);
+  renderChart(filtered);
+});
+
+// For live updates
+function addEmployee(employee) {
+  employees.push(employee);
+  populateDepartmentFilter();
+  const selected = departmentFilter.value;
+  const filtered = selected === "All"
+    ? employees
+    : employees.filter(emp => emp.department.trim() === selected);
+  renderTable(filtered);
+  renderChart(filtered);
+}
+
+// Initial render
+populateDepartmentFilter();
+renderTable(employees);
+renderChart(employees);

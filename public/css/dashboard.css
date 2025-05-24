@@ -34,3 +34,78 @@
     display: flex;
     justify-content: space-around;
 }
+
+ label, select {
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Bar Graph Styles */
+     .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 300px;
+      border-left: 2px solid #333;
+      border-bottom: 2px solid #333;
+      padding: 20px;
+    }
+
+    .bar {
+      width: 30px;
+      background-color: #4CAF50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .bar-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .bar-value {
+      position: absolute;
+      top: -20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .highlight {
+      background-color: orange !important;
+    }
+
+/* Optional: keep table header fixed */
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  background: #f2f2f2;
+  z-index: 1;
+}
+.table-container {
+  max-height: 300px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}

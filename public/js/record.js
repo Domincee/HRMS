@@ -13,5 +13,10 @@ export const employeesFromRecord = [
     { id: 12, firstName: "Kathy", lastName: "Roberts", age: 34, department: "HR", dateHired: "2022-12-15", active: false },
     { id: 13, firstName: "Leo", lastName: "Hernandez", age: 38, department: "Product Management", dateHired: "2021-01-20", active: true },
     { id: 14, firstName: "Mia", lastName: "Clark", age: 30, department: "Business Development", dateHired: "2020-02-25", active: false },
-    { id: 15, firstName: "Nina", lastName: "Lewis", age: 36, department: "Logistics", dateHired: "2019-03-30", active: true }
+    { id: 15, firstName: "Nina", lastName: "Lewis", age: 36, department: "Logistics", dateHired: "2019-03-30", active: true },
+    { id: 16, firstName: "Oscar", lastName: "Walker", age: 37, department: "IT", dateHired: "2023-04-10", active: true },
+    { id: 17, firstName: "Paul", lastName: "Hall", age: 39, department: "Finance", dateHired: "2022-05-15", active: false },
+    { id: 18, firstName: "Quinn", lastName: "Allen", age: 41, department: "Procurement", dateHired: "2021-06-20", active: true },
+    { id: 19, firstName: "Rita", lastName: "Young", age: 42, department: "Content ", dateHired: "2020-07-25", active: false },
+    { id: 20, firstName: "Sam", lastName: "King", age: 43, department: "Operations", dateHired: "2019-08-30", active: true }
 ];
