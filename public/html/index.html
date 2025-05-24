@@ -22,9 +22,9 @@
   
 
       <ul class="sidebar-btns"> 
-          <div class="logo-container">
+          <div class="logo-container" id="logoHolder">
       
-          <img src="" alt="" class="img-holder">
+          <img src="https://scamptechnologies.com/wp-content/uploads/2021/04/logo-no-bg.png" alt="" class="img-logo" id="img-holder">
           <p class="logo-name" id="companyName">Company Name</p>
         </div>
         <li class="list" id="toggleDashboard">Dashboard</li>
@@ -46,30 +46,61 @@
       </div>
 
 
-  </div>
+    </div>
+    <!-- ADD SECTION -->
 
-<!-- ADD SECTION -->
-</div>
-    <section id="dashboard-section">
+      <section id="dashboard-section">
+        <header><h1>Employee Management</h1></header>
+        <div class="card cards-container">
 
-      
+          <div class="container-1">
+
+            <div class="card">
+                  <span id="employee">Employees</span><br/>
+                  <div class="count">
+                       <strong>Total : </strong>
+                       <span id="totalEmployee">0</span>
+                       <i class="ri-user-fill"></i> 
+                  </div>
+     
+            </div>
+           <div class="card">
+                  <span id="newEmp">New Employees</span><br/>
+                  <div class="count">
+                      <strong>Total : </strong>
+                      <span id="newEmpTotal">0</span>
+                      <i class="ri-user-fill"></i> 
+                  </div>
+            </div>
+
+            <div class="card">
+              <p>Manage Employee</p>
+              <div class="btns">
+                <button class="add-new" >Add</button>
+                <button class="edit-employee">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
 
-  <h1>Employee Management</h1>
+
+  </div>
+
+
+  
 
   <div>
     <button class="add-new">Add New Employee</button>
   </div>
 
   <div>
-    <strong>Total: </strong><span id="totalEmployee">0</span> <span
-      id="employee">Employees</span><br />
-    <strong><span id="newEmpTotal">0</span> <span id="newEmp">New Employees</span></strong>
-  </div>
+
 
   <table>
     <thead>
       <tr>
+         <th>No.</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Department</th>

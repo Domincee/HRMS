@@ -2,11 +2,16 @@ const toggleCollapse = document.querySelectorAll('.toggle-collapse');
 const sideBar = document.querySelector('.sidebar');
 const listItems = document.querySelectorAll(".list");
 const listIconItems = document.querySelectorAll(".list-icon")
+const logoHolder = document.getElementById('logoHolder');
+
+
+
 
 toggleCollapse.forEach(toggle => {
     toggle.addEventListener('click', () => {
         console.log("Element clicked!");
-
+        logoHolder.classList.toggle("collapse");
+            
         const leftArrow = toggle.querySelector('.left-arrow');
         const rightArrow = toggle.querySelector('.right-arrow');
 
@@ -15,8 +20,8 @@ toggleCollapse.forEach(toggle => {
         if (leftArrow) leftArrow.classList.toggle("collapse");
         if (rightArrow) rightArrow.classList.toggle("collapse");
 
-
-
+        
+   
 
         listItems.forEach(item => {
             
