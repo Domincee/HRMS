@@ -1,237 +1,275 @@
-import { employees } from "/public/js/record.js";
+
+import { saveEmployees, loadEmployees } from './storage.js';
+import { employeesFromRecord } from './record.js';
+let employees = loadEmployees() || [...employeesFromRecord];
 
 const totalEmployee = document.getElementById("totalEmployee");
 const employee = document.getElementById("employee");
 let editingIndex = -1;
 
+/* ALERT MODAL */
+const alertModal = document.getElementById("alertModal");
+const alertMessage = document.getElementById("alertMessage");
+const alertClose = document.getElementById("alertClose");
+
+/* FOR ADD OPTION */
+const prompt = document.getElementById("promptNewDep");
+const promptContainer = document.getElementById("promptContainer");
+const departmentSelect = document.getElementById("department");
+const checkDep = document.getElementById("checkDep");
+const closeDep = document.getElementById("closeDep");
+
 /* ALERT  */
-const confirmBtns = document.getElementById("confirmBtns");
+const confirmBtns = document.getElementById("confirmationModal");
 const confirmMess = document.getElementById("confirm-message");
 
-
 /* MODALS */
-const formModal = document.querySelector(".form-modal");
+const formModal = document.getElementById("formModal");
 const confiModal = document.getElementById("confirmationModal");
-
-
-
-
 
 /*SHOW FORM EMPLOYEE */
 const addNew = document.querySelector(".add-new");
 const cancelAdd = document.querySelector(".cancel-add");
 const dateInput = document.getElementById("dateHired");
 const status = document.getElementById("status");
-addNew.addEventListener("click", function() {
-
-    if (dateInput) {
-      dateInput.remove(); 
-      }
-
-    if (status){
-      status.remove(); 
-    }
-    confiModal.style.display = "none"; 
-    formModal.style.display = "flex"; 
-    formEmp.style.flexDirection = "column";
-   
-     
-
-});
-cancelAdd.addEventListener("click", function() {
-
- formModal.style.display = "none"; 
-});
-
+const dateHiredLabel = document.getElementById("dateHiredLabel");
+const statusLabel = document.getElementById("statusLabel");
 
 const formEmp = document.getElementById("employeeForm");
 const fNameInput = document.getElementById("firstName");
 const lNameInput = document.getElementById("lastName");
 const depInput = document.getElementById("department");
 
+// Cancel form modal
+cancelAdd.addEventListener("click", function(e) {
+  e.preventDefault();
+  formModal.style.display = "none"; 
+});
 
+// Show Add New Employee Form (only firstName, lastName, department)
+addNew.addEventListener("click", function(e) {
+  e.preventDefault();
+  editingIndex = -1;
+  formEmp.reset();
+  
+  // Hide extra fields on Add
+  hideEditFields();
 
+  confiModal.style.display = "none"; 
+  formModal.style.display = "flex"; 
+  formEmp.style.flexDirection = "column";  
+});
 
+// Submit form (Add or Edit)
 formEmp.addEventListener('submit', function (e) {
   e.preventDefault();
   const firstName = fNameInput.value.trim();
   const lastName = lNameInput.value.trim();
   const department = depInput.value.trim();
 
+  if (!firstName || !lastName || !department) {
+    alertModal.style.display = "flex";
+    alertMessage.textContent = "Please fill out all required fields.";
+    return;
+  }
+
+  // Check duplicates except for currently editing employee
+  const exists = employees.some((emp, index) => {
+    return (
+      index !== editingIndex &&
+      emp.firstName.toLowerCase() === firstName.toLowerCase() &&
+      emp.lastName.toLowerCase() === lastName.toLowerCase() &&
+      emp.department.toLowerCase() === department.toLowerCase()
+    );
+  });
+
+  if (exists) {
+    alertModal.style.display = "flex";
+    alertMessage.textContent = `Employee "${firstName} ${lastName}" already exists.`;
+    return;
+  }
+
   if (editingIndex >= 0) {
-    employees[editingIndex] = { firstName, lastName, department, active: true, dateHired: new Date().toLocaleDateString() };
-    editingIndex = -1;
-
+    // Editing employee, include date and active status fields
+    const activeValue = status.checked;
+    const dateHiredValue = dateInput.value || new Date().toISOString().split('T')[0];
+    
+    employees[editingIndex] = {
+      ...employees[editingIndex],
+      firstName,
+      lastName,
+      department,
+      active: activeValue,
+      dateHired: dateHiredValue
+    };
+    alertMessage.textContent = "Employee updated successfully.";
   } else {
-    employees.push({ firstName, lastName, department,active: true, dateHired: new Date().toLocaleDateString() });
+    // Adding new employee
+    if (department === "AddOption") {
+      alertModal.style.display = "flex";
+      alertMessage.textContent = "Please select a valid department or add a new one.";
+      return;
+    }
+    employees.push({
+      id: employees.length ? employees[employees.length - 1].id + 1 : 1,
+      firstName,
+      lastName,
+      department,
+      active: false,
+      dateHired: new Date().toISOString().split('T')[0]
+    });
+    alertMessage.textContent = "Employee added successfully.";
   }
 
-  formEmp.reset();
-  renderTable();
+  saveEmployees(employees);  // <-- Save updated list here
+
+  alertModal.style.display = "flex";
+  formModal.style.display = "none";
+  updateTable();
 });
 
-/* ADD MODAL */
-window.confirmDeleteEmployee = function(index) {
-    formModal.style.display = "none"; 
-    const emp = employees[index];
-    confirmMess.textContent = `Are you sure you want to remove ${emp.firstName} ${emp.lastName} from the list?`;
-    const btnYes = confirmBtns.querySelector(".btn-yes");
-    btnYes.onclick = function() {
-   
+// Department "AddOption" handler
+depInput.addEventListener("change", () => {
+  if (depInput.value === "AddOption") {
+    promptContainer.style.display = "flex";
+    prompt.value = "";
+  }
+});
 
-       setTimeout(() => {
-             confiModal.style.display = "none";
-        }, 300); 
-        employees.splice(index, 1);    
-        renderTable();
-        renderTotal();
-        renderNewHires();  
-    } 
-    
-    const btnNo = confirmBtns.querySelector(".btn-no");
-    btnNo.onclick = function() {
-        setTimeout(() => {
-             confiModal.style.display = "none";
-        }, 300);
-      
-    }
-        
-    confiModal.style.display = "flex"; 
-};
+// Add new department prompt buttons
+checkDep.addEventListener("click", () => {
+  const newDep = prompt.value.trim();
+  if (newDep === "") {
+    alertModal.style.display = "flex";
+    alertMessage.textContent = "Please enter a valid department name.";
+    return;
+  }
+  if (Array.from(departmentSelect.options).some(opt => opt.value.toLowerCase() === newDep.toLowerCase())) {
+    alertModal.style.display = "flex";
+    alertMessage.textContent = `Department "${newDep}" already exists.`;
+    return;
+  }
+  // Add new department option before AddOption
+  const newOption = document.createElement("option");
+  newOption.value = newDep;
+  newOption.textContent = newDep;
+  departmentSelect.insertBefore(newOption, departmentSelect.querySelector('option[value="AddOption"]'));
 
+  // Select new department and close prompt
+  departmentSelect.value = newDep;
+  promptContainer.style.display = "none";
+});
 
+closeDep.addEventListener("click", () => {
+  promptContainer.style.display = "none";
+  departmentSelect.value = "";
+});
 
-const newEmpTtl = document.getElementById("newEmpTotal");
+// Alert modal close button
+alertClose.addEventListener("click", () => {
+  alertModal.style.display = "none";
+});
 
-function renderTotal() {
-  const count = employees.length;
-  totalEmployee.textContent = count;
-   employee.textContent = count > 1 ? "Employees"   : "Employee";
-
+/* Confirm delete employee */
+let deleteIndex = -1;
+function confirmDeleteEmployee(index) {
+  confiModal.style.display = "flex";
+  confirmMess.textContent = "Are you sure you want to delete this employee?";
+  deleteIndex = index;
 }
+confirmBtns.querySelector(".btn-yes").addEventListener("click", () => {
+  if (deleteIndex >= 0) {
+    employees.splice(deleteIndex, 1);
+    saveEmployees(employees); // <-- Save after delete
+    updateTable();
+  }
+  confiModal.style.display = "none";
+  deleteIndex = -1;
+});
+confirmBtns.querySelector(".btn-no").addEventListener("click", () => {
+  confiModal.style.display = "none";
+  deleteIndex = -1;
+});
 
-function renderNewHires(){
-    const dateNow = new Date();
-    const newHires = employees.filter(emp => {
-        const dateHired = new Date(emp.dateHired);
-        return dateHired.getFullYear() === dateNow.getFullYear() && dateHired.getMonth() === dateNow.getMonth() && dateHired.getDate() === dateNow.getDate();
-    });
-
-    const newEmpCount = newHires.length;
-    const newEmp = document.getElementById("newEmp");
-     newEmp.textContent = newEmpCount <= 1 ? "New Employee"   : "New Employees";
-     newEmpTtl.textContent = newHires.length;
-}
-
-
-
-const tbBody = document.getElementById("employeeTable");
-
-function renderTable() {
-    tbBody.innerHTML = "";
-
-    employees.forEach((emp,index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${emp.firstName}</td>
-            <td>${emp.lastName}</td>
-            <td>${emp.department}</td>
-          
-            <td>${emp.active}</td>
-            <td>${emp.dateHired}</td>
-            <td>
-                <button class="btn btn-primary"  onclick="editEmployee(${index})">Edit</button>
-                <button class="btn btn-danger" onclick="confirmDeleteEmployee(${index})">Remove</button>
-            </td>
-        `;
-        tbBody.appendChild(row);
-    });
-
-
-
-}
-
-window.editEmployee = function(index) {
-  console.log("Edit employee at index:", index);
-
-  // Show modal
-  formModal.style.display = "flex";
-  formEmp.style.flexDirection = "row";
-
-  /* Add inputs dateHire*/  
-  
-    if(!status){
-      status.show()
-    }
-
-    const today = new Date().toISOString().split("T")[0];
-    dateInput.max = today;
-
-    // Insert before buttons div
-    const btnsDiv = formEmp.querySelector(".btns");
-    formEmp.insertBefore(dateInput, btnsDiv);
-    
-
-  // Fill inputs
-  const emp = employees[index];
-  document.getElementById("firstName").value = emp.firstName;
-  document.getElementById("firstName").setAttribute("placeholder", emp.firstName);
-  document.getElementById("lastName").value = emp.lastName;
-    document.getElementById("lastName").setAttribute("placeholder", emp.lastName);
-    document.getElementById("dateHired").value = emp.dateHired;
-  document.getElementById("department").value = emp.department;
- document.getElementById("department").setAttribute("placeholder", emp.department);
+/* Edit employee */
+function editEmployee(index) {
   editingIndex = index;
+  const emp = employees[index];
 
- 
+  fNameInput.value = emp.firstName;
+  lNameInput.value = emp.lastName;
+  depInput.value = emp.department;
 
-};
+  // Show date and status fields on edit
+  showEditFields();
 
-const prompt = document.getElementById("promptNewDep");
-const promtContainer = document.getElementById("promptContainer");
-const dep = document.getElementById("department");
-const checkDEp = document.getElementById("checkDep");
+  dateInput.value = emp.dateHired || "";
+  status.checked = emp.active || false;
 
- checkDEp.addEventListener("click", () => {
-      console.log("checked");
-    });
+  confiModal.style.display = "none";
+  formModal.style.display = "flex";
+  formEmp.style.flexDirection = "column";
+}
 
+/* Show/Hide extra fields */
+function showEditFields() {
+  dateInput.style.display = "inline-block";
+  status.style.display = "inline-block";
+  dateHiredLabel.style.display = "block";
+  statusLabel.style.display = "block";
+}
+function hideEditFields() {
+  dateInput.style.display = "none";
+  status.style.display = "none";
+  dateHiredLabel.style.display = "none";
+  statusLabel.style.display = "none";
+}
 
-dep.addEventListener("change", function () {
-  if (this.value === "AddOption") {
-    
-    promtContainer.style.display = "flex";
+/* Render employee list */
+function updateTable() {
+  const tableBody = document.getElementById("employeeTable");
+  tableBody.innerHTML = "";
 
-
-    const newDep = prompt("Enter new department name:");
-    if (newDep) {
-      // Check if the department already exists
-      const existing = Array.from(this.options).some(
-        opt => opt.value.toLowerCase() === newDep.toLowerCase()
-      );
-
-
-      if (!existing) {
-        // Create new option and insert at the top (after default)
-        const newOption = new Option(newDep, newDep);
-        this.add(newOption, 1); // Insert after the default disabled option
-        this.selectedIndex = 1; // Select the new option
-      } else {
-        alert("Department already exists.");
-      }
-    }
-
-    // Reset back to default
-    this.selectedIndex = 0;
+  if (employees.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No employees found.</td></tr>`;
+    totalEmployee.textContent = "0";
+    employee.textContent = "Employees";
+    return;
   }
-});
 
+  employees.forEach((emp, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${emp.firstName}</td>
+      <td>${emp.lastName}</td>
+      <td>${emp.department}</td>
+      <td>${emp.active ? "Active" : "Inactive"}</td>
+      <td>${emp.dateHired || ""}</td>
+      <td>
+        <button class="btn btn-primary" data-edit="${i}">Edit</button>
+        <button class="btn btn-danger" data-delete="${i}">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(tr);
+  });
 
-window.cancelDelete = function () {
-  confiModal.style.display = "none"; // Or remove "show" class
-};
+  totalEmployee.textContent = employees.length;
+  employee.textContent = employees.length === 1 ? "Employee" : "Employees";
 
+  // Bind edit/delete buttons
+  document.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const idx = +e.target.getAttribute("data-edit");
+      editEmployee(idx);
+    });
+  });
+  document.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const idx = +e.target.getAttribute("data-delete");
+      confirmDeleteEmployee(idx);
+    });
+  });
+}
 
-renderTable();
-renderNewHires();
-renderTotal();
+/* Initial render */
+updateTable();

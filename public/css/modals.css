@@ -7,8 +7,9 @@
 }
 
 .form-modal{
-    display: none;
+    display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     position: absolute;
@@ -32,7 +33,7 @@
 
 
 #promptContainer{
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -47,4 +48,29 @@
 
 #promptContainer .promptNewDep{
    width: 25px;
+}
+
+.alert-container{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    gap:5px;
+}
+
+.alert-container .alert-box{
+    border: 2px solid #000;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    text-wrap: wrap;
+    word-break: break-all;
+    padding: 10px;
 }

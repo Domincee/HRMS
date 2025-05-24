@@ -1,143 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="/public/css/dashboard.css">
-     <link rel="stylesheet" href="/public/css/modals.css">
-         <link rel="stylesheet" href="/public/css/styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Employee Management</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  th { background-color: #f2f2f2; }
+  .btn { padding: 6px 12px; margin: 2px; cursor: pointer; }
+  .btn-primary { background-color: #007bff; color: white; border: none; }
+  .btn-danger { background-color: #dc3545; color: white; border: none; }
+  .add-new { margin-bottom: 10px; padding: 8px 16px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+  .form-modal, #confirmationModal, #alertModal, #promptContainer {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .form-modal > form, #confirmationModal > div, #alertModal > div, #promptContainer > div {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-modal form > * { margin-bottom: 10px; width: 100%; }
+  .form-modal form label { display: block; margin-bottom: 5px; font-weight: bold; }
+  .form-modal form input[type="text"],
+  .form-modal form select,
+  .form-modal form input[type="date"] { padding: 6px; font-size: 1rem; }
+  .form-modal form input[type="checkbox"] { width: auto; }
+  .form-modal form .buttons { display: flex; justify-content: flex-end; gap: 10px; }
+  #confirmationModal > div button, #alertModal > div button, #promptContainer > div button {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+  }
+  #confirmationModal > div button.btn-yes { background-color: #dc3545; color: white; }
+  #confirmationModal > div button.btn-no { background-color: #6c757d; color: white; }
+  #alertModal > div button, #promptContainer > div button { background-color: #007bff; color: white; }
+  #promptContainer > div input { width: calc(100% - 110px); padding: 6px; margin-right: 10px; }
+</style>
 </head>
 <body>
- 
 
-  <div class="form-modal">
-      <form id="employeeForm" class="employee-form">
-        <input type="text" id="firstName" placeholder="First Name" required />
-        <input type="text" id="lastName" placeholder="Last Name" required />
-        <input type="date" id="dateHired" placeholder="Date Hired" required />  
+<h1>Employee Management</h1>
 
-       <select id="department" class="department" required>
-          <option value="" disabled selected>Department</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Marketing">Marketing</option>
-          <option value="HR">HR</option>
-          <option value="Sales">Sales</option>
-          <option class="add-dep-btn" id="addDep" value="AddOption" style="text-align: center; align-self: center; font-size: 1rem;">+</option>
-         
-        </select>
+<div>
+  <button class="add-new">Add New Employee</button>
+</div>
 
-        <select id="status" placeholder="Status" required />
-         <option value="false">False</option>
-          <option value="true">True</option>
-        </select>
+<div>
+  <strong>Total: </strong><span id="totalEmployee">0</span> <span id="employee">Employees</span><br />
+  <strong><span id="newEmpTotal">0</span> <span id="newEmp">New Employees</span></strong>
+</div>
 
-        <div class="btns">
-          <button type="submit">Add Employee</button>
-          <button class="cancel-add">Cancel</button>
-         </div>
-      </form>
+<table>
+  <thead>
+    <tr>
+      <th>First Name</th><th>Last Name</th><th>Department</th><th>Status</th><th>Date Hired</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="employeeTable"></tbody>
+</table>
 
-          
-   </div> 
-
-     <div id="promptContainer">  
-              <input type="text" id="promptNewDep" autofocus>
-              <button  class="check" id="checkDep">✔️</button>
-              <button class="close" id="closeDep">❌</button>
-     </div>
-      
-  <section class="dashboard" id="dashboard">
-
+<!-- Form Modal -->
+<div class="form-modal" id="formModal">
+  <form id="employeeForm">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstName" required />
     
-        <div class="card-box">
-
-            <div class="card">
-                <h3 id="employee">Employee</h3>
-
-                <div class="count">
-
-                <p>Total:</p>
-
-                <span  id="totalEmployee">10</span>
-                </div>            
-            </div>        
-
-            <div class="card">  
-                <h3 id="newEmp">New Employees</h3>
-                <div class="count">
-                <p>Total:</p>
-                <span id="newEmpTotal">20</span>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Manage Employees</h3>
-                <div class="btns">
-                  <button id="addEmployee">Add </button>
-                  <button id="removeEmployee">Remove </button>
-                  <button id="editEmployee">Edit </button>
-                </div>
-            </div>
-
-      
-        </div>
-      
-  </section>
-
-
-  <section id="ManageEmployee">
-
-    <table>
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Department</th>
-          <th>Acive</th>
-          <th>Date Hired</th>
-          <th><button class="add-new">Add new</button></th>
-        </tr>
-      </thead>
-
-      <tbody id="employeeTable">
-
-      </tbody>
-    </table>
-        
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName" required />
     
-  </section>
+    <label for="department">Department</label>
+    <select id="department" name="department" required>
+      <option value="" disabled selected>Select Department</option>
+      <option value="HR">HR</option>
+      <option value="Sales">Sales</option>
+      <option value="IT">IT</option>
+      <option value="AddOption">Add New Department...</option>
+    </select>
+    
+    <label for="dateHired" id="dateHiredLabel" style="display:none;">Date Hired</label>
+    <input type="date" id="dateHired" name="dateHired" style="display:none;" />
+    
+    <label for="status" id="statusLabel" style="display:none;">
+      <input type="checkbox" id="status" name="status" />
+      Active
+    </label>
+    
+    <div class="buttons">
+      <button type="submit">Confirm</button>
+      <button class="cancel-add" type="button">Cancel</button>
+    </div>
+  </form>
+</div>
 
-  <div class="confirmation-container" id="confirmationModal">
-      <p class="message-confirm" id="confirm-message">Are you sure?</p>
-
-        <div class="confirm-btns" id="confirmBtns">
-              <button class="btn-yes">Yes</button>
-              <button class="btn-no">No</button>
-        </div>
-     
+<!-- Add Department Prompt -->
+<div id="promptContainer">
+  <div>
+    <label for="promptNewDep">New Department Name:</label>
+    <input type="text" id="promptNewDep" />
+    <button id="checkDep">Add</button>
+    <button id="closeDep">Cancel</button>
   </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+<!-- Alert Modal -->
+<div id="alertModal">
+  <div>
+    <p id="alertMessage"></p>
+    <button id="alertClose">Close</button>
+  </div>
+</div>
 
-    <script>
-    function displayWindowSize() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      document.getElementById("sizeDisplay").textContent = `Width: ${width}px, Height: ${height}px`;
-    }
+<!-- Confirmation Modal -->
+<div id="confirmationModal">
+  <div>
+    <p id="confirm-message"></p>
+    <button class="btn-yes">Yes</button>
+    <button class="btn-no">No</button>
+  </div>
+</div>
 
-    // Display size on page load
-    displayWindowSize();
+<script type="module" src="/public/js/main.js"></script>
 
-    // Update size when the window is resized
-    window.addEventListener("resize", displayWindowSize);
-  </script>
-
-
-   <script type="module" src="/public/js/main.js"></script>
-   <script src="/public/js/service-worker.js"></script>
 </body>
 </html>
