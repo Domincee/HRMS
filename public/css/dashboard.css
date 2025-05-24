@@ -27,8 +27,12 @@ body{
     border: 2px solid #000;
     border-radius: 12px;
     height: 100vh;
-    width: 250px;
+    width: 300px;
     transition:  all 0.3s ease-in-out;
+}
+
+.sidebar.collapse{
+  width: 180px;
 }
 
 .logo-container {
@@ -83,16 +87,37 @@ body{
     align-items: center;
 }
 
+
+
+.list-icon{
+  display: none;
+}
+
+.list.collapse{
+  display: none;
+}
+.list-icon.collapse{
+  display: block;
+}
 .toggle-collapse:hover{
     cursor: pointer;
     scale: 1.2;
 
 }
-.ri-arrow-right-wide-line{
+.left-arrow{
     display: none;
 }
-.ri-arrow-left-wide-line{
+.right-arrow{
   display: block;
+}
+
+.left-arrow.collapse{
+  display: block;
+
+}
+.right-arrow.collapse{
+  display: none;
+  
 }
 .card   {
     border: 2px solid #000;
