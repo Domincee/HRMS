@@ -1,76 +1,131 @@
-.confirmation-container{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100%;
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
 }
 
-.form-modal{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.form-modal .employee-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
 }
 
-
-
-
-
-#promptContainer{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    gap:5px;
-
+th {
+  background-color: #f2f2f2;
 }
 
-#promptContainer .promptNewDep{
-   width: 25px;
+.btn {
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
 }
 
-.alert-container{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    gap:5px;
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
 }
 
-.alert-container .alert-box{
-    border: 2px solid #000;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    text-wrap: wrap;
-    word-break: break-all;
-    padding: 10px;
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.add-new {
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form-modal,
+#confirmationModal,
+#alertModal,
+#promptContainer {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-modal > form,
+#confirmationModal > div,
+#alertModal > div,
+#promptContainer > div {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-modal form > * {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.form-modal form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-modal form input[type="text"],
+.form-modal form select,
+.form-modal form input[type="date"] {
+  padding: 6px;
+  font-size: 1rem;
+}
+
+.form-modal form input[type="checkbox"] {
+  width: auto;
+}
+
+.form-modal form .buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+#confirmationModal > div button,
+#alertModal > div button,
+#promptContainer > div button {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+}
+
+#confirmationModal > div button.btn-yes {
+  background-color: #dc3545;
+  color: white;
+}
+
+#confirmationModal > div button.btn-no {
+  background-color: #6c757d;
+  color: white;
+}
+
+#alertModal > div button,
+#promptContainer > div button {
+  background-color: #007bff;
+  color: white;
+}
+
+#promptContainer > div input {
+  width: calc(100% - 110px);
+  padding: 6px;
+  margin-right: 10px;
 }
