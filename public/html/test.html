@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Filter by Department</title>
+  <style>
+  body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    label, select {
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Bar Graph Styles */
+    #barGraph {
+      display: flex;
+      align-items: flex-end;
+      gap: 15px;
+      height: 200px;
+      margin-top: 30px;
+      border-left: 2px solid #333;
+      border-bottom: 2px solid #333;
+      padding-left: 10px;
+      font-family: Arial, sans-serif;
+    }
+
+    .bar-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bar {
+      width: 30px;
+      background-color: #021603;
+      border-radius: 4px 4px 0 0;
+      transition: all 0.5s ease;
+      height: 0; /* start empty */
+    }
+
+    .bar-label {
+      margin-top: 6px;
+      font-size: 14px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .bar-count {
+      font-weight: bold;
+      margin-top: 3px;
+    }
+    .table-container {
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc; /* Optional: visible boundary */
+}
+
+/* Optional: keep table header fixed */
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  background: #f2f2f2;
+  z-index: 1;
+}
+  </style>
+</head>
+<body>
+
+  <label for="departmentFilter">Filter by Department:</label>
+  <select id="departmentFilter">
+    <option value="All">All</option>
+  </select>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Department</th>
+        <th>Date Hired</th>
+        <th>Active</th>
+      </tr>
+    </thead>
+    <tbody id="employeeTableBody">
+      <!-- Employee rows will be inserted here -->
+    </tbody>
+  </table>
+</div>
+
+<h3>Employees Count by Department</h3>
+  <div id="barGraph">
+    <div data-dept="HR" class="bar-container">
+      <div class="bar"></div>
+      <div class="bar-count">0</div>
+      <div class="bar-label">HR</div>
+    </div>
+    <div data-dept="IT" class="bar-container">
+      <div class="bar"></div>
+      <div class="bar-count">0</div>
+      <div class="bar-label">IT</div>
+    </div>
+    <div data-dept="Finance" class="bar-container">
+      <div class="bar"></div>
+      <div class="bar-count">0</div>
+      <div class="bar-label">Finance</div>
+    </div>
+    <div data-dept="Marketing" class="bar-container">
+      <div class="bar"></div>
+      <div class="bar-count">0</div>
+      <div class="bar-label">Marketing</div>
+    </div>
+    <div data-dept="Sales" class="bar-container">
+      <div class="bar"></div>
+      <div class="bar-count">0</div>
+      <div class="bar-label">Sales</div>
+    </div>
+
+  </div>
+  <script type="module">
+
+import { saveEmployees, loadEmployees } from '/public/js/storage.js';
+import { employeesFromRecord } from '/public/js/record.js';
+
+
+// Load from storage or default
+let employees = loadEmployees() || [...employeesFromRecord];
+
+
+
+
+// DOM references
+ const tableBody = document.getElementById("employeeTableBody");
+    const departmentFilter = document.getElementById("departmentFilter");
+    const barGraph = document.getElementById("barGraph");
+
+    // Populate dropdown with unique departments
+    function populateDepartmentFilter() {
+      const uniqueDepartments = new Set(employees.map(emp => emp.department));
+      departmentFilter.innerHTML = `<option value="All">All</option>`;
+      uniqueDepartments.forEach(dept => {
+        const option = document.createElement("option");
+        option.value = dept;
+        option.textContent = dept;
+        departmentFilter.appendChild(option);
+      });
+    }
+
+    // Render the employee table rows
+    function renderTable(data) {
+      tableBody.innerHTML = "";
+      if (data.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No employees found.</td></tr>`;
+        return;
+      }
+      data.forEach(emp => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${emp.id}</td>
+          <td>${emp.firstName}</td>
+          <td>${emp.lastName}</td>
+          <td>${emp.age}</td>
+          <td>${emp.department}</td>
+          <td>${emp.dateHired}</td>
+          <td>${emp.active ? "Yes" : "No"}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Render bar graph of counts by department
+    function renderBarGraph(data) {
+  barGraph.innerHTML = "";
+
+  // Count employees per department
+  const counts = {};
+  data.forEach(emp => {
+    counts[emp.department] = (counts[emp.department] || 0) + 1;
+  });
+
+  // Find max count for scaling
+  const maxCount = Math.max(...Object.values(counts), 1);
+
+  // Sort departments by count ascending (lowest to highest)
+  const sortedEntries = Object.entries(counts).sort((a, b) => a[1] - b[1]);
+
+  // Build bars in sorted order
+  sortedEntries.forEach(([dept, count]) => {
+    const barContainer = document.createElement("div");
+
+    const bar = document.createElement("div");
+    bar.classList.add("bar");
+    bar.style.height = (count / maxCount * 100) + "%";
+
+    const countLabel = document.createElement("div");
+    countLabel.classList.add("bar-count");
+    countLabel.textContent = count;
+
+    const label = document.createElement("div");
+    label.classList.add("bar-label");
+    label.textContent = dept;
+
+    barContainer.appendChild(bar);
+    barContainer.appendChild(countLabel);
+    barContainer.appendChild(label);
+
+    barGraph.appendChild(barContainer);
+  });
+}
+
+
+    // Filter logic on dropdown change
+    departmentFilter.addEventListener("change", () => {
+      const selected = departmentFilter.value;
+      const filtered = selected === "All"
+        ? employees
+        : employees.filter(emp => emp.department === selected);
+      renderTable(filtered);
+      renderBarGraph(filtered);
+    });
+
+    // Initial render
+    populateDepartmentFilter();
+    renderTable(employees);
+    renderBarGraph(employees);
+
+
+
+
+  </script>
+</body>
+</html>
