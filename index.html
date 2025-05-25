@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"  rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/navigation.css">
+  <title>Document</title>
+</head>
+<body>
+
+   <header>
+        <div class="head-box">
+            <div class="logo-container" id="logoHolder">
+        
+                <p class="logo">HRMS</p>
+            </div>
+            <div class="account-container">
+                <ul class="dropdown-container" >
+                
+                    <li class="toggle-drop" id="toggleDropdown">
+                        <i class="ri-account-circle-fill"></i>
+                    </li>
+            
+                    <ul class="accout-dropdown">
+                    
+                        <li class="bell-notif" id="notification" > 
+                            <img  src="/public/imgs-icons/notification.png" alt="notificaton">
+                        </li>
+                        <li class="mess-notif" id="messages">
+                            <img  src="/public/imgs-icons/message.png" alt="messages">
+                        </li>
+                        <li class="settings" id="settings">
+                            <img src="public/imgs-icons/setting.png" alt="settings">    
+                        </li>
+                        <li class="sign-out" id="singOut">
+                            <img src="public/imgs-icons/out.png" alt="signout">    
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="bottom-box">
+        <ul class="navigator-container">
+
+            <li class="list-icon active" id="dashboardBtn"><i class="ri-dashboard-horizontal-line"></i></li>
+            <li class="list-icon employee" id="toggleEmployee"><i class="ri-user-fill"></i></li>
+            <li class="list-icon attendance" id="toggleAttendance"><i class="ri-calendar-check-line"></i></li>
+            <li class="list-icon perforamce" id="togglePerformance"><i class="ri-line-chart-fill"></i></li>
+            
+        </ul>
+        <div class="quicManage">
+            <ul class="quickManage-container" >
+                
+                    <li class="toggle-show" id="toggleShowUp">
+                        <img src="/public/imgs-icons/plus.png" alt="Show Manage">
+                    </li>
+            
+                    <ul class="manage-show">
+                    
+                        <li class="add-new" id="addEmployee" > 
+                            <img  src="/public/imgs-icons/people.png" alt="Add Employee">
+                        </li>
+                        <li class="edit-employee" id="editEmployee">
+                            <img  src="/public/imgs-icons/edit.png" alt="messages">
+                        </li>
+                        <li class="new-message" id="newMessage">
+                            <img src="public/imgs-icons/conversation.png" alt="settings">    
+                        </li>
+                    
+                    </ul>
+            </ul>
+        </div>
+
+     
+    </div>
+
+  <div id="content"></div>
+
+    <script type="module" src="/public/js/main.js"></script>
+</body>
+</html>
