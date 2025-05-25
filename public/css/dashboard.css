@@ -17,27 +17,34 @@ body{
 .container{
     display: flex;
     flex-direction: row;
-    gap: 15px;
-    
-}
+    background-color: green;
+    gap: 15px;  }
+
 .sidebar{
-    position: relative;
+    display: flex;
+    bottom: 10px;
+   
+}
+
+.sidebar-btns{
+    position: fixed;
     display: flex;
     flex-direction: row;
     background-color: rgb(255, 255, 255);
-    border: 2px solid #000;
+    border: 2px solid #585353;
     border-radius: 12px;
-    height: 100vh;
-    width: 300px;
+    height: 40px;
+    bottom: 10px;
+    left: 0;
     transition:  all 0.3s ease-in-out;
+    z-index: 100;
 }
-
 .sidebar.collapse{
   width: 180px;
 }
 
 .logo-container {
-  display: flex; 
+  display: none; 
   flex-direction: column;
   justify-content: center;
   width: 100%;
@@ -64,7 +71,7 @@ body{
   letter-spacing: 1px;
   font-weight: 600;
   text-align: center;
-  word-break: break-word; /* Ensure long names wrap */
+  word-break: break-word;
 }
 
 .logo-container.collapse .logo-name{
@@ -75,7 +82,8 @@ body{
     text-align: center;
     align-items: center;
     display: flex;
-    flex-direction: column ;
+    flex-direction: row ;
+    justify-content: space-around;
     width: 100%;
  }
  .sidebar-btns li{
@@ -92,7 +100,7 @@ body{
 }
 
 .toggle-collapse{
-    display: flex;
+    display: none;
     font-size: 1.5rem;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
@@ -103,10 +111,13 @@ body{
 
 
 .list-icon{
-  display: none;
+  display: block;
 }
 
 .list.collapse{
+  display: none;
+}
+.list{
   display: none;
 }
 .list-icon.collapse{
@@ -134,14 +145,21 @@ body{
   
 }
 
-
+.dashboard-section{
+  width: 100%;
+}
+.dashboard-section .container-1{
+  display: flex;
+  padding: 15px;
+  gap: 50px;
+}
 
 .card   {
     border: 2px solid #000;
     border-radius: 5px;
     width: fit-content;
     padding: 15px;
-
+    width: 100%;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -150,6 +168,14 @@ body{
     align-items: center;
 }
 
+
+.card.cards-container{
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  width: 100%;
+
+}
 .card h3{
     margin-bottom: 8px;
 }
