@@ -10,7 +10,6 @@
         flex-direction: column;
         gap: 15px;
         background-color: rgb(255, 255, 255);
-        overflow: hidden;
     }
 
     header{
@@ -149,8 +148,8 @@
 
 .quicManage{
     position: absolute;
-    bottom: 50px;
-    right: 25px;
+    bottom: 13vh;
+    right: 8vw;
     align-items: center;
     z-index: 100;
 
@@ -217,5 +216,23 @@
     align-items: center;
     justify-content: space-around;
     background-color: #ffffff;
-    border-top: 2px solid #00000070;
+    border-top: 2px solid #1b1010;
+}
+
+
+.navigator-container   li i{
+   font-size: 1.2em;
+   color: rgb(0, 0, 0);
+}
+
+.navigator-container   li{
+    transition: all 0.3s ease-in-out;
+}
+.navigator-container li:hover{
+    cursor: pointer;
+    scale: 1.5;
+}
+
+.navigator-container .list-icon.active{
+    scale: 1.5;
 }

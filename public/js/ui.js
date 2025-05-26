@@ -32,3 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
 });
+
+
+const listItems = document.querySelectorAll('.navigator-container .list-icon');
+
+listItems.forEach(item => {
+    item.addEventListener('click', () => {
+        
+        listItems.forEach(li => li.classList.remove('active')); 
+        item.classList.add('active');
+    });
+});
