@@ -1,131 +1,174 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 10px;
-}
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
+.modal{
 
-th {
-  background-color: #f2f2f2;
-}
-
-.btn {
-  padding: 6px 12px;
-  margin: 2px;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border: none;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-}
-
-.add-new {
-  margin-bottom: 10px;
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.form-modal,
-#confirmationModal,
-#alertModal,
-#promptContainer {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  justify-self: center;
+  align-self: center;
   align-items: center;
-  z-index: 1000;
-}
-
-.form-modal > form,
-#confirmationModal > div,
-#alertModal > div,
-#promptContainer > div {
-  background: white;
-  padding: 20px;
-  border-radius: 6px;
-  max-width: 400px;
+  padding: 5vh 3vw 5vh 3vw;
   width: 100%;
-  box-sizing: border-box;
+  max-width: 450px;
+  border-radius: 8px;
+  transform: translateY(12vh);
+  box-shadow: 0 2px 8px #000000a0;
 }
 
-.form-modal form > * {
-  margin-bottom: 10px;
-  width: 100%;
+@media (max-width: 500px) {
+  .modal{
+    max-width: 350px;
+    width: 90vw;
+      padding: 2vh 4vw 2vh 4vw;
+  }
+
+
 }
 
-.form-modal form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+
+.modal.hidden{
+  display: none;
 }
 
-.form-modal form input[type="text"],
-.form-modal form select,
-.form-modal form input[type="date"] {
-  padding: 6px;
-  font-size: 1rem;
-}
-
-.form-modal form input[type="checkbox"] {
-  width: auto;
-}
-
-.form-modal form .buttons {
+.modal-content{
   display: flex;
-  justify-content: flex-end;
+ flex-direction: column;
   gap: 10px;
+
 }
 
-#confirmationModal > div button,
-#alertModal > div button,
-#promptContainer > div button {
-  padding: 8px 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 3px;
+.modal-content h2{
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 1.5vh;
+ font-family: "Poppins", sans-serif;
 }
 
-#confirmationModal > div button.btn-yes {
-  background-color: #dc3545;
-  color: white;
+.modal-content form{
+  display: flex;
+ flex-direction: column;
+ row-gap: 15px;
+}
+.modal-content label{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+}
+.modal-content input{
+  height: 4vh;
+  padding-left: 8px;
+  border-radius: 12px;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+}
+.modal-content input:focus{
+  outline: none;
+}
+.btn-form{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+.btn-form span{
+  padding: 5px;
+  width:  50%;
+  font-weight: 650;
+  align-self: center;
+  border: 2px solid #000002c0;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  box-shadow: 0 1px 1px #09000024;
+   transition: all 0.3s ease-in-out;
+      font-family: "Montserrat", sans-serif;
 }
 
-#confirmationModal > div button.btn-no {
-  background-color: #6c757d;
-  color: white;
+.btn-form button{
+  width: 100%;
+  border-radius: 8px;
+    padding: 8px 5px 8px 5px;
+  font-size: 1em;
+  background-color: #315cfd;
+  color: #f7f7f7;
+  font-weight: 700;
+  transition: all 0.3s ease-in-out;
+   font-family: "Montserrat", sans-serif;
+
+}
+.btn-form button:active{
+  box-shadow: 2px 0 2px #000;
 }
 
-#alertModal > div button,
-#promptContainer > div button {
-  background-color: #007bff;
-  color: white;
+.btn-form button:hover{
+  background-color: #1747f4;
+  scale: 0.95;
 }
 
-#promptContainer > div input {
-  width: calc(100% - 110px);
-  padding: 6px;
-  margin-right: 10px;
+.btn-form span:hover{
+    scale: 0.95;
+    box-shadow: 0 2px 5px #0a0a0a63;
+}
+
+
+
+/* ADDED MEWMODAL */
+.addedNewModal{
+  background-color: rgb(255, 255, 255);
+  justify-self: center;
+  align-self: center;
+  align-items: center;
+  padding: 5vh 3vw 5vh 3vw;
+  width: 100%;
+  max-width: 450px;
+  min-width: 150px;
+  border-radius: 8px;
+  transform: translateY(12vh);
+  box-shadow: 0 2px 8px #000000a0;
+  display: block;
+}
+
+.addedNewModal.hidden{
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .addedNewModal{
+    max-width: 350px;
+    width: 90vw;
+      padding: 2vh 4vw 2vh 4vw;
+  }
+
+
+}
+
+.addedNewContent{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 25px;
+
+}
+.addedNewText{
+   font-family: "Poppins", sans-serif;
+   font-weight: 660;
+}
+
+.addedNewContent span{
+  background-color: rgb(48, 58, 255);
+  width: fit-content;
+  margin: auto;
+  padding: 8px 15px 8px 15px;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 650;
+  color: #f7f7f7;
+  box-shadow: 2px 2px 3px #0f0b0b;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.addedNewContent span:hover{
+ box-shadow: -2px 0px 3px #0f0b0b;
+ scale: 0.95;
+ cursor: pointer;
 }

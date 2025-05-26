@@ -1,6 +1,12 @@
 import { saveEmployees, loadEmployees } from '/public/js/storage.js';
 import { employeesFromRecord } from '/public/js/record.js';
 
+import { initDepartmentSuggestions } from '/public/js/departmentSuggest.js';
+
+// After loading employees:
+initDepartmentSuggestions("department", employees);
+
+
 let employees = loadEmployees() || [...employeesFromRecord];
 
 // Color map
@@ -147,11 +153,48 @@ export function initDashboard() {
       : employees.filter(emp => emp.department.trim() === selected);
     renderTable(filtered);
     renderChart(filtered);
+    updateDashboardCounters(); 
   }
+
+
+  function updateDashboardCounters() {
+  const totalEmployeeElem = document.getElementById("totalEmployee");
+  const newEmpTotalElem = document.getElementById("newEmpTotal");
+  const totalDepartmentsElem = document.getElementById("totalDepartments");
+
+  // Total employees
+  if (totalEmployeeElem) {
+    totalEmployeeElem.textContent = employees.length;
+  }
+
+  // New employees (hired in last 7 days)
+  const recentThreshold = new Date();
+  recentThreshold.setDate(recentThreshold.getDate() - 7);
+
+  const newEmployees = employees.filter(emp => {
+    const hiredDate = new Date(emp.dateHired);
+    return hiredDate >= recentThreshold;
+  });
+
+  if (newEmpTotalElem) {
+    newEmpTotalElem.textContent = newEmployees.length;
+  }
+
+  // Total departments
+  const uniqueDepartments = new Set(employees.map(emp => emp.department.trim()));
+  if (totalDepartmentsElem) {
+    totalDepartmentsElem.textContent = uniqueDepartments.size;
+  }
+}
+
+
 
   // Initial calls
   populateDepartmentFilter();
   renderTable(employees);
   renderChart(employees);
   renderDepartmentColors();
+  updateDashboardCounters();
 }
+
+

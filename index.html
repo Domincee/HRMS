@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"  rel="stylesheet">
     <link rel="stylesheet" href="/public/css/navigation.css">
+    <link rel="stylesheet" href="/public/css/modals.css">
   <title>Document</title>
 </head>
 <body>
@@ -73,12 +74,55 @@
                     </ul>
             </ul>
         </div>
-
+s
      
+    </div>
+    <!-- ADDED NEW MODAL -->
+     <div class="addedNewModal hidden">
+        <div class="addedNewContent">
+            <p class="addedNewText">ADDED NEW</p>
+            <span class="closeAddedNewModal" aria-label="Close">OK</span>
+        </div>
+     </div>
+
+    <!-- FORM MODAL -->
+    <div id="addEmployeeModal" class="modal">
+        <div class="modal-content">
+            
+            <h2>Add New Employee</h2>
+            <form id="addEmployeeForm">
+                <label for="firstName">First Name*</label>
+                <input type="text" id="firstName" required />
+
+                <label for="lastName">Last Name*</label>
+                <input type="text" id="lastName" required />
+
+               <label for="department">Department*</label>
+                <input type="text" id="department" required autocomplete="off" />
+                <div id="departmentSuggestions" class="suggestions"></div>
+
+                <div class="btn-form">
+                    <button type="submit" class="submit-btn" aria-label="Close">Add</button>
+                    <span class="close-button" aria-label="Close" >close</span>
+                </div>
+            </form>
+        </div>
     </div>
 
   <div id="content"></div>
 
-    <script type="module" src="/public/js/main.js"></script>
+<!--     <script type="module" src="/public/js/main.js"></script>
+     <script type="module" src="/public/js/index.js"></script>
+ -->
+
+    <script src="/public/js/departmentSuggest.js"></script>
+
+<script type="module">
+        import { employeesFromRecord } from "/public/js/record.js";
+        const employees = JSON.parse(localStorage.getItem("employees")) || [...employeesFromRecord];
+        window.initDepartmentSuggestions("department", employees);
+</script>
+
+<script type="module" src="/public/js/employee.js"></script>
 </body>
 </html>
