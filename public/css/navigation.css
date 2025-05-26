@@ -10,14 +10,16 @@
         flex-direction: column;
         gap: 15px;
         background-color: rgb(255, 255, 255);
+        overflow: hidden;
     }
 
     header{
         height: 12vh;
     }
 
-    header .head-box{
-    position: fixed;
+    header 
+    .header-box{
+       position: fixed;
         display: flex;
         top: 0;
         left: 0;
@@ -26,15 +28,16 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 10px 0 0;
-       z-index: 0;
+
     }
 
     .logo-container{
         align-items: center;
         display: flex;
         flex-direction: column;
-        height: 80%;
+        height: 60px;
         width: 60px;
+        margin-left: 4vw;
     }
 
     .logo{
@@ -52,62 +55,66 @@
         justify-content: center;
     }
 
-    .account-container{
-        padding: 5px;
+    .rightNav-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right:  5vw;
         
     }
-  
-    #toggleDropdown i{
-        color: #322f2f;
-        border-radius: 15px;
-        font-size: 1.8rem;
+    .rightNav-container img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;    
     }
-    
+    .btn-icons{
+        display: flex;
+        gap: 10vw;
+
+    }
+  .toggle-drop{
+        font-size: 2em;
+        transition: all 0.3s ease-in-out;
+        height: 100%;
+    }
     .accout-dropdown{
         display: flex;
         flex-direction: column;
         position: absolute;
-        font-size: 1.8rem;
-        gap: 14px;   
-        opacity: 0;
-        padding: 0 5px 0 5px;
-        overflow: hidden;     
-        transition: all 0.3s ease-in-out;
-        padding-top: 14px;
-                
-    }
-      .account-container li{
-        transition: all 0.3s ease-in-out;
-        padding: 5px;
-        width: 100%;
-    }
-
-    .accout-dropdown li img{
-        color: #ffff;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    .account-container li:hover{
-        cursor: pointer;
-    }
-    .dropdown-container{
-        transition: all 0.6s ease-in-out;
-    }
-     .dropdown-container:hover{
-        scale: 1.1;
-     }
-    .dropdown-container:hover .accout-dropdown{
         height: fit-content;
-        animation: grow 1s ease-in-out;
+         transform: translateY(0);
         opacity: 1;
-        
-          background-color: #777a739d;
-
+        transition: all 0.5s ease-in-out;
     }
 
+    .btn-icons li{
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+     
+    }
+    .toggle-drop:hover{
+        cursor: pointer;
+        scale: 1.2;
+        color: #000;
+     
+    }
 
+    #toggle-drop{
+        outline: none;
+        background-color: #00000000;
+        border: none;
+         cursor: pointer;
+    }
 
+    .accout-dropdown.hidden{
+     transform: translateY(-500%);
+     opacity: 0;
+    }
+
+    .accout-dropdown li{
+        transition: all 0.3s ease-in-out;
+               cursor: pointer;
+    }
     .bell-notif{
             position: relative;
     }
@@ -138,99 +145,77 @@
 }
 
 
-.bottom-box{
-    position: fixed;
-    display: flex;
-    width: 95%;
-    align-self: center;
-    justify-content: space-around;
-    height: 40px;
-    bottom: 15px;
-    border: 2px solid #e7dede;
-    background-color: rgb(249, 255, 249);
-    border-radius: 12px;
-    box-shadow: 0 2px 5px #5a5858b4;
-    align-items: center;
-}
-.navigator-container{
-    display: flex;
-    flex-direction: row;
-    width: 70%;
-    justify-content: space-between;
-}
-
-.navigator-container li{
-        z-index: 100;
-
-    font-size: 1.5rem;
-    transition: all 0.3s ease-in-out;
-}
-.navigator-container li:hover{
-    scale: 1.2;
-    cursor: pointer;
-}
+/* BOTOM NAVI */
 
 .quicManage{
- width: 20%;
- align-items: center;
- display: flex;
- justify-content: center;
+    position: absolute;
+    bottom: 50px;
+    right: 25px;
+    align-items: center;
+    z-index: 100;
+
 }
-.quickManage-container{
+
+.toggle-show{
     display: flex;
     flex-direction: column-reverse;
+    gap: 5px
 }
-
+#showQuickManage{
+    padding: 5px;
+    background-color: #00000000;
+    border: none;
+}
+#showQuickManage img{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
 .manage-show{
-   display: flex;
-    padding-bottom: 40px;
-    gap: 10px;
+    background-color: rgb(243, 243, 243);
+    box-shadow: 0 0 5px #00000073;
+    transition: all 0.3s ease-in-out;
+    display: flex;
     flex-direction: column-reverse;
-    position: absolute;
-    opacity: 0;
-    overflow: hidden;
-    transition: 0.3s ease-in-out;
+    align-items: center;
+    gap: 5vh;
+    border-radius: 25px;
+    padding-top: 15px;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
 }
 .manage-show li{
-   z-index: 100;
-   padding: 5px;
-   transition: all 0.3s ease-in-out;
-  border-radius: 12%;
-   align-items: center;
-    background-color: #dbdedac0;
-}
-
-.manage-show li:hover{
-    scale: 1.1;
-    cursor: pointer;
-    background-color: #95979690;
-}
-.quickManage-container:hover .manage-show{
-   opacity: 1;
-  animation: grow 1s ease-in-out;
-}
-.toggle-show{
-
     transition: all 0.3s ease-in-out;
-    padding: 4px;
-        z-index: 100;
-
 }
-.toggle-show:hover{
-    cursor: pointer;
+.manage-show li:hover{
     scale: 1.2;
 }
-
-
-
-.list-icon.active{
-    scale: 1.3;
+.manage-show li img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 5px;
 }
- @keyframes grow {
-    from {
-        max-height: 0;
-    }
-    to {
-        max-height: 500px; /* Set a reasonable max height */
-    }
+
+
+.manage-show.hidden{
+   transform: translateY(200%);
+}
+
+/* NAVIGATION SECTION */
+.bottom-box{
+    display: flex;
+    flex-direction: row;
+}
+
+.navigator-container{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: 8vh;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #ffffff;
+    border-top: 2px solid #00000070;
 }

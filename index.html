@@ -11,35 +11,39 @@
 <body>
 
    <header>
-        <div class="head-box">
+        <div class="header-box">
             <div class="logo-container" id="logoHolder">
         
                 <p class="logo">HRMS</p>
             </div>
-            <div class="account-container">
-                <ul class="dropdown-container" >
-                
-                    <li class="toggle-drop" id="toggleDropdown">
-                        <i class="ri-account-circle-fill"></i>
+
+            <div class="rightNav-container">
+                <ul class="btn-icons">
+                    <li class="mess-notif" id="messages">
+                        <img src="/public/imgs-icons/message.png" alt="messages">
                     </li>
-            
-                    <ul class="accout-dropdown">
-                    
-                        <li class="bell-notif" id="notification" > 
-                            <img  src="/public/imgs-icons/notification.png" alt="notificaton">
-                        </li>
-                        <li class="mess-notif" id="messages">
-                            <img  src="/public/imgs-icons/message.png" alt="messages">
-                        </li>
-                        <li class="settings" id="settings">
-                            <img src="public/imgs-icons/setting.png" alt="settings">    
-                        </li>
-                        <li class="sign-out" id="singOut">
-                            <img src="public/imgs-icons/out.png" alt="signout">    
-                        </li>
-                    </ul>
+                    <li class="bell-notif" id="notification">
+                        <img src="/public/imgs-icons/notification.png" alt="notificaton">
+                    </li>
+
+                    <li class="toggle-drop">
+                           <button id="toggle-drop">
+                                <img  src="/public/imgs-icons/icons8-account-24.png" alt="">
+                           </button>
+                            <ul class="accout-dropdown hidden">
+                            
+                                <li class="settings" id="settings">
+                                    <img src="public/imgs-icons/setting.png" alt="settings">
+                                </li>
+                                <li class="sign-out" id="singOut">
+                                    <img src="public/imgs-icons/out.png" alt="signout">
+                                </li>
+                            </ul>
+                    </li>
                 </ul>
-            </div>
+
+            
+                </div>
         </div>
     </header>
 
@@ -54,25 +58,30 @@
         </ul>
         <div class="quicManage">
             <ul class="quickManage-container" >
-                
-                    <li class="toggle-show" id="toggleShowUp">
+
+
+                <li class="toggle-show" id="toggleShowUp">
+                    <button id="showQuickManage">
                         <img src="/public/imgs-icons/plus.png" alt="Show Manage">
-                    </li>
-            
-                    <ul class="manage-show">
-                    
-                        <li class="add-new" id="addEmployee" > 
-                            <img  src="/public/imgs-icons/people.png" alt="Add Employee">
+                    </button>
+     
+                    <ul class="manage-show hidden">
+                
+                        <li class="add-new" id="addEmployee">
+                            <img src="/public/imgs-icons/people.png" alt="Add Employee">
                         </li>
                         <li class="edit-employee" id="editEmployee">
-                            <img  src="/public/imgs-icons/edit.png" alt="messages">
+                            <img src="/public/imgs-icons/edit.png" alt="messages">
                         </li>
                         <li class="new-message" id="newMessage">
-                            <img src="public/imgs-icons/conversation.png" alt="settings">    
+                            <img src="public/imgs-icons/conversation.png" alt="settings">
                         </li>
-                    
+                
                     </ul>
-            </ul>
+                </li>
+                
+                
+                </ul>
         </div>
 s
      
@@ -86,7 +95,7 @@ s
      </div>
 
     <!-- FORM MODAL -->
-    <div id="addEmployeeModal" class="modal">
+    <div id="addEmployeeModal" class="modal hidden">
         <div class="modal-content">
             
             <h2>Add New Employee</h2>
@@ -124,5 +133,7 @@ s
 </script>
 
 <script type="module" src="/public/js/employee.js"></script>
+
+<script src="/public/js/ui.js"></script>
 </body>
 </html>

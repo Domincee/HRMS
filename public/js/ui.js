@@ -1,39 +1,34 @@
-const toggleCollapse = document.querySelectorAll('.toggle-collapse');
-const sideBar = document.querySelector('.sidebar');
-const listItems = document.querySelectorAll(".list");
-const listIconItems = document.querySelectorAll(".list-icon")
-const logoHolder = document.getElementById('logoHolder');
+const toggleDrop = document.getElementById("toggle-drop");
+const accountDrop = document.querySelector('.accout-dropdown');
 
 
-
-
-toggleCollapse.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-        console.log("Element clicked!");
-        logoHolder.classList.toggle("collapse");
-            
-        const leftArrow = toggle.querySelector('.left-arrow');
-        const rightArrow = toggle.querySelector('.right-arrow');
-
-        sideBar.classList.toggle("collapse");
-
-        if (leftArrow) leftArrow.classList.toggle("collapse");
-        if (rightArrow) rightArrow.classList.toggle("collapse");
-
-        
-   
-
-        listItems.forEach(item => {
-            
-                item.classList.toggle("collapse");
-            });
-
-    
-
-        listIconItems.forEach(icon => {
-                icon.classList.toggle("collapse");
-            });
-   
-    });
+document.addEventListener("click", (event) => {
+    if (!toggleDrop.contains(event.target) && !accountDrop.contains(event.target)) {
+        accountDrop.classList.add("hidden");
+    }
 });
 
+toggleDrop.addEventListener("click", () => {
+    accountDrop.classList.toggle("hidden");
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const showQuickManage = document.getElementById("showQuickManage");
+    const manageShow = document.querySelector('.manage-show');
+
+    document.addEventListener("click", (event) => {
+        if (showQuickManage && manageShow && !showQuickManage.contains(event.target) && !manageShow.contains(event.target)) {
+            manageShow.classList.add("hidden");
+        }
+    });
+
+    showQuickManage.addEventListener("click", () => {
+        manageShow.classList.toggle("hidden");
+
+
+
+    });
+
+  
+});
