@@ -43,3 +43,32 @@ listItems.forEach(item => {
         item.classList.add('active');
     });
 });
+
+
+
+/* slider Section */
+const sections = ['container1', 'container2'];
+let currentIndex = 0;
+
+// Function to update visible section
+function showSection(index) {
+    sections.forEach((id, i) => {
+        const section = document.getElementById(id);
+        section.classList.toggle('active', i === index);
+    });
+}
+
+// Initial display
+showSection(currentIndex);
+
+// Event Listeners
+document.getElementById('arrowLeft').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + sections.length) % sections.length;
+    showSection(currentIndex);
+});
+
+document.getElementById('arrowRight').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % sections.length;
+    showSection(currentIndex);
+});
+

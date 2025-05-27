@@ -6,6 +6,8 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"  rel="stylesheet">
     <link rel="stylesheet" href="/public/css/navigation.css">
     <link rel="stylesheet" href="/public/css/modals.css">
+    <link rel="stylesheet" href="/public/css/dashboard.css">
+       <link rel="stylesheet" href="/public/css/barchart.css">
   <title>Document</title>
 </head>
 <body>
@@ -119,7 +121,62 @@
         </div>
     </div>
 
-  <div id="content"></div>
+<section class="dashboard-section" id="dashboardSection">
+        <h1>Dashboard</h1>
+        <div class="arrow-btns" id="arrowBtns">
+            <span id="arrowLeft">⟪</span>
+            <span id="arrowRight">⟫</span>
+        </div>
+        <div class="dashboard-container">
+
+            <div class="container-1" id="container1">
+                <div class="card">
+                    <span id="employee">Employees</span>
+                    <div class="count">
+                        <strong>Total : </strong>
+                        <span id="totalEmployee">0</span>
+                        <i class="ri-user-fill"></i>
+                    </div>
+                </div>
+                <div class="card card1 ">
+                    <span id="newEmp">New Employees</span>
+                    <div class="count">
+                        <strong>Total : </strong>
+                        <span id="newEmpTotal">0</span>
+                        <i class="ri-user-fill"></i>
+                    </div>
+                </div>
+                <div class="card card2">
+                    <p>Total <br> Departments</p>
+                    <div class="count">
+                        <strong>Total : </strong>
+                        <span id="totalDepartments">0</span>
+                        <i class="ri-building-fill"></i>
+                    </div>
+                </div>
+                <div class="card card3">
+                    <p>Manage <br> Employee</p>
+                    <div class="btns">
+                        <button class="add-new">Add</button>
+                        <button class="edit-employee">Edit</button>
+                    </div>
+                </div>
+
+                  
+    
+            </div>
+                 <div class="chart-container">
+              <h2>Employees Per Department</h2>
+                <div id="barChart" class="bar-chart"></div>
+            
+        </div>
+           
+    
+        </div>
+
+      
+</section>
+
 
     <script type="module" src="/public/js/main.js"></script>
      <script type="module" src="/public/js/index.js"></script>
@@ -127,12 +184,12 @@
 
     <script src="/public/js/departmentSuggest.js"></script>
 
-<script type="module">
+<!-- <script type="module">
         import { employeesFromRecord } from "/public/js/record.js";
         const employees = JSON.parse(localStorage.getItem("employees")) || [...employeesFromRecord];
         window.initDepartmentSuggestions("department", employees);
 </script>
-
+ -->
 <script type="module" src="/public/js/employee.js"></script>
 
 <script src="/public/js/ui.js"></script>
