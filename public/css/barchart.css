@@ -140,3 +140,16 @@
 
 
 }
+
+
+
+.bar-chart {
+  max-height: 300px; /* or whatever height you want */
+  overflow-y: auto;
+  cursor: grab;
+  user-select: none; /* Prevent text selection while dragging */
+}
+
+.bar-chart:active {
+  cursor: grabbing;
+}

@@ -56,3 +56,33 @@ window.addEventListener('DOMContentLoaded', () => {
   window._form = form;
   window._editingIndex = editingIndex;
 });
+
+
+
+const tableBody = document.getElementById("employeeTableBody");
+
+
+// Populate department filter
+
+// Render employee table
+function renderTable(data) {
+  tableBody.innerHTML = "";
+  if (data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No employees found.</td></tr>`;
+    return;
+  }
+  data.forEach(emp => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${emp.id}</td>
+      <td>${emp.firstName}</td>
+      <td>${emp.lastName}</td>
+      <td>${emp.age}</td>
+      <td>${emp.department}</td>
+      <td>${emp.dateHired}</td>
+      <td>${emp.active ? "Yes" : "No"}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+renderTable(employeesFromRecord);
