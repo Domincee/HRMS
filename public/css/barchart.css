@@ -2,15 +2,14 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 5vh;
-  
+    gap: 10px;
+    overflow: hidden;
   }
 
   .chart-container h2{
     font-size: 1.2em;
     letter-spacing: 2px;
     font-weight: 600;
-    margin-bottom: 25px;
   }
   
 
@@ -23,7 +22,7 @@
   flex-direction: column;
    justify-content: flex-start; 
    padding-right: 5px;
- margin: auto;
+   margin: auto;
   
 }
 
@@ -52,14 +51,15 @@
 }
 
 .bar-label {
-  min-width: 80px;
-  font-size: 1rem;
+  min-width: fit-content;
+  font-size: 0.8rem;
+  font-weight: 700;
     
 }
 
 .bar-container {
     width: 100%;
-    background-color: #ddd;
+    background-color: #ffffff;
   height: 24px;
   position: relative;
   border-radius: 5px;
@@ -84,7 +84,10 @@
 
 /* Responsive mobile */
 @media screen and (min-width: 768px) {
-
+  .chart-container{
+    gap: 5vh;
+    margin-top: 5vh;
+  }
   
   .bar-chart {
     display: flex;
@@ -92,10 +95,11 @@
     align-items: flex-end;
     justify-content: center;
     flex-wrap: wrap;
-    gap: clamp(8px, 2vw, 20px);
+    gap: clamp(8px, 1vw, 20px);
     padding: 1rem;
     height: auto;
     max-width: 100%;
+    gap: 35px;
   }
 
   .bar-row {
@@ -134,15 +138,5 @@
     font-weight: bold;
   }
 
-  .bar-label {
-    margin-top: 0.5rem;
-    text-align: center;
-    max-width: 100%;
-    width: 100%;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    font-size: clamp(0.75rem, 1vw, 1rem);
-    line-height: 0;
-  }
+
 }

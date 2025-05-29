@@ -35,13 +35,11 @@
     font-size: 2rem;
 }
 
-/* .dashboard-section.hidden{
-    display: flex;
+ .dashboard-section.hidden{
+    display: none;
     visibility: hidden;
     opacity: 0;
-} */
-
-
+} 
 .container-2{
     display: none;
 }
@@ -51,16 +49,16 @@
 .card   {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 5px;
     text-align: center;
     border: 2px solid #000;
     border-radius: 12px;
     word-break: break-all;
-    padding: 5px;
     word-wrap: break-word;
     width: 100%;
-    height: 100%;    
+    padding: 2vh 2vw 2vh 2vw;
+    height: 100%;
 }
 
 .card3 .btns button{
@@ -69,11 +67,12 @@
     font-weight:600;
     background-color: white;
     box-shadow: 0 1px 4px 1px #1a191971;
-    padding: 3px;
     border-radius: 10px;
     width: 40px;
     transition: all 0.3s ease-in-out;
-    
+    font-family: 'poppins';
+    align-self: center;
+    padding: 4px 1vw 4px 1vw;
     
 }
 
@@ -117,7 +116,9 @@
     .card{
         font-size: 1.2em;
         font-weight: 700;
+        height: fit-content;
     }
+
    .card .btns button{ 
     font-size: 1.1em;
          width: 45px;
@@ -126,7 +127,7 @@
 
     .card3 .btns button:nth-child(1){
      font-size: 1.1em;
-         width: 60px;
+         width: 45px;
      height: 30px;
     }
     
@@ -138,80 +139,4 @@
 .card2 { grid-area: card2; }
 
 .card3 { grid-area: card3; }
-
-
-
-/* search and filter styles*/
-.top-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-    padding: 0 5px 0 5px;
-    width: 100%;
-
-}
-.search-container{
-    width: 100%;
-    max-width: 150px;
-    margin-top: 15px;
-}
-
-.searchbar {
-    border: 2px solid #0000003b;
-    outline: none; /* Remove default browser outline */
-    transition: all 0.3s ease-in-out; /* Smooth animation */
-    border-radius: 5px;
-    width: 100%;
-    height: 20px;
-}
-
-.searchbar:focus {
-    border: 2px solid #000; /* Change border when typing */
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Add a glowing effect */
-}
-
-#departmentFilter{
-    background-color: rgb(255, 254, 253);
-    width: 100%;
-    height: 20px;
-    width: 100%;
-    border-radius: 12px;
-    padding: 3px;
-    font-weight: 600;
-    font-size: 0.8rem;
-}
-.table-container {
-  max-height: 150px; /* Adjust height as needed */
-  overflow-y: auto;
-  border: 2px solid #605d5d;
-  margin-top: 20px;
-  border-radius: 5px;
-}
-
-.tableEmployee tbody td{
-    text-align: center;
-    padding: 5px;
-}
-
-.table-container::-webkit-scrollbar{
-    background-color: rgba(231, 29, 29, 0.658);
-    width: 3px;
-    height: 4px;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-  background: #1e1a1a;
-  border-radius: 6px;
-}
-
-.table-container::-webkit-scrollbar-track {
-    background-color: #dcb6b6;
-}
-.tableEmployee{
-    width: 100%;
-    font-size: 0.6rem;
-    font-weight: 700;
-}
 

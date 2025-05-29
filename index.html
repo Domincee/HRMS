@@ -33,13 +33,13 @@
                                 <img  src="/public/imgs-icons/icons8-account-24.png" alt="">
                            </button>
                             <ul class="accout-dropdown hidden">
-                            
+                             <li class="sign-out" id="singOut">
+                                    <img src="public/imgs-icons/out.png" alt="signout">
+                                </li>
                                 <li class="settings" id="settings">
                                     <img src="public/imgs-icons/setting.png" alt="settings">
                                 </li>
-                                <li class="sign-out" id="singOut">
-                                    <img src="public/imgs-icons/out.png" alt="signout">
-                                </li>
+                               
                             </ul>
                     </li>
                 </ul>
@@ -121,7 +121,7 @@
         </div>
     </div>
 
-<section class="dashboard-section" id="dashboardSection">
+<section class="dashboard-section hidden" id="dashboardSection">
         <h1>Dashboard</h1>
         <div class="arrow-btns" id="arrowBtns">
             <span id="arrowLeft">⟪</span>
@@ -157,7 +157,7 @@
                 <div class="card card3">
                     <p>Manage <br> Employee</p>
                     <div class="btns">
-                        <button class="add-new">Add</button>
+                        <button class="add-new" id="addNewBtn">Add</button>
                         <button class="edit-employee">Edit</button>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
             
         </div>
            
-    
+        <div class="contaienr-2" id="container2"></div>
         </div>
 
       
@@ -179,10 +179,10 @@
 
 
     <script type="module" src="/public/js/main.js"></script>
-     <script type="module" src="/public/js/index.js"></script>
+   <!--   <script type="module" src="/public/js/index.js"></script> -->
 
 
-    <script src="/public/js/departmentSuggest.js"></script>
+  <!--   <script src="/public/js/departmentSuggest.js"></script> -->
 
 <!-- <script type="module">
         import { employeesFromRecord } from "/public/js/record.js";

@@ -10,7 +10,6 @@
         flex-direction: column;
         gap: 15px;
         background-color: rgb(255, 255, 255);
-        overflow-y: hidden;
     }
 
     header{
@@ -60,6 +59,7 @@
         align-items: center;
         justify-content: space-between;
         margin-right:  5vw;
+
         
     }
     .rightNav-container img{
@@ -75,27 +75,31 @@
   .toggle-drop{
         font-size: 2em;
         transition: all 0.3s ease-in-out;
+
         height: 100%;
     }
     .accout-dropdown{
         display: flex;
         flex-direction: column;
         position: absolute;
-        height: fit-content;
+        z-index: 100;
          transform: translateY(0);
         opacity: 1;
         transition: all 0.5s ease-in-out;
+        border-radius: 12px;
+        padding: 5px;
+        border: 2px solid #000;
+
+    }
+    .accout-dropdown li:hover{
+        scale: 1.1;
     }
 
+    
     .btn-icons li{
         transition: all 0.3s ease-in-out;
         cursor: pointer;
-     
-    }
-    .toggle-drop:hover{
-        cursor: pointer;
-        scale: 1.2;
-        color: #000;
+
      
     }
 
@@ -111,30 +115,18 @@
      opacity: 0;
     }
 
-    .accout-dropdown li{
-        transition: all 0.3s ease-in-out;
-               cursor: pointer;
-    }
+
     .bell-notif{
             position: relative;
     }
+    
     .bell-notif:hover{
         animation: shake 0.5s ease-in-out forwards;
     }
- 
-    .settings:hover {
-         transform-origin: center;
-           scale: 1.1;
-
-    }
-        
     .mess-notif:hover{
         scale: 1.1;
     }
-    .sign-out:hover{
-        scale: 1.1;
-    }
-
+    
 
 @keyframes shake {
     0% { transform:  rotate(0); }
@@ -150,10 +142,10 @@
 .quicManage{
     position: absolute;
     bottom: 13vh;
-    right: 8vw;
+    right: 5px;
     align-items: center;
-    z-index: 100;
-
+    z-index: 5;
+    overflow: hidden;
 }
 
 .toggle-show{
@@ -165,6 +157,11 @@
     padding: 5px;
     background-color: #00000000;
     border: none;
+    
+}
+
+#showQuickManage:hover{
+    cursor: pointer;
 }
 #showQuickManage img{
     width: 35px;
@@ -172,8 +169,8 @@
     object-fit: contain;
 }
 .manage-show{
-    background-color: rgb(243, 243, 243);
-    box-shadow: 0 0 5px #00000073;
+    background-color: #ffff;
+    border: 2px solid black;
     transition: all 0.3s ease-in-out;
     display: flex;
     flex-direction: column-reverse;
@@ -189,6 +186,7 @@
 }
 .manage-show li:hover{
     scale: 1.2;
+    cursor: pointer;
 }
 .manage-show li img{
     width: 100%;
@@ -206,6 +204,7 @@
 .bottom-box{
     display: flex;
     flex-direction: row;
+    background-color: red;
 }
 
 .navigator-container{
@@ -216,7 +215,6 @@
     height: 8vh;
     align-items: center;
     justify-content: space-around;
-    background-color: #ffffff;
     border-top: 2px solid #1b1010;
 }
 

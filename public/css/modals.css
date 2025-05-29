@@ -2,17 +2,14 @@
 
 
 .modal{
-
-  background-color: rgb(255, 255, 255);
+  position: absolute;
+  display: flex;
   justify-self: center;
   align-self: center;
   align-items: center;
-  padding: 5vh 3vw 5vh 3vw;
-  width: 100%;
-  max-width: 450px;
   border-radius: 8px;
+  z-index: 3;
   transform: translateY(12vh);
-  box-shadow: 0 2px 8px #000000a0;
 }
 
 @media (max-width: 500px) {
@@ -31,6 +28,13 @@
 }
 
 .modal-content{
+  background-color: rgb(255, 255, 255);
+  padding: 5vh 3vw 5vh 3vw;
+  max-width: 450px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #000000a0;
+
   display: flex;
  flex-direction: column;
   gap: 10px;
@@ -113,18 +117,20 @@
 
 /* ADDED MEWMODAL */
 .addedNewModal{
-  background-color: rgb(255, 255, 255);
-  justify-self: center;
+  position: absolute;
+  z-index: 5;
   align-self: center;
-  align-items: center;
+  transform: translateY(-50vh);
   padding: 5vh 3vw 5vh 3vw;
   width: 100%;
+  height: 75vh;
   max-width: 450px;
   min-width: 150px;
   border-radius: 8px;
   transform: translateY(12vh);
-  box-shadow: 0 2px 8px #000000a0;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .addedNewModal.hidden{
@@ -142,7 +148,15 @@
 }
 
 .addedNewContent{
+
+  box-shadow: 0 2px 8px #000000a0;
+  padding: 15px;
+  border-radius: 12px;
+  background-color: white;
+  height: fit-content;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   text-align: center;
   gap: 25px;

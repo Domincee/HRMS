@@ -72,3 +72,43 @@ document.getElementById('arrowRight').addEventListener('click', () => {
     showSection(currentIndex);
 });
 
+
+
+/* FOR MODAL FORM */
+document.addEventListener("DOMContentLoaded", () => {
+const modal = document.getElementById("addEmployeeModal");
+const addNewBtn = document.getElementById("addNewBtn");
+
+
+addNewBtn.addEventListener('click', () =>  {
+
+     modal.classList.remove('hidden');
+    
+
+
+});
+
+
+  
+});
+
+
+
+
+/* for switching setion */
+document.addEventListener("DOMContentLoaded", () => {
+const dashboardPanel = document.querySelector('.dashboard-section');
+const btnDashboard = document.getElementById("dashboardBtn");
+const btnSections = document.getElementById("navigator-container");
+
+
+
+btnDashboard.addEventListener('click',() => {
+        dashboardPanel.classList.remove('hidden');
+
+        if(!btnDashboard.classList.contains('active')){
+            btnDashboard.classList.add('active');
+        }
+});
+
+});
