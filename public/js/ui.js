@@ -2,15 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ------------------- ACCOUNT DROPDOWN ------------------- */
   const toggleDrop = document.getElementById("toggle-drop");
   const accountDrop = document.querySelector('.accout-dropdown');
-
+  const employeDash = document.querySelector('.employee-dashboard');
   document.addEventListener("click", (event) => {
     if (!toggleDrop.contains(event.target) && !accountDrop.contains(event.target)) {
       accountDrop.classList.add("hidden");
+        employeDash.style.zIndex = "1";
     }
   });
 
   toggleDrop.addEventListener("click", () => {
     accountDrop.classList.toggle("hidden");
+    employeDash.style.zIndex = "-1";
+     
   });
 
   /* ------------------- QUICK MANAGE ------------------- */
@@ -61,6 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
     showSection(currentIndex);
   });
 
+
+
+
   /* ------------------- MODAL OPEN ------------------- */
   const modal = document.getElementById("addEmployeeModal");
   const addNewBtn = document.getElementById("addNewBtn");
@@ -70,6 +76,31 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.classList.remove('hidden');
     });
   }
+
+
+  /* EDIT BTN IS CLICK EVENT POP TO EMPLOYEE SECTION */
+  const editEmployeeBtn = document.getElementById("editEmployeeBtn");
+  const employeeSection = document.getElementById("employeeSection");
+
+  editEmployeeBtn.addEventListener('click',() =>{
+    dashboardPanel.classList.add('hidden');
+      employeeSection.classList.remove('hidden');
+      if (btnDashboard.classList.contains('active')) {
+      btnDashboard.classList.remove('active');
+      employeeSection.classList.add('hidden');
+    }
+  if (!employeeBtn.classList.contains('active')) {
+      employeeBtn.classList.add('active');
+      employeePanel.classList.remove('hidden');
+    }
+
+  });
+
+
+
+
+
+
 
   /* ------------------- PANEL TOGGLE ------------------- */
   const dashboardPanel = document.querySelector('.dashboard-section');
@@ -99,6 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
       employeePanel.classList.remove('hidden');
     }
   });
+
+
+
 
   /* ------------------- DRAG SCROLL - TABLE ------------------- */
   const tableContainer = document.querySelector('.table-container');
@@ -153,6 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
     tableContainer.scrollLeft = tableScrollLeft - walkX;
     tableContainer.scrollTop = tableScrollTop - walkY;
   });
+
+
+
 
   /* ------------------- DRAG SCROLL - BAR CHART ------------------- */
   const barChart = document.getElementById('barChart');

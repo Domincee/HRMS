@@ -9,13 +9,15 @@
   align-items: center;
   border-radius: 8px;
   z-index: 3;
-  transform: translateY(12vh);
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
 }
 
 @media (max-width: 500px) {
   .modal{
     max-width: 350px;
-    width: 90vw;
+    width:100vw;
       padding: 2vh 4vw 2vh 4vw;
   }
 
@@ -34,16 +36,20 @@
   width: 100%;
   border-radius: 12px;
   box-shadow: 0 2px 8px #000000a0;
-
+  height: fit-content;
   display: flex;
  flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 
 }
 
+
+#addEmployeeForm{
+  height: 45vh;
+}
 .modal-content h2{
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin-bottom: 1.5vh;
  font-family: "Poppins", sans-serif;
 }
@@ -124,7 +130,7 @@
   padding: 5vh 3vw 5vh 3vw;
   width: 100%;
   height: 75vh;
-  max-width: 450px;
+  max-width: 650px;
   min-width: 150px;
   border-radius: 8px;
   transform: translateY(12vh);

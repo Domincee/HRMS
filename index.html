@@ -30,8 +30,8 @@
                     </li>
 
                     <li class="toggle-drop">
-                           <button id="toggle-drop">
-                                <img  src="/public/imgs-icons/icons8-account-24.png" alt="">
+                           <button id="toggle-drop" class="accountIcon" >
+                                <img src="/public/imgs-icons/account-svgrepo-com.svg" alt="account">
                            </button>
                             <ul class="accout-dropdown hidden">
                              <li class="sign-out" id="singOut">
@@ -40,6 +40,10 @@
                                 <li class="settings" id="settings">
                                     <img src="public/imgs-icons/setting.png" alt="settings">
                                 </li>
+                                 <li class="accountIcon" id="">
+                                <img src="/public/imgs-icons/account-svgrepo-com.svg" alt="account">
+
+                                 </li>
                                
                             </ul>
                     </li>
@@ -98,8 +102,11 @@
         </div>
      </div>
 
+    <!--OVERLAY  -->
+     <div id="modalOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"></div>
+
     <!-- FORM MODAL -->
-    <div id="addEmployeeModal" class="modal hidden">
+    <div id="addEmployeeModal" class="modal">
         <div class="modal-content">
             
             <h2>Add New Employee</h2>
@@ -110,9 +117,10 @@
                 <label for="lastName">Last Name*</label>
                 <input type="text" id="lastName" required />
 
-               <label for="department">Department*</label>
+                <label for="department">Department*</label>
                 <input type="text" id="department" required autocomplete="off" />
                 <div id="departmentSuggestions" class="suggestions"></div>
+
 
                 <div class="btn-form">
                     <button type="submit" class="submit-btn" aria-label="Close">Add</button>
@@ -122,6 +130,7 @@
         </div>
     </div>
 
+    <!-- EDIT FORM MODAL -->
 <section class="dashboard-section hidden" id="dashboardSection">
         <h1>Dashboard</h1>
         <div class="arrow-btns" id="arrowBtns">
@@ -159,7 +168,7 @@
                     <p>Manage <br> Employee</p>
                     <div class="btns">
                         <button class="add-new" id="addNewBtn">Add</button>
-                        <button class="edit-employee">Edit</button>
+                        <button class="edit-employee" id="editEmployeeBtn">Edit</button>
                     </div>
                 </div>
 
@@ -192,7 +201,7 @@
             <div class="table-container">
                 <table>
                     <thead>
-                    <tr class="headerList">
+                    <tr>
                         <th>ID</th>
                         <th>
                             <input type="text" class="searchInput" id="searchFName" placeholder="First Name"></th>

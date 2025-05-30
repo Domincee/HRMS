@@ -10,7 +10,7 @@
 /* Dashboard container */
 .employee-dashboard {
     display: flex;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 245, 245);
     padding: 10px;
     justify-content: center;
     align-items: center;
@@ -67,7 +67,6 @@
     position: sticky;
     top: 0;
     background: #f2f2f2;
-    z-index: 1;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     white-space: nowrap;
@@ -100,11 +99,9 @@
     position: sticky;
     top: 0;
     background: #e8d7d7;
-    z-index: 1;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     white-space: nowrap;
-
     width: 500px;
     text-align: center;
 }
