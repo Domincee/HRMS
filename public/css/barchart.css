@@ -84,7 +84,9 @@
 
 /* Responsive mobile */
 @media screen and (min-width: 768px) {
+
   .chart-container{
+    height: 40vh;
     gap: 5vh;
     margin-top: 5vh;
   }

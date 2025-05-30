@@ -80,7 +80,9 @@ function renderTable(data) {
       <td>${emp.age}</td>
       <td>${emp.department}</td>
       <td>${emp.dateHired}</td>
-      <td>${emp.active ? "Yes" : "No"}</td>
+     <td>
+      <div class="status-indicator ${emp.status ? 'active' : 'inactive'}"></div>
+    </td>
     `;
     tableBody.appendChild(row);
   });

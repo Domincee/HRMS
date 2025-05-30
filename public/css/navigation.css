@@ -8,6 +8,7 @@
     body{
         display: flex;
         flex-direction: column;
+        overflow-y: hidden;
         gap: 15px;
         background-color: rgb(255, 255, 255);
     }
@@ -204,6 +205,7 @@
 .bottom-box{
     display: flex;
     flex-direction: row;
+    z-index: 5;
     background-color: red;
 }
 
