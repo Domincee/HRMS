@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Employee Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+    <link rel="stylesheet" href="/css/dashboard.css">
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif;
       display: flex;
-    }
-    .sidebar {
-      width: 200px;
       height: 100vh;
-      background: #2c3e50;
-      color: white;
+      background: #f9fafb;
+    }
+
+    .sidebar {
+      width: 220px;
+      height: 100%; /* less than full height to show centering */
+      background: #1d3557; /* dark slate */
+      color: #e5e7eb; /* light gray */
       display: flex;
       flex-direction: column;
-      padding-top: 20px;
+      align-items: center; /* center horizontally */
+      justify-content: center; /* center vertically */
+      gap: 1.25rem; /* space between buttons */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem 0;
     }
+
     .sidebar button {
-      background: none;
+      background: transparent;
       border: none;
-      color: white;
-      padding: 15px;
-      text-align: left;
+      color: #d1d5db;
+      padding: 12px 24px;
+      width: 160px;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 8px;
       cursor: pointer;
+      text-align: left;
+      transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+      box-shadow: inset 0 0 0 0 transparent;
     }
+
     .sidebar button:hover {
-      background: #34495e;
+      background: #494e56; /* Tailwind blue-600 */
+      color: white;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
     }
+
+    .sidebar button:focus {
+      outline: none;
+      background: #8a92a0; /* Tailwind blue-500 */
+      color: white;
+      box-shadow: 0 0 0 3px rgba(38, 39, 42, 0.5);
+    }
+
     .content {
       flex: 1;
-      padding: 20px;
+      padding: 24px;
+      overflow-y: auto;
+      background: white;
+      border-radius: 12px;
+      margin: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <button onclick="loadView('dashboard')">Dashboard</button>
-    <button onclick="loadView('employee')">Employee</button>
-    <button onclick="loadView('department')">Department</button>
-    <button onclick="loadView('attendance')">Attendance</button>
-    <button onclick="loadView('performance')">Performance</button>
+  <div class="sidebar" role="navigation" aria-label="Sidebar menu">
+    <button onclick="loadView('dashboard')" aria-label="Load Dashboard view">Dashboard</button>
+    <button onclick="loadView('employee')" aria-label="Load Employee view">Employee</button>
+    <button onclick="loadView('department')" aria-label="Load Department view">Department</button>
+    <button onclick="loadView('attendance')" aria-label="Load Attendance view">Attendance</button>
+    <button onclick="loadView('performance')" aria-label="Load Performance view">Performance</button>
   </div>
+
   <div class="content" id="main-content">
     <!-- Dynamic content goes here -->
   </div>
