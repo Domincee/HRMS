@@ -89,7 +89,7 @@
         scale: 1.1;
     }
         
-    .accout-dropdown{
+    .account-dropdown{
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -102,7 +102,7 @@
         gap: 15px;
 
     }
-    .accout-dropdown li:hover{
+    .account-dropdown li:hover{
         scale: 1.1;
     }
 
@@ -129,7 +129,7 @@
          cursor: pointer;
     }
 
-    .accout-dropdown.hidden{
+    .account-dropdown.hidden{
      transform: translateY(-500%);
      opacity: 0;
      z-index: 5;

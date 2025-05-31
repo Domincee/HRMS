@@ -33,7 +33,7 @@
                            <button id="toggle-drop" class="accountIcon" >
                                 <img src="/public/imgs-icons/account-svgrepo-com.svg" alt="account">
                            </button>
-                            <ul class="accout-dropdown hidden">
+                            <ul class="account-dropdown hidden">
                              <li class="sign-out" id="singOut">
                                     <img src="public/imgs-icons/out.png" alt="signout">
                                 </li>
@@ -103,10 +103,10 @@
      </div>
 
     <!--OVERLAY  -->
-     <div id="modalOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"></div>
+     <div id="modalOverlay" class="overlay hidden"></div>
 
     <!-- FORM MODAL -->
-    <div id="addEmployeeModal" class="modal">
+    <div id="addEmployeeModal" class="modal hidden">
         <div class="modal-content">
             
             <h2>Add New Employee</h2>
@@ -123,7 +123,7 @@
 
 
                 <div class="btn-form">
-                    <button type="submit" class="submit-btn" aria-label="Close">Add</button>
+                    <button type="submit" class="submit-btn" aria-label="Add">Add</button>
                     <span class="close-button" aria-label="Close" >close</span>
                 </div>
             </form>
@@ -131,6 +131,26 @@
     </div>
 
     <!-- EDIT FORM MODAL -->
+      <div id="editEmployeeModal" class="edit-modal hidden">
+        <div class="modal-content">
+            <h2>Edit Employee</h2>
+            <form id="editEmployeeForm">
+                <input type="text" id="firstName" placeholder="First Name" required autocomplete="off" />
+
+                <input type="text" id="lastName" placeholder="Last Name" required autocomplete="off" />
+
+                <input type="text" id="department" placeholder="Department" required autocomplete="off" />
+                <div id="departmentSuggestions" class="suggestions"></div>
+
+                <input type="date" id="dateHired" required >
+
+                <div class="btn-form">
+                    <button type="submit" class="submit-edit-btn" aria-label="Submit">Confirm</button>
+                    <span class="close-button-edit" aria-label="Close" >close</span>
+                </div>
+
+            </form>
+        </div>
 <section class="dashboard-section hidden" id="dashboardSection">
         <h1>Dashboard</h1>
         <div class="arrow-btns" id="arrowBtns">
@@ -245,7 +265,7 @@
         window.initDepartmentSuggestions("department", employees);
 </script>
  -->
-<script type="module" src="/public/js/employee.js"></script>
+<!-- <script type="module" src="/public/js/employee.js"></script> -->
 
 <script src="/public/js/ui.js"></script>
 </body>

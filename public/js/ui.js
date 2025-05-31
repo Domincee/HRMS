@@ -1,19 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* ------------------- ACCOUNT DROPDOWN ------------------- */
   const toggleDrop = document.getElementById("toggle-drop");
-  const accountDrop = document.querySelector('.accout-dropdown');
+  const accountDrop = document.querySelector('.account-dropdown'); // fixed typo
   const employeDash = document.querySelector('.employee-dashboard');
+
   document.addEventListener("click", (event) => {
-    if (!toggleDrop.contains(event.target) && !accountDrop.contains(event.target)) {
-      accountDrop.classList.add("hidden");
-        employeDash.style.zIndex = "1";
+    if (!toggleDrop?.contains(event.target) && !accountDrop?.contains(event.target)) {
+      accountDrop?.classList.add("hidden");
+      if (employeDash) employeDash.style.zIndex = "1";
     }
   });
 
-  toggleDrop.addEventListener("click", () => {
-    accountDrop.classList.toggle("hidden");
-    employeDash.style.zIndex = "-1";
-     
+  toggleDrop?.addEventListener("click", () => {
+    accountDrop?.classList.toggle("hidden");
+    if (employeDash) employeDash.style.zIndex = "-1";
   });
 
   /* ------------------- QUICK MANAGE ------------------- */
@@ -26,11 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  if (showQuickManage) {
-    showQuickManage.addEventListener("click", () => {
-      manageShow.classList.toggle("hidden");
-    });
-  }
+  showQuickManage?.addEventListener("click", () => {
+    manageShow?.classList.toggle("hidden");
+  });
 
   /* ------------------- NAVIGATION ACTIVE STATE ------------------- */
   const listItems = document.querySelectorAll('.navigator-container .list-icon');
@@ -54,85 +52,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
   showSection(currentIndex);
 
-  document.getElementById('arrowLeft').addEventListener('click', () => {
+  document.getElementById('arrowLeft')?.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + sections.length) % sections.length;
     showSection(currentIndex);
   });
 
-  document.getElementById('arrowRight').addEventListener('click', () => {
+  document.getElementById('arrowRight')?.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % sections.length;
     showSection(currentIndex);
   });
 
-
-
-
   /* ------------------- MODAL OPEN ------------------- */
   const modal = document.getElementById("addEmployeeModal");
   const addNewBtn = document.getElementById("addNewBtn");
+  const overlay = document.getElementById("modalOverlay");
 
-  if (addNewBtn && modal) {
-    addNewBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-    });
-  }
-
-
-  /* EDIT BTN IS CLICK EVENT POP TO EMPLOYEE SECTION */
-  const editEmployeeBtn = document.getElementById("editEmployeeBtn");
-  const employeeSection = document.getElementById("employeeSection");
-
-  editEmployeeBtn.addEventListener('click',() =>{
-    dashboardPanel.classList.add('hidden');
-      employeeSection.classList.remove('hidden');
-      if (btnDashboard.classList.contains('active')) {
-      btnDashboard.classList.remove('active');
-      employeeSection.classList.add('hidden');
-    }
-  if (!employeeBtn.classList.contains('active')) {
-      employeeBtn.classList.add('active');
-      employeePanel.classList.remove('hidden');
-    }
-
+  addNewBtn?.addEventListener('click', () => {
+    modal?.classList.remove('hidden');
+    overlay?.classList.remove('hidden');
   });
-
-
-
-
-
-
 
   /* ------------------- PANEL TOGGLE ------------------- */
   const dashboardPanel = document.querySelector('.dashboard-section');
   const btnDashboard = document.getElementById("dashboardBtn");
   const employeeBtn = document.getElementById("toggleEmployee");
-  const employeePanel = document.querySelector('.employee-section'); // same as dashboardPanel?
+  const employeePanel = document.querySelector('.employee-section');
 
-  btnDashboard.addEventListener('click', () => {
-     dashboardPanel.classList.remove('hidden');
-      employeePanel.classList.add('hidden');
+  btnDashboard?.addEventListener('click', () => {
+    dashboardPanel?.classList.remove('hidden');
+    employeePanel?.classList.add('hidden');
     if (!btnDashboard.classList.contains('active')) {
       btnDashboard.classList.add('active');
-     
     }
+    employeeBtn?.classList.remove('active');
   });
 
-  employeeBtn.addEventListener('click', () => {
-     dashboardPanel.classList.add('hidden');
-      employeePanel.classList.remove('hidden');
-    if (btnDashboard.classList.contains('active')) {
-      btnDashboard.classList.remove('active');
-      dashboardPanel.classList.add('hidden');
-    }
-
+  employeeBtn?.addEventListener('click', () => {
+    dashboardPanel?.classList.add('hidden');
+    employeePanel?.classList.remove('hidden');
+    btnDashboard?.classList.remove('active');
     if (!employeeBtn.classList.contains('active')) {
       employeeBtn.classList.add('active');
-      employeePanel.classList.remove('hidden');
     }
   });
 
+  /* ------------------- EDIT EMPLOYEE (Switch to Employee Panel) ------------------- */
+  const editEmployeeBtn = document.getElementById("editEmployeeBtn");
+  const employeeSection = document.getElementById("employeeSection");
 
-
+  editEmployeeBtn?.addEventListener('click', () => {
+    dashboardPanel?.classList.add('hidden');
+    employeeSection?.classList.remove('hidden');
+    btnDashboard?.classList.remove('active');
+    employeeBtn?.classList.add('active');
+    employeePanel?.classList.remove('hidden');
+  });
 
   /* ------------------- DRAG SCROLL - TABLE ------------------- */
   const tableContainer = document.querySelector('.table-container');
@@ -164,10 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const x = e.pageX - tableContainer.offsetLeft;
     const y = e.pageY - tableContainer.offsetTop;
-    const walkX = (x - tableStartX) * 1.5;
-    const walkY = (y - tableStartY) * 1.5;
-    tableContainer.scrollLeft = tableScrollLeft - walkX;
-    tableContainer.scrollTop = tableScrollTop - walkY;
+    tableContainer.scrollLeft = tableScrollLeft - (x - tableStartX) * 1.5;
+    tableContainer.scrollTop = tableScrollTop - (y - tableStartY) * 1.5;
   });
 
   tableContainer?.addEventListener('touchstart', (e) => {
@@ -182,14 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isTableDown) return;
     const x = e.touches[0].pageX - tableContainer.offsetLeft;
     const y = e.touches[0].pageY - tableContainer.offsetTop;
-    const walkX = (x - tableStartX) * 1.5;
-    const walkY = (y - tableStartY) * 1.5;
-    tableContainer.scrollLeft = tableScrollLeft - walkX;
-    tableContainer.scrollTop = tableScrollTop - walkY;
+    tableContainer.scrollLeft = tableScrollLeft - (x - tableStartX) * 1.5;
+    tableContainer.scrollTop = tableScrollTop - (y - tableStartY) * 1.5;
   });
-
-
-
 
   /* ------------------- DRAG SCROLL - BAR CHART ------------------- */
   const barChart = document.getElementById('barChart');
@@ -217,8 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isDragging) return;
     e.preventDefault();
     const y = e.pageY - barChart.offsetTop;
-    const walk = (y - chartStartY) * 1.5;
-    barChart.scrollTop = chartScrollTop - walk;
+    barChart.scrollTop = chartScrollTop - (y - chartStartY) * 1.5;
   });
 
   barChart?.addEventListener('touchstart', (e) => {
@@ -230,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
   barChart?.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     const y = e.touches[0].pageY - barChart.offsetTop;
-    const walk = (y - chartStartY) * 1.5;
-    barChart.scrollTop = chartScrollTop - walk;
+    barChart.scrollTop = chartScrollTop - (y - chartStartY) * 1.5;
   });
 });
