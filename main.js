@@ -1,7 +1,7 @@
 export async function loadView(view) {
   const content = document.getElementById('main-content');
   try {
-    const module = await import(`./views/${view}.js`);
+    const module = await import(`/public/js/views/${view}.js`);
     content.innerHTML = '';
     content.appendChild(module.render());
   } catch (error) {

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Employee Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/employee.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/employee.css">
   <style>
     body {
       margin: 0;
@@ -22,14 +21,20 @@
 
     .sidebar {
       width: 220px;
-      height: 100%; /* less than full height to show centering */
-      background: #1d3557; /* dark slate */
-      color: #e5e7eb; /* light gray */
+      height: 100%;
+      /* less than full height to show centering */
+      background: #1d3557;
+      /* dark slate */
+      color: #e5e7eb;
+      /* light gray */
       display: flex;
       flex-direction: column;
-      align-items: center; /* center horizontally */
-      justify-content: center; /* center vertically */
-      gap: 1.25rem; /* space between buttons */
+      align-items: center;
+      /* center horizontally */
+      justify-content: center;
+      /* center vertically */
+      gap: 1.25rem;
+      /* space between buttons */
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       padding: 1.5rem 0;
     }
@@ -50,14 +55,16 @@
     }
 
     .sidebar button:hover {
-      background: #494e56; /* Tailwind blue-600 */
+      background: #494e56;
+      /* Tailwind blue-600 */
       color: white;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
     }
 
     .sidebar button:focus {
       outline: none;
-      background: #8a92a0; /* Tailwind blue-500 */
+      background: #8a92a0;
+      /* Tailwind blue-500 */
       color: white;
       box-shadow: 0 0 0 3px rgba(38, 39, 42, 0.5);
     }
@@ -73,38 +80,61 @@
     }
   </style>
 </head>
+
 <body>
   <div class="sidebar" role="navigation" aria-label="Sidebar menu">
     <button onclick="loadView('dashboard')" aria-label="Load Dashboard view">Dashboard</button>
     <button onclick="loadView('employee')" aria-label="Load Employee view">Employee</button>
     <button onclick="loadView('department')" aria-label="Load Department view">Department</button>
     <button onclick="loadView('attendance')" aria-label="Load Attendance view">Attendance</button>
-    <button onclick="loadView('performance')" aria-label="Load Performance view">Performance</button>
+    <button onclick="loadView('performance')"
+      aria-label="Load Performance view">Performance</button>
   </div>
 
   <div class="content" id="main-content">
-    <!-- Dynamic content goes here -->
+
   </div>
 
 
   <!-- MODAL EDIT EMPLOYEE -->
 
-    <div class="modal hidden" id="employeeModal">
-  <div class="modal-content">
-    <span class="close-button" id="closeModal">&times;</span>
-    <h3>Employee Details</h3>
-    <div class="description-container">
-      <ul id="modalDetails"></ul>
-      <div class="employee-profile">
-        <img class="male" src="/public/imgs-icons/male-student-18-svgrepo-com.svg" alt="Male">
-        <img class="female" src="/public/imgs-icons/female-person-2-svgrepo-com.svg" alt="Female">
+  <div class="modal hidden" id="employeeModal">
+    <div class="modal-content">
+      <span class="close-button" id="closeModal">&times;</span>
+      <h3>Employee Details</h3>
+      <div class="description-container">
+        <ul id="modalDetails"></ul>
+          <div class="employee-profile">
+              <div class="profile-image-container">
+                <img class="male" src="/public/imgs-icons/male-student-18-svgrepo-com.svg" alt="Male">
+                <img class="female" src="/public/imgs-icons/female-person-2-svgrepo-com.svg" alt="Female">
+                <img class="uploaded-profile-img" style="display: none;" />
+                <div class="profile-loader hidden"></div>
+              </div>
+
+              <div class="upload-container">
+                <input type="file" id="profileUpload" accept="image/*" style="display: none;" />
+                <button type="button" class="upload-profile">Upload</button>
+              </div>
+        </div>
+
+
+    
+    </div>
+      <div class="modal-btns">
+        <button class="btn" id="editBtn">Edit</button>
+        <button class="btn" id="removeBtn">Remove</button>
       </div>
-    </div>
-    <div class="modal-btns">
-      <button class="btn" id="editBtn">Edit</button>
-    </div>
   </div>
-</div>
+
+  
   <script type="module" src="./main.js"></script>
+  <script>
+    const uploadBtn = document.querySelector('.upload-profile');
+    const fileInput = document.getElementById('profileUpload');
+
+    uploadBtn.addEventListener('click', () => fileInput.click());
+  </script>
 </body>
+
 </html>
