@@ -1,274 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"  rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/navigation.css">
-    <link rel="stylesheet" href="/public/css/modals.css">
-    <link rel="stylesheet" href="/public/css/dashboard.css">
-       <link rel="stylesheet" href="/public/css/barchart.css">
-              <link rel="stylesheet" href="/public/css/employee.css">
-  <title>Document</title>
+  <meta charset="UTF-8" />
+  <title>Employee Dashboard</title>
+
+  <!-- Tailwind dark mode config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/assets/css/sidepanel.css">
+  <link rel="stylesheet" href="/assets/css/employee.css">
+
 </head>
-<body>
-
-   <header>
-        <div class="header-box">
-            <div class="logo-container" id="logoHolder">
-        
-                <p class="logo">HRMS</p>
-            </div>
-
-            <div class="rightNav-container">
-                <ul class="btn-icons">
-                    <li class="mess-notif" id="messages">
-                        <img src="/public/imgs-icons/message.png" alt="messages">
-                    </li>
-                    <li class="bell-notif" id="notification">
-                        <img src="/public/imgs-icons/notification.png" alt="notificaton">
-                    </li>
-
-                    <li class="toggle-drop">
-                           <button id="toggle-drop" class="accountIcon" >
-                                <img src="/public/imgs-icons/account-svgrepo-com.svg" alt="account">
-                           </button>
-                            <ul class="account-dropdown hidden">
-                             <li class="sign-out" id="singOut">
-                                    <img src="public/imgs-icons/out.png" alt="signout">
-                                </li>
-                                <li class="settings" id="settings">
-                                    <img src="public/imgs-icons/setting.png" alt="settings">
-                                </li>
-                                 <li class="accountIcon" id="">
-                                <img src="/public/imgs-icons/account-svgrepo-com.svg" alt="account">
-
-                                 </li>
-                               
-                            </ul>
-                    </li>
-                </ul>
-
-            
-                </div>
-        </div>
-    </header>
-
-    <div class="bottom-box">
-        <ul class="navigator-container">
-
-            <li class="list-icon dashboard active" id="dashboardBtn"><i class="ri-dashboard-horizontal-line"></i></li>
-            <li class="list-icon employee" id="toggleEmployee"><i class="ri-user-fill"></i></li>
-            <li class="list-icon attendance" id="toggleAttendance"><i class="ri-calendar-check-line"></i></li>
-            <li class="list-icon perforamce" id="togglePerformance"><i class="ri-line-chart-fill"></i></li>
-            
-        </ul>
-
-        <div class="quicManage">
-            <ul class="quickManage-container" >
 
 
-                <li class="toggle-show" id="toggleShowUp">
-                    <button id="showQuickManage">
-                        <img src="/public/imgs-icons/plus.png" alt="Show Manage">
-                    </button>
-     
-                    <ul class="manage-show hidden">
-                
-                        <li class="add-new" id="addEmployee">
-                            <img src="/public/imgs-icons/people.png" alt="Add Employee">
-                        </li>
-                        <li class="edit-employee" id="editEmployee">
-                            <img src="/public/imgs-icons/edit.png" alt="messages">
-                        </li>
-                        <li class="new-message" id="newMessage">
-                            <img src="public/imgs-icons/conversation.png" alt="settings">
-                        </li>
-                
-                    </ul>
-                </li>
-                
-                
-                </ul>
-        </div>
 
-     
-    </div>
-    <!-- ADDED NEW MODAL -->
-     <div class="addedNewModal hidden">
-        <div class="addedNewContent">
-            <p class="addedNewText">ADDED NEW</p>
-            <span class="closeAddedNewModal" aria-label="Close">OK</span>
-        </div>
-     </div>
-
-    <!--OVERLAY  -->
-     <div id="modalOverlay" class="overlay hidden"></div>
-
-    <!-- FORM MODAL -->
-    <div id="addEmployeeModal" class="modal hidden">
-        <div class="modal-content">
-            
-            <h2>Add New Employee</h2>
-            <form id="addEmployeeForm">
-                <label for="firstName">First Name*</label>
-                <input type="text" id="firstName" required />
-
-                <label for="lastName">Last Name*</label>
-                <input type="text" id="lastName" required />
-
-                <label for="department">Department*</label>
-                <input type="text" id="department" required autocomplete="off" />
-                <div id="departmentSuggestions" class="suggestions"></div>
-
-
-                <div class="btn-form">
-                    <button type="submit" class="submit-btn" aria-label="Add">Add</button>
-                    <span class="close-button" aria-label="Close" >close</span>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- EDIT FORM MODAL -->
-      <div id="editEmployeeModal" class="edit-modal hidden">
-        <div class="modal-content">
-            <h2>Edit Employee</h2>
-            <form id="editEmployeeForm">
-                <input type="text" id="firstName" placeholder="First Name" required autocomplete="off" />
-
-                <input type="text" id="lastName" placeholder="Last Name" required autocomplete="off" />
-
-                <input type="text" id="department" placeholder="Department" required autocomplete="off" />
-                <div id="departmentSuggestions" class="suggestions"></div>
-
-                <input type="date" id="dateHired" required >
-
-                <div class="btn-form">
-                    <button type="submit" class="submit-edit-btn" aria-label="Submit">Confirm</button>
-                    <span class="close-button-edit" aria-label="Close" >close</span>
-                </div>
-
-            </form>
-        </div>
-<section class="dashboard-section hidden" id="dashboardSection">
-        <h1>Dashboard</h1>
-        <div class="arrow-btns" id="arrowBtns">
-            <span id="arrowLeft">⟪</span>
-            <span id="arrowRight">⟫</span>
-        </div>
-        <div class="dashboard-container">
-
-            <div class="container-1" id="container1">
-                <div class="card">
-                    <span id="employee">Employee</span>
-                    <div class="count">
-                        <strong>Total : </strong>
-                        <span id="totalEmployee">0</span>
-                        <i class="ri-user-fill"></i>
-                    </div>
-                </div>
-                <div class="card card1 ">
-                    <span id="newEmp">New Employees</span>
-                    <div class="count">
-                        <strong>Total : </strong>
-                        <span id="newEmpTotal">0</span>
-                        <i class="ri-user-fill"></i>
-                    </div>
-                </div>
-                <div class="card card2">
-                    <p>Total <br> Departments</p>
-                    <div class="count">
-                        <strong>Total : </strong>
-                        <span id="totalDepartments">0</span>
-                        <i class="ri-building-fill"></i>
-                    </div>
-                </div>
-                <div class="card card3">
-                    <p>Manage <br> Employee</p>
-                    <div class="btns">
-                        <button class="add-new" id="addNewBtn">Add</button>
-                        <button class="edit-employee" id="editEmployeeBtn">Edit</button>
-                    </div>
-                </div>
-
-                  
+<body >
+  <!-- Sidebar -->
+  <div class="sidebar bg-gray-800 flex flex-col justify-center items-center gap-4 p-4 text-white "
+    role="navigation" aria-label="Sidebar menu">
     
-            </div>
-                 <div class="chart-container">
-              <h2>Employees Per Department</h2>
-                <div id="barChart" class="bar-chart"></div>
-            
+    <button class="btn" onclick="loadView('dashboard')">Dashboard</button>
+    <button class="btn" onclick="loadView('employee')">Employee</button>
+    <button class="btn" onclick="loadView('department')">Department</button>
+    <button class="btn" onclick="loadView('attendance')">Attendance</button>
+    <button class="btn" onclick="loadView('performance')">Performance</button>
+
+    <div class="bottom-btn mt-5 w-full flex justify-center">
+      <button class="btn-theme bg-white p-2 w-24 text-black rounded-2xl" onclick="toggleTheme()">
+        <p class="text-effect text-center">Dark</p>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content bg-white p-4" id="main-content">
+    <!-- Dynamic content goes here -->
+  </div>
+
+  <!-- Modal -->
+  <div class="modal hidden" id="employeeModal">
+    <div class="modal-content">
+      <span class="close-button" id="closeModal">&times;</span>
+      <h3>Employee Details</h3>
+      <div class="description-container">
+        <ul id="modalDetails"></ul>
+        <div class="employee-profile">
+          <div class="profile-image-container">
+            <img class="male" src="/public/imgs-icons/male-student-18-svgrepo-com.svg" alt="Male">
+            <img class="female" src="/public/imgs-icons/female-person-2-svgrepo-com.svg" alt="Female">
+            <img class="uploaded-profile-img" style="display: none;" />
+            <div class="profile-loader hidden"></div>
+          </div>
+          <div class="upload-container">
+            <input type="file" id="profileUpload" accept="image/*" style="display: none;" />
+            <button type="button" class="upload-profile">Upload</button>
+          </div>
         </div>
-           
-        <div class="contaienr-2" id="container2"></div>
-        </div>
+      </div>
+      <div class="modal-btns">
+        <button class="btn" id="editBtn">Edit</button>
+        <button class="btn" id="removeBtn">Remove</button>
+      </div>
+    </div>
+  </div>
 
-      
-</section>
+  <!-- Scripts -->
+  <script src="/js/ui.js"></script>
+  <script type="module" src="./main.js"></script>
 
+  <script>
+  </script>
 
-<sectio class="employee-section hidden" id="employeeSection">
-        <h2>Employee Records</h2>
-
-
-        <div class="arrow-btns" id="arrowBtns">
-            <span id="arrowLeft">⟪</span>
-            <span id="arrowRight">⟫</span>
-        </div>
-
-        <div class="employee-dashboard">
-            <div class="table-container">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>
-                            <input type="text" class="searchInput" id="searchFName" placeholder="First Name"></th>
-                        <th>
-                            <input type="text" class="searchInput" id="searchLName" placeholder="Last Name"></th>
-                       
-                            <th>Age</th>
-                        <th>
-                            <input type="text"  class="searchInput"  id="searchDep" placeholder="Department"></th>
-                        <th>
-                            Date Hired 
-                            <button  class="sortBtn" id="sortDateHired"> 
-                             <img src="/public/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
-                            </button>
-                        </th>
-                        <th>Active 
-                            <button  class="sortBtn" id="sortActive">
-                                 <img src="/public/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
-                            </button>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody id="employeeTableBody">
-                    <!-- Employee rows will be inserted here -->
-                    </tbody>
-                </table>
-                </div>
-        </div>
-
-</section>
-
-    <script type="module" src="/public/js/main.js"></script>
-   <!--   <script type="module" src="/public/js/index.js"></script> -->
-
-
-  <!--   <script src="/public/js/departmentSuggest.js"></script> -->
-
-<!-- <script type="module">
-        import { employeesFromRecord } from "/public/js/record.js";
-        const employees = JSON.parse(localStorage.getItem("employees")) || [...employeesFromRecord];
-        window.initDepartmentSuggestions("department", employees);
-</script>
- -->
-<!-- <script type="module" src="/public/js/employee.js"></script> -->
-
-<script src="/public/js/ui.js"></script>
 </body>
+
 </html>
-
-

@@ -8,13 +8,15 @@
 
 /* Title and Subtitle */
 .employee-container .title {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-align: center;
-  color: #111827;
+  color: #000000;
   margin-bottom: 0.25rem;
 }
-
+.dark .title{
+  color: white;
+}
 
 .table-wrapper {
   max-height: 450px; /* your desired max height */
@@ -23,21 +25,19 @@
   width: 100%;
 }
 
-/* Optional: To keep columns aligned */
-
-
-
 .employee-container .subtitle {
   text-align: center;
-  color: #6b7280;
+  color: #000000;
   font-size: 1rem;
   margin-bottom: 2rem;
 }
 
+.dark .subtitle{
+  color: white;
+}
 /* Table Wrapper */
 .table-wrapper {
   overflow-x: auto;
-  background: white;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
@@ -45,17 +45,15 @@
 /* Table */
 .employee-table {
   width: 100%;
-  min-width: 640px; /* Makes horizontal scroll appear on small screens */
+  min-width: 640px; 
   border-collapse: collapse;
   border-radius: 1rem;
   overflow: hidden;
 }
-
 /* Table Header */
 .employee-table thead {
   background-color: #f3f4f6;
 }
-
 .employee-table th {
   padding: 1rem;
   text-align: left;
@@ -83,6 +81,7 @@
 }
 
 /* Table Body */
+
 .employee-table td {
   padding: 1rem;
   font-size: 0.95rem;
@@ -95,14 +94,51 @@
   background-color: #f9fafb;
 }
 
+.btn-sorter{
+  display: flex;
+}
+
 /* Status Dot */
+.statusCon{
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.statusCon:hover p{
+  display: block;
+}
+.statusCon p{
+  display: none;
+  transform: translateY(-25px) translateX(25px);
+}
 .status-dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 9999px;
-  margin-right: 0.5rem;
-  vertical-align: middle;
+  box-shadow: 0 0 15px #0000007c;
+  animation: beat 3s infinite;
+}
+
+
+.dark .status-dot{
+  box-shadow: 0 0 10px #558bff;
+}
+
+@keyframes beat {
+  0% {
+    transform: scale(0.9);
+  }
+
+
+  60%{
+    transform: scale(1.1);
+  }
+  80%{
+    transform: scale(1.2);
+  }
+
+
+  100%{
+    transform: scale(0.9);
+  }
 }
 
 /* Responsive Design */
@@ -145,6 +181,72 @@
   }
 }
 
+/* DARK MODEE FOR EMPLOYE TABLE */
+
+.dark .employee-table tr:hover {
+  background-color: #022d58;
+}
+
+.dark .table-body{
+  background-color: #050029e9;
+
+}
+.dark .employee-table thead{
+    background-color: #022d58;
+  
+}
+
+.dark .employee-table th{
+  color: white;
+    border-bottom: 2px solid rgb(1, 5, 103);
+}
+
+/* list employee row */
+.dark .employee-table td{
+  color: white;
+  border-bottom: 2px solid rgb(1, 5, 103);
+}
+
+.dark .remove-btn{
+  border: 2px solid #fff;
+  color: white;
+
+}
+.dark .remove-btn:hover{
+    background-color: #12005a;
+    border: 2px solid  #0060c0;
+}
+
+
+
+/*SCROLL BAR STYLE  */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* the background of the scrollbar */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #4952a5;
+}
+
+/*  draggable part */
+::-webkit-scrollbar-thumb {
+  background: #e0dff5; 
+  border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-thumb{
+  background: #190048;
+}
+/* on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3730a3;
+}
 
 
 /* MODAL PROFILE EMPLOYEE*/
