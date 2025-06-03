@@ -45,32 +45,48 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal hidden" id="employeeModal">
-    <div class="modal-content">
-      <span class="close-button" id="closeModal">&times;</span>
-      <h3>Employee Details</h3>
-      <div class="description-container">
-        <ul id="modalDetails"></ul>
-        <div class="employee-profile">
-          <div class="profile-image-container">
-            <img class="male" src="/public/imgs-icons/male-student-18-svgrepo-com.svg" alt="Male">
-            <img class="female" src="/public/imgs-icons/female-person-2-svgrepo-com.svg" alt="Female">
-            <img class="uploaded-profile-img" style="display: none;" />
-            <div class="profile-loader hidden"></div>
-          </div>
-          <div class="upload-container">
-            <input type="file" id="profileUpload" accept="image/*" style="display: none;" />
-            <button type="button" class="upload-profile">Upload</button>
-          </div>
-        </div>
-      </div>
-      <div class="modal-btns">
-        <button class="btn" id="editBtn">Edit</button>
-        <button class="btn" id="removeBtn">Remove</button>
-      </div>
-    </div>
-  </div>
+  <div class="modal " id="employeeModal">
+    <div class="modal-content flex gap-10  p-15 ">
 
+        <div class="employee-content flex flex-col gap-4 rounded-2xl bg-white p-4 shodow-lg border-2 border-gray-900" >
+          <h2 class="text-center">Employee Details</h2>
+
+          <ul id="employee-details" class="flex h-full  flex-col justify-between">
+                <li><b>First Name:</b> <input id="firstName" type="text" placeholder="Mike"></li>
+                <li><b>Last Name:</b> <input id="lastName" type="text" placeholder="Durant"></li>
+                <li><b>Age:</b> <input id="Age" type="number" placeholder="25"></li>
+                <li class="flex gap-5"><b>Gender:</b> 
+                  <button id="male-btn">Male</button> 
+                  <button id="female">Female</button></li>
+                <li><b>Department: </b>
+                  <select id="department" type="text" placeholder="Finance" autocomplete="off">
+                    <option>IT</option>
+                    <option>Finance</option>
+                    <option>HR</option>
+                    <option>Design</option> 
+                  </select>
+                </li>
+                <li><b>Date Hired:</b> <input type="date"></li>
+                <li class=" flex gap-5">
+                  <b>Status:</b> 
+                  <button>Active</button
+                    <button>Inactive</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="profile-container p-2 bg-white flex flex-col align-center justify-center gap-10 rounded-2xl"  >
+          <div class="img-container">
+              <img   id="default-img"  class="img-default" src="/assets/imgs-icons/account-svgrepo-com.svg" alt="">
+          </div>
+          <input type="file" accept="">
+        </div>
+        <div class="absolute bottom-[150px] left-0 w-full text-white align-center text-center">
+          <button id="confirmBtn" class="bg-blue-500 text-black rounded-2xl p-2">Confirm</button>
+           <button id="closermBtn" class="bg-red-500 text-black rounded-2xl p-2">Close</button>
+        </div>
+  </div>
+</div>
   <!-- Scripts -->
   <script src="/js/ui.js"></script>
   <script type="module" src="./main.js"></script>

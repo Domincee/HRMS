@@ -48,7 +48,9 @@ export function render() {
           </thead>
           <tbody class="table-body"></tbody>
         </table>
+  
       </div>
+            <button id="addBtn" class="add-Btn border-2 bg-blue-700 text-white  border-black w-24 rounded-lg">Add </button>
     </div>
   `;
 
