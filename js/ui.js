@@ -10,6 +10,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme');
       const isDark = savedTheme === 'dark';
+      const closeModalBtn = document.getElementById('closermBtn');
+      const modalEmployee = document.getElementById('employeeModal');
+
+      closeModalBtn.addEventListener('click',() => { modalEmployee.classList.add('hidden')});
+
+
       if (isDark) {
         document.documentElement.classList.add('dark');
       }
@@ -17,3 +23,37 @@
       const btnText = document.querySelector('.btn-theme p');
       btnText.textContent = isDark ? 'Light' : 'Dark';
     });
+
+
+    /* FOR ACTIVE INACTIVE BTN STAUS */
+
+    const statusContainer = document.querySelector('.status-btn');
+const statusButtons = statusContainer.querySelectorAll('button');
+const statusText = statusContainer.querySelector('#statusText');
+
+statusButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Get the value from data-status attribute
+    const selectedStatus = button.getAttribute('data-status');
+    statusText.textContent = selectedStatus;
+
+    // Optional: toggle .selected class for button styling
+    statusButtons.forEach(btn => btn.classList.remove('selected'));
+    button.classList.add('selected');
+  });
+});
+
+
+/* FOR GENDER CLICK BTN */
+
+const genderContainer = document.querySelector('.gender-btn');
+const genderButtons = genderContainer.querySelectorAll('button');
+
+
+ genderButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    genderButtons.forEach(b => b.classList.remove('selected')); 
+
+    btn.classList.add('selected'); // apply to clicked one
+  });
+});

@@ -1,6 +1,5 @@
 import { employeesFromRecord } from '/data/employee.js';
 
-
 let currentSort = { column: null, asc: true };
 
 
@@ -52,16 +51,18 @@ export function render() {
       </div>
             <button id="addBtn" class="add-Btn border-2 bg-blue-700 text-white  border-black w-24 rounded-lg">Add </button>
     </div>
+
+    
   `;
 
   const tbody = container.querySelector('tbody');
-
+  
   function renderTableBody(data) {
      tbody.innerHTML = '';
-     data.forEach(emp => {
+    data.forEach(emp => {
     const row = document.createElement('tr');
-
-    const statusColor = emp.status ? 'bg-yellow-500' : 'bg-red-500';
+      
+    const statusColor = emp.status ? 'bg-blue-400' : 'bg-red-500';
     const statusText = emp.status ? 'Active' : 'Inactive';
 
     const statusCircle = `
@@ -76,22 +77,53 @@ export function render() {
       <td>${emp.department}</td>
       <td class="statusCon">${statusCircle}</td>
       <td>
-      <button class="bg-blue-800 w-auto p-1 rounded-lg border-2 border-blue-700 text-white 
-       shadow-lg hover:bg-blue-500 hover:text-white hover:scale-105 
-       transition-bg duration-300" 
-       id="edit-btn">Edit</button>
-
-      <button class="remove-btn border-2 border-black w-auto p-1 rounded-lg border-2 hover:border-blue-700 text-black 
-       shadow-lg hover:bg-gray-200  hover:scale-105 
-       transition-all duration-300" 
-       id="remove-btn">Remove</button>
+        <button 
+          class="edit-btn bg-blue-800 w-auto p-1 rounded-lg border-2 border-blue-700 text-white 
+          shadow-lg hover:bg-blue-500 hover:text-white hover:scale-105 transition duration-300" 
+          data-id="${emp.id}">
+          Edit
+        </button>
+        <button 
+          class="remove-btn border-2 border-black w-auto p-1 rounded-lg hover:border-blue-700 text-black 
+          shadow-lg hover:bg-gray-200 hover:scale-105 transition-all duration-300">
+          Remove
+        </button>
       </td>
     `;
     tbody.appendChild(row);
+
+    /* Event listner for editing employee */
+
+  row.querySelector('.edit-btn').addEventListener('click', () => {
+      const employee = employeesFromRecord.find(e => e.id === emp.id);
+      if (!employee) return;
+
+      // Fill modal fields (make sure these IDs exist in your HTML)
+      document.getElementById('firstName').value = employee.firstName;
+      document.getElementById('lastName').value = employee.lastName;
+      document.getElementById('Age').value = employee.age;
+
+      populateDepartmentDropdown();
+      document.getElementById('department').value = employee.department;
+
+      // Gender buttons
+
+      // Status buttons
+  
+      // Show the modal
+      document.getElementById('employeeModal').classList.remove('hidden');
+
+      
   });
+});
+
+
 
 
 }
+
+
+
   renderTableBody([...employeesFromRecord]);
    function sortTable(column) {
     const sorted = [...employeesFromRecord].sort((a, b) => {
@@ -127,9 +159,30 @@ export function render() {
     };
 
     renderTableBody(sorted);
-  }
+   
 
+  }
+   function populateDepartmentDropdown() {
+      const departmentSelect = document.getElementById('department');
+      if (!departmentSelect) return;
+
+      // Clear current options
+      departmentSelect.innerHTML = '<option value="">Select Department</option>';
+
+      // Get unique departments
+      const departments = [...new Set(employeesFromRecord.map(emp => emp.department))];
+
+      departments.forEach(dep => {
+        const option = document.createElement('option');
+        option.value = dep;
+        option.textContent = dep;
+        departmentSelect.appendChild(option );
+      });
+    }
   // Attach event listeners
+
+
+
   container.querySelector('#sortById').addEventListener('click', () => sortTable('id'));
   container.querySelector('#sortByName').addEventListener('click', () => sortTable('name'));
   container.querySelector('#sortByDep').addEventListener('click', () => sortTable('department'));

@@ -21,13 +21,13 @@
 
 
 
-<body >
+<body>
   <!-- Sidebar -->
   <div class="sidebar bg-gray-800 flex flex-col justify-center items-center gap-4 p-4 text-white "
     role="navigation" aria-label="Sidebar menu">
-    
+
     <button class="btn" onclick="loadView('dashboard')">Dashboard</button>
-    <button class="btn" onclick="loadView('employee')">Employee</button>
+    <button class="btn" onclick="loadView('employeeTable')">Employee</button>
     <button class="btn" onclick="loadView('department')">Department</button>
     <button class="btn" onclick="loadView('attendance')">Attendance</button>
     <button class="btn" onclick="loadView('performance')">Performance</button>
@@ -45,48 +45,72 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal " id="employeeModal">
+  <div class="modal hidden " id="employeeModal">
     <div class="modal-content flex gap-10  p-15 ">
 
-        <div class="employee-content flex flex-col gap-4 rounded-2xl bg-white p-4 shodow-lg border-2 border-gray-900" >
-          <h2 class="text-center">Employee Details</h2>
+      <div
+        class="employee-content flex flex-col gap-4 rounded-3xl h-full bg-white p-4 shodow-lg border-2 border-gray-900">
+
+        <form id="employeeForm">
+          <h2 class="text-center font-bold mb-2">Employee Details</h2>
 
           <ul id="employee-details" class="flex h-full  flex-col justify-between">
-                <li><b>First Name:</b> <input id="firstName" type="text" placeholder="Mike"></li>
-                <li><b>Last Name:</b> <input id="lastName" type="text" placeholder="Durant"></li>
-                <li><b>Age:</b> <input id="Age" type="number" placeholder="25"></li>
-                <li class="flex gap-5"><b>Gender:</b> 
-                  <button id="male-btn">Male</button> 
-                  <button id="female">Female</button></li>
-                <li><b>Department: </b>
-                  <select id="department" type="text" placeholder="Finance" autocomplete="off">
-                    <option>IT</option>
-                    <option>Finance</option>
-                    <option>HR</option>
-                    <option>Design</option> 
-                  </select>
-                </li>
-                <li><b>Date Hired:</b> <input type="date"></li>
-                <li class=" flex gap-5">
-                  <b>Status:</b> 
-                  <button>Active</button
-                    <button>Inactive</button>
-                </li>
-            </ul>
-        </div>
+            <li><b>First Name:</b> <input id="firstName" type="text" placeholder="Mike" ></li>
 
-        <div class="profile-container p-2 bg-white flex flex-col align-center justify-center gap-10 rounded-2xl"  >
-          <div class="img-container">
-              <img   id="default-img"  class="img-default" src="/assets/imgs-icons/account-svgrepo-com.svg" alt="">
+            <li><b>Last Name:</b> <input id="lastName" type="text" placeholder="Durant" ></li>
+
+            <li><b>Age:</b> <input id="Age" type="number" placeholder="25"></li>
+
+            <li class="gender-btn flex gap-5">
+              <b>Gender:</b>
+              <button type="button" data-gender="male"> 
+                <img class="icon-gender" src="/assets/imgs-icons/male-gender.png" alt=""></button>
+
+              <button type="button" data-gender="female">
+                <img class="icon-gender" src="/assets/imgs-icons/femenine.png" alt=""></button>
+            </li>
+
+            <li><b>Department: </b>
+              <select id="department" type="text" placeholder="Finance" autocomplete="off">
+                <option></option>
+              </select>
+            </li>
+
+            <li><b>Date Hired:</b> <input type="date"></li>
+
+            <li class="status-btn flex gap-2 ">
+              <b class="justify-start"> Status:</b>       
+              <p id="statusText">Active</p>
+              <button type="button" data-status="Inactive">
+                <div class="red-circle bg-red-500"></div>
+              </button>
+             <button type="button" data-status="Active">
+                <div class="blue-circle bg-blue-400"></div>
+              </button>
+            </li>
+          </ul>
+
+          <div class="absolute bottom-[150px] left-0 w-full text-white align-center text-center">
+            <button id="confirmBtn" type="submit"
+              class="bg-blue-500 text-black rounded-2xl p-2">Confirm</button>
+            <button id="closermBtn" type="button"
+              class="bg-red-500 text-black rounded-2xl p-2">Close</button>
           </div>
-          <input type="file" accept="">
+        </form>
+
+      </div>
+
+      <div
+        class="profile-container p-2 bg-white flex flex-col align-center justify-center  rounded-2xl">
+        <div class="img-container">
+          <img id="default-img" class="img-default" src="/assets/imgs-icons/account-svgrepo-com.svg"
+            alt="">
         </div>
-        <div class="absolute bottom-[150px] left-0 w-full text-white align-center text-center">
-          <button id="confirmBtn" class="bg-blue-500 text-black rounded-2xl p-2">Confirm</button>
-           <button id="closermBtn" class="bg-red-500 text-black rounded-2xl p-2">Close</button>
-        </div>
+        <input class="input-img text-center  align-center m-auto " type="file" accept="">
+      </div>
+
+    </div>
   </div>
-</div>
   <!-- Scripts -->
   <script src="/js/ui.js"></script>
   <script type="module" src="./main.js"></script>
