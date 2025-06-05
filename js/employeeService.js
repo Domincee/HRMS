@@ -1,5 +1,4 @@
-
-import { employeesFromRecord } from './data/employee.js';
+import { employeesFromRecord } from '../data/employee.js';
 
 
 const form = document.getElementById('employeeForm');

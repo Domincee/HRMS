@@ -3,7 +3,7 @@ export async function loadView(view) {
 
    content.innerHTML = '<div class="spinner-con"><div class="spinner"></div></div>';
   try {
-    const module = await import(`/views/${view}.js`);
+    const module = await import(`./views/${view}.js`);
     content.innerHTML = '';
     content.appendChild(module.render());
   } catch (error) {
@@ -15,7 +15,6 @@ export async function loadView(view) {
 window.loadView = loadView;
 
 // Default view
-loadView('dashboard');
 
 
 

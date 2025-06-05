@@ -1,4 +1,4 @@
-import { employeesFromRecord } from './data/employee.js';
+import { employeesFromRecord } from '/data/employee.js';
 
 let currentSort = { column: null, asc: true };
 
