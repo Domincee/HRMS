@@ -1,4 +1,4 @@
-import { employeesFromRecord } from '/data/employee.js';
+import { employeesFromRecord } from 'data/employee.js';
 
 export function populateDepartmentDropdown() {
   const departmentSelect = document.getElementById('department');
