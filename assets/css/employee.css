@@ -375,3 +375,17 @@
   height: 24px;
   object-fit: contain;
 }
+
+
+.edit-type{
+  transition: all 0.3s ease-in-out;
+
+}
+input{
+  padding-left: 5px;
+}
+.edit-type:hover{
+  scale: 1.1;
+}
+
+

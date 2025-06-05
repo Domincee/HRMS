@@ -7,7 +7,7 @@ export async function loadView(view) {
     content.innerHTML = '';
     content.appendChild(module.render());
   } catch (error) {
-    content.innerHTML = `<p>View "${view}" not found.</p>`;
+    content.innerHTML = `<p>View "${view}"In Progress.</p>`;
   }
 }
 
@@ -16,3 +16,6 @@ window.loadView = loadView;
 
 // Default view
 loadView('dashboard');
+
+
+

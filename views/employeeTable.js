@@ -57,7 +57,7 @@ export function render() {
 
   const tbody = container.querySelector('tbody');
   
-  function renderTableBody(data) {
+   function renderTableBody(data) {
      tbody.innerHTML = '';
     data.forEach(emp => {
     const row = document.createElement('tr');
@@ -98,22 +98,40 @@ export function render() {
       const employee = employeesFromRecord.find(e => e.id === emp.id);
       if (!employee) return;
 
-      // Fill modal fields (make sure these IDs exist in your HTML)
+    // Get the ID from the employee object
+      sessionStorage.setItem('editingEmployeeId', employee.id); 
+   
+      document.getElementById('employeeID').value = employee.id;
       document.getElementById('firstName').value = employee.firstName;
       document.getElementById('lastName').value = employee.lastName;
       document.getElementById('Age').value = employee.age;
-
+      document.getElementById('dateHired').value = employee.dateHired;
       populateDepartmentDropdown();
       document.getElementById('department').value = employee.department;
+      
 
+      const genderButton = document.querySelectorAll('.gender-btn button');
+ 
+ 
       // Gender buttons
+      genderButton.forEach(btn =>{ 
+        btn.classList.remove('selected');
+        if(employee.gender === btn.dataset.gender){
+          btn.classList.add('selected');
+        }
+
+        
+      
+      });
+     
 
       // Status buttons
   
       // Show the modal
-      document.getElementById('employeeModal').classList.remove('hidden');
-
       
+
+      document.getElementById('employeeModal').classList.remove('hidden');
+    
   });
 });
 
@@ -123,6 +141,8 @@ export function render() {
 }
 
 
+window.renderEmployeeTable = renderTableBody;
+renderTableBody([...employeesFromRecord]); 
 
   renderTableBody([...employeesFromRecord]);
    function sortTable(column) {
@@ -187,6 +207,6 @@ export function render() {
   container.querySelector('#sortByName').addEventListener('click', () => sortTable('name'));
   container.querySelector('#sortByDep').addEventListener('click', () => sortTable('department'));
   container.querySelector('#sortByStat').addEventListener('click', () => sortTable('status'));
-
   return container;
 }
+

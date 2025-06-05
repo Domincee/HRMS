@@ -1,80 +1,101 @@
-/* import { employeesFromRecord } from '/data/employee.js';
-import { render as renderEmployeeTable } from '/modules/employeeTable.js';
 
-let selectedGender = null;
-let selectedStatus = 'Active';
+import { employeesFromRecord } from '/data/employee.js';
+
 
 const form = document.getElementById('employeeForm');
-const genderButtons = form.querySelectorAll('.gender-btn button');
-const statusButtons = form.querySelectorAll('.status-btn button');
-const statusText = document.getElementById('statusText');
-const departmentDropdown = document.getElementById('department');
 
-// Gender selection
-genderButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    selectedGender = btn.dataset.gender;
-    genderButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
+
+
+// Get values from gender buttons
+const genderButtons = document.querySelectorAll('.gender-btn button');
+let selectedGender = null;
+
+genderButtons.forEach(btn => { 
+    btn.addEventListener('click', () => {
+        selectedGender = btn.dataset.gender;
+    });
 });
 
-// Status selection
-statusButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    selectedStatus = btn.dataset.status;
-    statusText.textContent = selectedStatus;
-    statusButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
+
+const statusBtn = document.querySelectorAll('.status-btn button');
+let selectedStatus = null;
+
+statusBtn.forEach(btn => { 
+    btn.addEventListener('click', () => {
+         statusBtn.forEach(b => b.classList.remove('selected'));
+         btn.classList.add('selected');
+         selectedStatus = btn.dataset.status === 'true';
+    });
 });
 
-// Add new employee
+
+
+// Form submission logic
 form.addEventListener('submit', (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const newEmp = {
-    id: generateUniqueId(), // implement this function
-    firstName: document.getElementById('firstName').value,
-    lastName: document.getElementById('lastName').value,
-    age: parseInt(document.getElementById('Age').value),
-    gender: selectedGender,
-    status: selectedStatus === 'Active',
-    department: departmentDropdown.value,
-    dateHired: form.querySelector('input[type="date"]').value
-  };
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const age = parseInt(document.getElementById('Age').value);
+    const department = document.getElementById('department').value;
+    const dateHired = document.getElementById('dateHired').value;
+    const editingEmployeeId = sessionStorage.getItem('editingEmployeeId');
 
-  employeesFromRecord.push(newEmp);
+      if (!editingEmployeeId) {
+            console.warn("No editing employee ID found in session storage.");
+            return;
+        }
 
-  // Update table
-  const root = document.querySelector('.employee-table').closest('.employee');
-  root.replaceWith(renderEmployeeTable());
 
-  // Refresh dropdown
-  populateDepartmentDropdown();
+        const currentEmployee = employeesFromRecord.find(emp => emp.id === Number(editingEmployeeId));
+         if (!currentEmployee) {
+        console.warn("Employee not found.");
+         return;
+      }
 
-  // Reset form
-  form.reset();
-  selectedGender = null;
-  selectedStatus = 'Active';
-  statusText.textContent = 'Active';
+      const  gender = selectedGender !== null ? selectedGender : currentEmployee.gender;
+      
+      const  status = selectedStatus !== null ? selectedStatus : currentEmployee.status;
+    // Create employee object
+    const updatedData = {
+        firstName,
+        lastName,
+        department,
+        age,
+        dateHired,
+        gender,
+        status
+    };
+
+    // 🔍 Print the data
+    console.log("Updating employee with ID:", editingEmployeeId);
+    console.log(updatedData);
+
+       updateEmployeeRecord(Number(editingEmployeeId), updatedData);
 });
 
-// Helper
-function populateDepartmentDropdown() {
-  const departments = [
-    ...new Set(employeesFromRecord.map(emp => emp.department))
-  ];
+const updateEmployeeRecord = (employeeId, updatedData) => {
+    const empIndex = employeesFromRecord.findIndex(emp => emp.id === employeeId);
 
-  departmentDropdown.innerHTML = `<option value="">Select</option>`;
-  departments.forEach(dep => {
-    const option = document.createElement('option');
-    option.value = dep;
-    option.textContent = dep;
-    departmentDropdown.appendChild(option);
-  });
-}
+    if (empIndex !== -1) {
+        employeesFromRecord[empIndex] = {
+            ...employeesFromRecord[empIndex],
+            ...updatedData
+        };
 
-// Call on load
-populateDepartmentDropdown();
- */
+        // Save to localStorage
+        localStorage.setItem('employees', JSON.stringify(employeesFromRecord));
+
+        console.log(`Updated Employee ${employeeId}:`, employeesFromRecord[empIndex]);
+
+          if (window.renderEmployeeTable) {
+          window.renderEmployeeTable([...employeesFromRecord]);
+      }
+
+
+    } else {
+        console.log(`Employee ID ${employeeId} not found.`);
+    }
+};
+
+

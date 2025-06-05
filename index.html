@@ -4,7 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <title>Employee Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
   <!-- Tailwind dark mode config -->
   <script>
     tailwind.config = {
@@ -12,7 +19,7 @@
     };
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="/assets/css/sidepanel.css">
   <link rel="stylesheet" href="/assets/css/employee.css">
@@ -33,7 +40,7 @@
     <button class="btn" onclick="loadView('performance')">Performance</button>
 
     <div class="bottom-btn mt-5 w-full flex justify-center">
-      <button class="btn-theme bg-white p-2 w-24 text-black rounded-2xl" onclick="toggleTheme()">
+      <button class="btn-theme  p-2 w-24 rounded-2xl" onclick="toggleTheme()">
         <p class="text-effect text-center">Dark</p>
       </button>
     </div>
@@ -55,47 +62,75 @@
           <h2 class="text-center font-bold mb-2">Employee Details</h2>
 
           <ul id="employee-details" class="flex h-full  flex-col justify-between">
-            <li><b>First Name:</b> <input id="firstName" type="text" placeholder="Mike" ></li>
+            <li>
+              <b>ID:</b> 
+              <input id="employeeID" type="text" placeholder="" readonly >
+            </li>
 
-            <li><b>Last Name:</b> <input id="lastName" type="text" placeholder="Durant" ></li>
+            <li class=" flex gap-5 justify-between">
+              <b>First Name:</b> 
+              <input id="firstName" type="text" placeholder="Mike" autocomplete="off" >
+              <button type="button" class="edit-type"> <img src="/assets/imgs-icons/edit.png" alt=""></button>
+            </li>
 
-            <li><b>Age:</b> <input id="Age" type="number" placeholder="25"></li>
+              <li class=" flex gap-5 justify-between">
+              <b>Last Name:</b> 
+              <input id="lastName" type="text" placeholder="Durant" autocomplete="off">
+             <button type="button" class="edit-type"> <img src="/assets/imgs-icons/edit.png" alt=""></button>
+            </li>
+
+            <li class=" flex gap-5 justify-between">
+              <b>Age:</b> 
+              <input  id="Age" type="number" placeholder="25" autocomplete="off">
+             <button type="button" class="edit-type"> <img src="/assets/imgs-icons/edit.png" alt=""></button>
+            </li>
 
             <li class="gender-btn flex gap-5">
               <b>Gender:</b>
               <button type="button" data-gender="male"> 
-                <img class="icon-gender" src="/assets/imgs-icons/male-gender.png" alt=""></button>
+                <img class="icon-gender" src="/assets/imgs-icons/male-gender.png" alt="">
+              </button>
 
               <button type="button" data-gender="female">
-                <img class="icon-gender" src="/assets/imgs-icons/femenine.png" alt=""></button>
+                <img class="icon-gender" src="/assets/imgs-icons/femenine.png" alt="">
+              </button>
             </li>
 
-            <li><b>Department: </b>
+            <li>
+              <b>Department:</b>
               <select id="department" type="text" placeholder="Finance" autocomplete="off">
                 <option></option>
               </select>
             </li>
 
-            <li><b>Date Hired:</b> <input type="date"></li>
-
+            <li>
+              <b>Date Hired:</b> 
+              <input id="dateHired" type="date">
+            </li>
+            
             <li class="status-btn flex gap-2 ">
-              <b class="justify-start"> Status:</b>       
+
+              <b class="justify-start">Status:</b>       
               <p id="statusText">Active</p>
-              <button type="button" data-status="Inactive">
+
+              <button type="button" data-status="false">
                 <div class="red-circle bg-red-500"></div>
               </button>
-             <button type="button" data-status="Active">
+
+             <button type="button" data-status="true">
                 <div class="blue-circle bg-blue-400"></div>
               </button>
+
             </li>
           </ul>
 
-          <div class="absolute bottom-[150px] left-0 w-full text-white align-center text-center">
+          <div class="absolute bottom-[120px] left-0 w-full  text-white align-center text-center">
             <button id="confirmBtn" type="submit"
-              class="bg-blue-500 text-black rounded-2xl p-2">Confirm</button>
+              class="bg-blue-500 text-black rounded-2xl border-2 bodrder-blue-400 p-2 hover:scale-110 translate-all duration-300 ">Confirm</button>
             <button id="closermBtn" type="button"
-              class="bg-red-500 text-black rounded-2xl p-2">Close</button>
+              class="bg-red-500 text-black rounded-2xl p-2 hover:bg-red-300 hover:scale-110 translate-all duration-300">Close</button>
           </div>
+          
         </form>
 
       </div>
@@ -112,9 +147,10 @@
     </div>
   </div>
   <!-- Scripts -->
+  <script type="module" src="/js/employeeService.js"></script>
   <script src="/js/ui.js"></script>
   <script type="module" src="./main.js"></script>
-
+  
   <script>
   </script>
 

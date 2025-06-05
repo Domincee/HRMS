@@ -1,4 +1,4 @@
-/* import { employeesFromRecord } from '/data/employee.js';
+import { employeesFromRecord } from '/data/employee.js';
 
 export function populateDepartmentDropdown() {
   const departmentSelect = document.getElementById('department');
@@ -15,4 +15,3 @@ export function populateDepartmentDropdown() {
     departmentSelect.appendChild(option);
   });
 }
- */

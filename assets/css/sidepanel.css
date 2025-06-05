@@ -84,19 +84,19 @@ body {
 
  .btn-theme{
     font-weight: 700;
-    scale: 1;
+   transform: scale(1);
     color: rgb(154, 111, 255);
-    background: #000000e5;
+    background: #1c0505e5 !important;
     border: 2px solid #013065;
     box-shadow: 0 0 10px #0066db;
     transition: all 0.3s ease-in-out;
 }
 
 .dark .btn-theme{
-    scale: 1.1;
-        color: rgb(0, 0, 0);
-      background: #ffffffe5;
-          box-shadow: 0 0 10px #020202;
+       transform: scale(1.1);
+     color: rgb(0, 0, 0);
+     background: #ffffffe5 !important;
+     box-shadow: 0 0 10px #020202;
     border: 2px solid #000000;
 }
 
