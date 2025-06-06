@@ -1,5 +1,7 @@
 import { employeesFromRecord } from '../data/employee.js';
 
+
+
 let currentSort = { column: null, asc: true };
 
 
@@ -49,7 +51,7 @@ export function render() {
         </table>
   
       </div>
-            <button id="addBtn" class="add-Btn border-2 bg-blue-700 text-white  border-black w-24 rounded-lg">Add </button>
+            <button id="addBtnEmployee" class="add-Btn border-2 bg-blue-700 text-white  border-black w-24 rounded-lg">Add </button>
     </div>
 
     
@@ -93,7 +95,11 @@ export function render() {
     `;
     tbody.appendChild(row);
 
-        /* Show modal */
+
+
+
+
+     /* removing employeee */
     row.querySelector(".remove-btn").addEventListener("click", () => {
       const employee = employeesFromRecord.find((e) => e.id === emp.id);
       if (!employee) return;
@@ -108,8 +114,8 @@ export function render() {
             <p class="mb-4 text-lg font-semibold">
               Are you sure you want to remove ${employee.firstName} ${employee.lastName}?
             </p>
-            <button id="confirmYes" class="bg-red-600 text-white px-4 py-2 rounded mr-2">Yes</button>
-            <button id="confirmNo" class="bg-gray-300 px-4 py-2 rounded">Cancel</button>
+            <button id="confirmYes" class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-blue-700 hover:scale-105 transition-all duration-300">Yes</button>
+            <button id="confirmNo" class="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 hover:scale-105 transition-all duration-300">Cancel</button>
           </div>
         </div>
       `;
@@ -155,15 +161,15 @@ export function render() {
       });
     });
 
-    /* Event listner for remove emplyoe */
 
 
 
 
 
-    /* Event listner for editing employee */
 
-// EDIT BUTTON CLICK: populate and show modal
+
+
+      /* Event listner for editing employee */
 row.querySelector('.edit-btn').addEventListener('click', () => {
   
   const employee = employeesFromRecord.find(e => e.id === emp.id);
@@ -193,7 +199,10 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
   const newConfirmBtn = confirmBtn.cloneNode(true);
   confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
 
-  newConfirmBtn.addEventListener('click', () => {
+  newConfirmBtn.addEventListener('click', (e) => {
+  /*To prevent inputing  inappropriate words  */
+    e.preventDefault(); 
+
     // Create a custom confirmation modal
     const existingConfirmModal = document.getElementById('customConfirmModal');
     if (existingConfirmModal) existingConfirmModal.remove();
@@ -246,21 +255,33 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
 
   // Show modal (with original form content)
   document.getElementById('employeeModal').classList.remove('hidden');
-
-
 });
-
-
 });
-
-
-
-
 }
 
 
 window.renderEmployeeTable = renderTableBody;
 renderTableBody([...employeesFromRecord]); 
+
+
+const addEmployeeBtn = container.querySelector('#addBtnEmployee');
+
+addEmployeeBtn.addEventListener('click', () => {
+  sessionStorage.removeItem('editingEmployeeId');
+  populateDepartmentDropdown();
+  const form = document.getElementById('employeeForm');
+  if (form) form.reset();
+
+  window.selectedGender = null;
+  window.selectedStatus = null;
+
+  document.querySelectorAll('.gender-btn button').forEach(btn => btn.classList.remove('selected'));
+  document.querySelectorAll('.status-btn button').forEach(btn => btn.classList.remove('selected'));
+
+  document.getElementById('employeeModal').classList.remove('hidden');
+  renderTableBody([...employeesFromRecord].reverse());
+});
+
 
   renderTableBody([...employeesFromRecord]);
    function sortTable(column) {

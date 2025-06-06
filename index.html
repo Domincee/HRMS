@@ -93,24 +93,25 @@
           <ul id="employee-details" class="flex h-full  flex-col justify-between">
             <li>
               <b>ID:</b> 
-              <input id="employeeID" type="text" placeholder="" readonly >
+              <input id="employeeID" type="text" placeholder="XXXX" readonly >
             </li>
 
             <li class=" flex gap-5 justify-between">
               <b>First Name:</b> 
-              <input id="firstName" type="text" placeholder="Mike" autocomplete="off" >
+              <input id="firstName" type="text" placeholder="Enter First Name" 
+              autocomplete="off" pattern="[A-Za-z\s]+" title="Enter Correct Name">
               <button type="button" class="edit-type"> <img src="./assets/imgs-icons/edit.png" alt=""></button>
             </li>
 
               <li class=" flex gap-5 justify-between">
               <b>Last Name:</b> 
-              <input id="lastName" type="text" placeholder="Durant" autocomplete="off">
+              <input id="lastName" type="text" placeholder="Enter Last Name" autocomplete="off">
              <button type="button" class="edit-type"> <img src="./assets/imgs-icons/edit.png" alt=""></button>
             </li>
 
             <li class=" flex gap-5 justify-between">
               <b>Age:</b> 
-              <input  id="Age" type="number" placeholder="25" autocomplete="off">
+              <input  id="Age" type="number" placeholder="Enter your Age" autocomplete="off">
              <button type="button" class="edit-type"> <img src="./assets/imgs-icons/edit.png" alt=""></button>
             </li>
 

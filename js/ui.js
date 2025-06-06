@@ -12,7 +12,7 @@ function toggleTheme() {
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const isDark = savedTheme === "dark";
-  const closeModalBtn = document.getElementById("closermBtn");
+  const closeModalBtn = document.getElementById("closeEmployeeModal");
   const modalEmployee = document.getElementById("employeeModal");
 
   closeModalBtn.addEventListener("click", () => {
