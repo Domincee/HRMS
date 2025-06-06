@@ -51,6 +51,25 @@
     <!-- Dynamic content goes here -->
   </div>
 
+
+  <div id="customConfirmModal" 
+           class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[500] hidden">
+        <div class="bg-white rounded-xl p-6 max-w-xs text-center shadow-lg">
+          <p class="mb-4 text-lg font-semibold">
+          <!--Message HERE!  -->
+          </p>
+          <button id="customConfirmYes" 
+          class="bg-blue-600 text-white px-4 py-2 rounded mr-2 hover:scale-105 hover:bg-blue-700 transition-all duration-300">
+          Yes
+        </button>
+          <button id="customConfirmNo" 
+          class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hover:scale-105 transition-all duration-300">
+            Cancel
+          </button>
+        </div>
+  </div>
+
+
   <!-- Modal -->
   <div class="modal hidden " id="employeeModal">
     <div class="modal-content flex gap-10  p-15 ">

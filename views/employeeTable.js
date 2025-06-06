@@ -86,53 +86,139 @@ export function render() {
         <button 
           class="remove-btn border-2 border-black w-auto p-1 rounded-lg hover:border-blue-700 text-black 
           shadow-lg hover:bg-gray-200 hover:scale-105 transition-all duration-300">
-          Remove
+           remove
+          </div>
         </button>
       </td>
     `;
     tbody.appendChild(row);
 
-    /* Event listner for editing employee */
-
-  row.querySelector('.edit-btn').addEventListener('click', () => {
-      const employee = employeesFromRecord.find(e => e.id === emp.id);
+        /* Show modal */
+    row.querySelector(".remove-btn").addEventListener("click", () => {
+      const employee = employeesFromRecord.find((e) => e.id === emp.id);
       if (!employee) return;
 
-    // Get the ID from the employee object
-      sessionStorage.setItem('editingEmployeeId', employee.id); 
-   
-      document.getElementById('employeeID').value = employee.id;
-      document.getElementById('firstName').value = employee.firstName;
-      document.getElementById('lastName').value = employee.lastName;
-      document.getElementById('Age').value = employee.age;
-      document.getElementById('dateHired').value = employee.dateHired;
-      populateDepartmentDropdown();
-      document.getElementById('department').value = employee.department;
-      
+      const existingModal = document.getElementById("confirmationModal");
+      if (existingModal) existingModal.remove();
 
-      const genderButton = document.querySelectorAll('.gender-btn button');
- 
- 
-      // Gender buttons
-      genderButton.forEach(btn =>{ 
-        btn.classList.remove('selected');
-        if(employee.gender === btn.dataset.gender){
-          btn.classList.add('selected');
-        }
+      const modalHTML = `
+        <div id="confirmationModal" 
+            class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
+          <div id="modalContent" class="bg-white p-6 rounded shadow-lg max-w-sm text-center">
+            <p class="mb-4 text-lg font-semibold">
+              Are you sure you want to remove ${employee.firstName} ${employee.lastName}?
+            </p>
+            <button id="confirmYes" class="bg-red-600 text-white px-4 py-2 rounded mr-2">Yes</button>
+            <button id="confirmNo" class="bg-gray-300 px-4 py-2 rounded">Cancel</button>
+          </div>
+        </div>
+      `;
 
-        
-      
+      document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+      document
+        .getElementById("confirmYes")
+        .addEventListener("click", async () => {
+          const modalContent = document.getElementById("modalContent");
+
+                modalContent.innerHTML = `
+            <div class="flex flex-col items-center">
+              <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p class="text-sm">Removing employee...</p>
+            </div>
+          `;
+
+          try {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            const index = employeesFromRecord.findIndex((e) => e.id === emp.id);
+           if (index === -1) {
+              console.warn("Employee not found in record.");
+              return;
+            }
+
+            employeesFromRecord.splice(index, 1);
+            row.remove();
+
+            } catch (err) {
+            console.error("Failed to remove employee:", err);
+          } finally {
+            document.getElementById("confirmationModal")?.remove();
+          }
+        });
+
+      document.getElementById("confirmNo").addEventListener("click", () => {
+        document.getElementById("confirmationModal").remove();
       });
-     
+    });
 
-      // Status buttons
+    /* Event listner for remove emplyoe */
+
+
+
+
+
+    /* Event listner for editing employee */
+
+// EDIT BUTTON CLICK: populate and show modal
+row.querySelector('.edit-btn').addEventListener('click', () => {
   
-      // Show the modal
-      
+  const employee = employeesFromRecord.find(e => e.id === emp.id);
+  if (!employee) return;
 
-      document.getElementById('employeeModal').classList.remove('hidden');
-    
+  sessionStorage.setItem('editingEmployeeId', employee.id);
+
+  document.getElementById('employeeID').value = employee.id;
+  document.getElementById('firstName').value = employee.firstName;
+  document.getElementById('lastName').value = employee.lastName;
+  document.getElementById('Age').value = employee.age;
+  document.getElementById('dateHired').value = employee.dateHired;
+  populateDepartmentDropdown();
+  document.getElementById('department').value = employee.department;
+
+  const genderButtons = document.querySelectorAll('.gender-btn button');
+  genderButtons.forEach(btn => {
+    btn.classList.remove('selected');
+    if (employee.gender === btn.dataset.gender) {
+      btn.classList.add('selected');
+    }
   });
+  
+
+  // Remove previous event listeners by cloning confirmBtn (to prevent duplicates)
+  const confirmBtn = document.getElementById("confirmBtn");
+  const newConfirmBtn = confirmBtn.cloneNode(true);
+  confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+
+  newConfirmBtn.addEventListener('click', () => {
+    // Create a custom confirmation modal
+    const existingConfirmModal = document.getElementById('customConfirmModal');
+    if (existingConfirmModal) existingConfirmModal.remove();
+
+    const modalHTML = `
+      <div id="customConfirmModal" 
+           class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[500]">
+        <div class="bg-white rounded-xl p-6 max-w-xs text-center shadow-lg">
+          <p class="mb-4 text-lg font-semibold">
+            Are you sure you want to update <strong>${employee.firstName} ${employee.lastName}</strong>'s record?
+          </p>
+          <button id="customConfirmYes" class="bg-blue-600 text-white px-4 py-2 rounded mr-2 hover:scale-105 hover:bg-blue-700 transition-all duration-300">Yes</button>
+          <button id="customConfirmNo" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hover:scale-105 transition-all duration-300">Cancel</button>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+3
+  
+  });
+
+
+  // Show modal (with original form content)
+  document.getElementById('employeeModal').classList.remove('hidden');
+});
+
+
 });
 
 
