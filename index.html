@@ -52,22 +52,32 @@
   </div>
 
 
-  <div id="customConfirmModal" 
-           class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[500] hidden">
-        <div class="bg-white rounded-xl p-6 max-w-xs text-center shadow-lg">
-          <p class="mb-4 text-lg font-semibold">
-          <!--Message HERE!  -->
-          </p>
-          <button id="customConfirmYes" 
-          class="bg-blue-600 text-white px-4 py-2 rounded mr-2 hover:scale-105 hover:bg-blue-700 transition-all duration-300">
-          Yes
-        </button>
-          <button id="customConfirmNo" 
-          class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hover:scale-105 transition-all duration-300">
-            Cancel
-          </button>
-        </div>
-  </div>
+      <div  
+        id="customConfirmModal" 
+        class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[500] hidden">
+
+            <div class="bg-white rounded-xl p-6 max-w-xs text-center shadow-lg">
+              <p 
+              id="customConfirmMessage" 
+              class="mb-4 text-lg font-semibold">
+              <!--Message HERE!  -->
+              </p>
+
+
+            <button
+              id="customConfirmYes" 
+              class="bg-blue-600 text-white px-4 py-2 rounded mr-2 hover:scale-105 hover:bg-blue-700 transition-all duration-300">
+              Yes
+            </button>
+
+            <button 
+              id="customConfirmNo" 
+              class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hover:scale-105 transition-all duration-300">
+                Cancel
+            </button>
+
+            </div>
+      </div>
 
 
   <!-- Modal -->
@@ -146,7 +156,7 @@
           <div class="absolute bottom-[120px] left-0 w-full  text-white align-center text-center">
             <button id="confirmBtn" type="submit"
               class="bg-blue-500 text-black rounded-2xl border-2 bodrder-blue-400 p-2 hover:scale-110 translate-all duration-300 ">Confirm</button>
-            <button id="closermBtn" type="button"
+            <button id="closeEmployeeModal" type="button"
               class="bg-red-500 text-black rounded-2xl p-2 hover:bg-red-300 hover:scale-110 translate-all duration-300">Close</button>
           </div>
           

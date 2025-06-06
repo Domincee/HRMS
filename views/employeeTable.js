@@ -140,7 +140,10 @@ export function render() {
             employeesFromRecord.splice(index, 1);
             row.remove();
 
-            } catch (err) {
+            console.log(`Employee with ID ${emp.id} has been removed.`);/* REMOVE WHEN DEPLOY */
+
+            
+          } catch (err) {
             console.error("Failed to remove employee:", err);
           } finally {
             document.getElementById("confirmationModal")?.remove();
@@ -203,19 +206,48 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
             Are you sure you want to update <strong>${employee.firstName} ${employee.lastName}</strong>'s record?
           </p>
           <button id="customConfirmYes" class="bg-blue-600 text-white px-4 py-2 rounded mr-2 hover:scale-105 hover:bg-blue-700 transition-all duration-300">Yes</button>
-          <button id="customConfirmNo" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hover:scale-105 transition-all duration-300">Cancel</button>
+          <button id="customConfirmNo" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hover:scale-105 transition-all">Cancel</button>
         </div>
       </div>
     `;
 
     document.body.insertAdjacentHTML('beforeend', modalHTML);
-3
-  
+
+    document.getElementById('customConfirmYes').addEventListener('click', async () => {
+      // Show loading inside the custom confirm modal
+      const modalContent = document.getElementById('customConfirmModal').querySelector('div');
+      modalContent.innerHTML = `
+        <div class="flex flex-col items-center p-6">
+          <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p>Updating employee record...</p>
+        </div>
+      `;
+
+      try {
+        // Simulate update delay (replace with actual update logic)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // TODO: your update logic here (update employeesFromRecord or backend call)
+
+        // After update, remove modals and hide employeeModal
+        document.getElementById('customConfirmModal').remove();
+        document.getElementById('employeeModal').classList.add('hidden');
+        console.log(`Employee ${employee.firstName} ${employee.lastName} updated!`);
+      } catch (err) {
+        console.error("Failed to update employee:", err);
+      }
+    });
+
+    document.getElementById('customConfirmNo').addEventListener('click', () => {
+      document.getElementById('customConfirmModal').remove();
+    });
   });
 
 
   // Show modal (with original form content)
   document.getElementById('employeeModal').classList.remove('hidden');
+  
+
 });
 
 

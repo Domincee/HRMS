@@ -81,58 +81,9 @@ editTypeButtons.forEach((button) => {
 /* close modal */
 
 
-document.getElementById("confirmBtn").addEventListener('click', () => {
+document.getElementById("closeEmployeeModal").addEventListener('click', () => {
        document.getElementById('employeeModal').classList.add('hidden');
-})
+});
 
 
 
-
-
-export function showReusableConfirmModal(message, onConfirm, onCancel = () => {}) {
-  const modal = document.getElementById('customConfirmModal');
-  const msgEl = document.getElementById('customConfirmMessage');
-  const spinner = document.getElementById('customConfirmSpinner');
-  const slowMsg = document.getElementById('slowNetworkMsg');
-  const btnGroup = document.getElementById('customConfirmButtons');
-  const yesBtn = document.getElementById('customConfirmYes');
-  const noBtn = document.getElementById('customConfirmNo');
-
-  // Reset UI
-  msgEl.textContent = message;
-  spinner.classList.add('hidden');
-  slowMsg.classList.add('hidden');
-  btnGroup.classList.remove('hidden');
-  modal.classList.remove('hidden');
-
-  // Remove previous listeners
-  const newYesBtn = yesBtn.cloneNode(true);
-  const newNoBtn = noBtn.cloneNode(true);
-  yesBtn.replaceWith(newYesBtn);
-  noBtn.replaceWith(newNoBtn);
-
-  newYesBtn.addEventListener('click', async () => {
-    btnGroup.classList.add('hidden');
-    spinner.classList.remove('hidden');
-
-    const slowTimeout = setTimeout(() => {
-      slowMsg.classList.remove('hidden');
-    }, 3000);
-
-    try {
-      await onConfirm();
-    } catch (err) {
-      console.error("Confirmation action failed:", err);
-    } finally {
-      clearTimeout(slowTimeout);
-      modal.classList.add('hidden');
-      spinner.classList.add('hidden');
-      slowMsg.classList.add('hidden');
-    }
-  });
-
-  newNoBtn.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    onCancel();
-  });
-}

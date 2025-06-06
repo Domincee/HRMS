@@ -1,5 +1,4 @@
 import { employeesFromRecord } from '../data/employee.js';
-import { showReusableConfirmModal } from './ui.js';
 
 
 const form = document.getElementById('employeeForm');
@@ -114,11 +113,11 @@ async function processForm() {
                 </p>
                 `);
             }
-            }, 3000); // warn if >3 seconds
+            },2000/* ,2s */); //
 
             // 2. Then await your async logic (update simulation or real fetch)
             try {
-            await new Promise(resolve => setTimeout(resolve, 5000));// simulate delay
+            await new Promise(resolve => setTimeout(resolve, 3000));// simulate delay
             updateEmployeeRecord(Number(editingEmployeeId), updatedData);
 
              
