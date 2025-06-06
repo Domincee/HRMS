@@ -20,26 +20,26 @@ export function render() {
               <th>
               <button class="btn-sorter flex g-2 item-center" id="sortById"> 
                 <span>ID</span>
-               <img class="w-8 h-8" src="/assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
+               <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
               </button>
               </th>
 
               <th>
               <button class="btn-sorter flex g-2 item-center" id="sortByName"> 
                 <span>Full Name</span>
-               <img class="w-8 h-8" src="/assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
+               <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
               </button>
               </th>
               <th>
               <button class="btn-sorter flex g-2 item-center" id="sortByDep"> 
                 <span>Department</span>
-               <img class="w-8 h-8" src="/assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
+               <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
               </button>
               </th>
               <th>
                <button class="btn-sorter flex g-2 item-center" id="sortByStat"> 
                 <span>Status</span>
-               <img class="w-8 h-8" src="/assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
+               <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
               </button>
               </th>
               <th>Action</th>
@@ -246,7 +246,7 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
 
   // Show modal (with original form content)
   document.getElementById('employeeModal').classList.remove('hidden');
-  
+
 
 });
 
