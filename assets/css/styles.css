@@ -1,0 +1,21 @@
+.notif-text {
+  transform: translateY(-500%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+     color: black;
+     border: 2px solid #000000;
+}
+
+.notif-text.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+ .notif-text.error{
+    border: 2px solid #ff0000 !important;
+    color: #ff0000 !important;
+}
+.dark .notif-text{
+    color: white;
+    border: 2px solid #fff;
+}

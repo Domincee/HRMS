@@ -87,3 +87,45 @@ document.getElementById("closeEmployeeModal").addEventListener('click', () => {
 
 
 
+function showNotif(){
+  console.log("clicked");
+ addNotification("Failed to add John Doe", "success");
+  document.querySelector('.notif-text').classList.add('show');
+}
+
+
+
+function addNotification(message, type = "success", duration = 3000) {
+  const notifList = document.querySelector('.notif-list');
+
+  // Choose icon and background based on type
+  const icon = type === "error"
+    ? "./assets/imgs-icons/error.png"
+    : "./assets/imgs-icons/checklist.png";
+
+  const isItFail = type === "error" ? "error" : "success";
+
+  const notif = document.createElement('p');
+  notif.className = `notif-text p-2 border-2 rounded-lg flex gap-5 ${isItFail} `;
+  notif.innerHTML = `
+    ${message}
+    <img src="${icon}" alt="${type}" class="w-6 h-6">
+  `;
+
+  notifList.appendChild(notif);
+
+  // Trigger slide-in effect
+  requestAnimationFrame(() => {
+    notif.classList.add('show');
+  });
+
+  // Auto-remove
+  setTimeout(() => {
+    notif.classList.remove('show');
+    setTimeout(() => notif.remove(), 300);
+  }, duration);
+
+  // Click to remove instantly
+  notif.addEventListener('click', () => notif.remove());
+}
+

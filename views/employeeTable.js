@@ -144,13 +144,20 @@ export function render() {
             }
 
             employeesFromRecord.splice(index, 1);
-            row.remove();
+            localStorage.setItem('employees', JSON.stringify(employeesFromRecord));
 
+            if (window.renderEmployeeTable) {
+              window.renderEmployeeTable([...employeesFromRecord]);
+            }
+            row.remove();
+           addNotification(`Successfully removed ${employee.firstName} ${employee.lastName}`, "success");
             console.log(`Employee with ID ${emp.id} has been removed.`);/* REMOVE WHEN DEPLOY */
 
             
           } catch (err) {
             console.error("Failed to remove employee:", err);
+            addNotification(`Failed to remove ${employee.firstName} ${employee.lastName}`, "error");
+
           } finally {
             document.getElementById("confirmationModal")?.remove();
           }
@@ -233,6 +240,7 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
       `;
 
       try {
+
         // Simulate update delay (replace with actual update logic)
         await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -242,8 +250,11 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
         document.getElementById('customConfirmModal').remove();
         document.getElementById('employeeModal').classList.add('hidden');
         console.log(`Employee ${employee.firstName} ${employee.lastName} updated!`);
+
       } catch (err) {
         console.error("Failed to update employee:", err);
+        addNotification(`Failed to update employee ${employee.firstName} ${employee.lastName}`, "error");
+
       }
     });
 
