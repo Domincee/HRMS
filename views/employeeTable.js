@@ -1,5 +1,5 @@
-import { employeesFromRecord } from '../data/employee.js';
-
+import { employeesFromRecord } from '../data/records.js';
+import {populateDepartmentDropdown} from '../js/populateDropdownDep.js';
 
 
 let currentSort = { column: null, asc: true };
@@ -49,18 +49,49 @@ export function render() {
           </thead>
           <tbody class="table-body"></tbody>
         </table>
-  
+
       </div>
-            <button id="addBtnEmployee" class="add-Btn border-2 bg-blue-700 text-white  border-black w-24 rounded-lg">Add </button>
-    </div>
+
+        <div class="w-full flex justify-around items-center align-center ">
+
+           <div id="totalEmp" class="flex gap-10">
+              <span>Total Employees: 0</span>
+              <span>Active: 0</span>
+              <span>Inactive: 0</span>
+            </div>
+
+          <button id="addBtnEmployee" class="add-Btn border-2 bg-blue-700 text-white border-black w-24 rounded-lg">
+            Add
+          </button>
+        </div>
+
+     </div>
 
     
   `;
 
   const tbody = container.querySelector('tbody');
-  
+
+        function updateEmployeeCount(data) {
+        const totalEmpContainer = container.querySelector('#totalEmp');
+
+        const total = data.length;
+        const active = data.filter(emp => emp.status).length;
+        const inactive = total - active;
+
+        totalEmpContainer.innerHTML = `
+          <span>Total Employees: <strong> <u> ${total}</u> </strong></span>
+          <span>Active: <strong> <u>${active}</u> </strong></span>
+          <span>Inactive: <strong><u> ${inactive}</u> </strong> </span>
+        `;
+      }
+
    function renderTableBody(data) {
      tbody.innerHTML = '';
+
+     updateEmployeeCount(employeesFromRecord);
+
+
     data.forEach(emp => {
     const row = document.createElement('tr');
       
@@ -94,7 +125,6 @@ export function render() {
       </td>
     `;
     tbody.appendChild(row);
-
 
 
 
@@ -148,8 +178,10 @@ export function render() {
 
             if (window.renderEmployeeTable) {
               window.renderEmployeeTable([...employeesFromRecord]);
+              
             }
             row.remove();
+          updateEmployeeCount(employeesFromRecord);
            addNotification(`Successfully removed ${employee.firstName} ${employee.lastName}`, "success");
             console.log(`Employee with ID ${emp.id} has been removed.`);/* REMOVE WHEN DEPLOY */
 
@@ -250,6 +282,7 @@ row.querySelector('.edit-btn').addEventListener('click', () => {
         document.getElementById('customConfirmModal').remove();
         document.getElementById('employeeModal').classList.add('hidden');
         console.log(`Employee ${employee.firstName} ${employee.lastName} updated!`);
+         updateEmployeeCount(employeesFromRecord);
 
       } catch (err) {
         console.error("Failed to update employee:", err);
@@ -291,6 +324,7 @@ addEmployeeBtn.addEventListener('click', () => {
 
   document.getElementById('employeeModal').classList.remove('hidden');
   renderTableBody([...employeesFromRecord].reverse());
+   updateEmployeeCount(employeesFromRecord);
 });
 
 
@@ -332,7 +366,7 @@ addEmployeeBtn.addEventListener('click', () => {
    
 
   }
-   function populateDepartmentDropdown() {
+/*    function populateDepartmentDropdown() {
       const departmentSelect = document.getElementById('department');
       if (!departmentSelect) return;
 
@@ -348,7 +382,7 @@ addEmployeeBtn.addEventListener('click', () => {
         option.textContent = dep;
         departmentSelect.appendChild(option );
       });
-    }
+    } */
   // Attach event listeners
 
 

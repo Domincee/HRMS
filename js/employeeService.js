@@ -1,4 +1,4 @@
-import { employeesFromRecord } from '../data/employee.js';
+import { employeesFromRecord } from '../data/records.js';
 import { containsBannedWord } from '../data/disallowedWords.js';
 
 // Form and state

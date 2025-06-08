@@ -10,3 +10,28 @@ export const employeesFromRecord = [
     { id: 9990, firstName: "William", lastName: "Miller", age: 38, gender: 'male', department: "Marketing", dateHired: "2018-09-30", status: false, profile: "" },
     { id: 1010, firstName: "Ava", lastName: "Anderson", age: 31, gender: 'female', department: "Operations", dateHired: "2019-04-25", status: true, profile: "" }
 ];
+
+export const departmentFromRecord =
+
+[
+    {depLenght: 2, depID:111, department: "Human Resource", depAcronym: "HR", depColor: ""},
+    {depLenght: 2, depID:222, department: "Finance", depAcronym: "Finance", depColor: ""},
+    {depLenght: 2, depID:333, department: "Information Technology", depAcronym: "IT", depColor: ""},
+    {depLenght: 2, depID:444, department: "Operation", depAcronym: "Operation", depColor: ""},
+    {depLenght: 2, depID:555, department: "Marketing", depAcronym: "Marketing", depColor: ""}
+]
+
+
+export const assignDep = [
+
+    {id:1100, depArea: "111"},
+    {id:2220, depArea: "222"},
+    {id:3330, depArea: "333"},
+    {id:5550, depArea: "444"},   
+    {id:4440, depArea: "555"},      
+    {id:6660, depArea: "111"},
+    {id:7770, depArea: "222"},        
+    {id:8880, depArea: "333"},  
+    {id:1010, depArea: "444"},        
+    {id:9990, depArea: "555"}
+]

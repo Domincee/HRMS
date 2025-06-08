@@ -1,3 +1,7 @@
+*{
+  transition: all 0.3s ease-in-out;
+}
+
 .notif-text {
   transform: translateY(-500%);
   opacity: 0;

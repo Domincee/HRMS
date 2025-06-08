@@ -1,0 +1,98 @@
+import { departmentFromRecord } from '../data/records.js';
+
+let currentSort = { column: null, asc: true };
+
+export function render() {
+  const container = document.createElement('div');
+  container.classList.add('employee');
+
+  container.innerHTML = `
+    <div class="employee-container flex flex-col g-4 p-4">
+      <h2 class="title">Employee List</h2>
+      <h4 class="subtitle">Manage Employee</h4>
+
+      <div class="table-wrapper">
+        <table class="employee-table bg-white">
+          <thead class="table-header">
+            <tr>
+              <th>
+                <button class="btn-sorter flex g-2 item-center" id="sortByDepID"> 
+                  <span>ID</span>
+                  <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
+                </button>
+              </th>
+              <th>
+                <button class="btn-sorter flex g-2 item-center" id="sortByNameDep"> 
+                  <span>Department</span>
+                  <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
+                </button>
+              </th>
+              <th>
+                  <span>Headcount</span>
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="table-body"></tbody>
+        </table>
+      </div>
+
+      <button id="addBtnEmployee" class="add-Btn border-2 bg-blue-700 text-white border-black w-24 rounded-lg">Add</button>
+    </div>
+  `;
+
+  const tbody = container.querySelector('tbody');
+
+  function renderTableBody(data) {
+    tbody.innerHTML = '';
+    data.forEach(dep => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${dep.depID}</td>
+        <td>${dep.department}</td>
+        <td>${dep.depLenght}</td>
+        <td class="flex gap-5 w-auto" >
+            <button id="removeDep" class="remove-btn border-2 border-black p-1 rounded-lg hover:scale-105 hover:bg-white">
+            Remove
+            </button>
+        <!-- Future actions like view/edit/delete can be placed here -->
+        
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function sortTable(column) {
+    const sorted = [...departmentFromRecord].sort((a, b) => {
+      let aVal, bVal;
+      switch (column) {
+        case 'id':
+          aVal = a.depID;
+          bVal = b.depID;
+          break;
+        case 'name':
+          aVal = a.department.toLowerCase();
+          bVal = b.department.toLowerCase();
+          break;
+      }
+
+      if (aVal < bVal) return currentSort.asc ? -1 : 1;
+      if (aVal > bVal) return currentSort.asc ? 1 : -1;
+      return 0;
+    });
+
+    currentSort = {
+      column,
+      asc: currentSort.column === column ? !currentSort.asc : true,
+    };
+
+    renderTableBody(sorted);
+  }
+
+  container.querySelector('#sortByDepID').addEventListener('click', () => sortTable('id'));
+  container.querySelector('#sortByNameDep').addEventListener('click', () => sortTable('name'));
+
+  renderTableBody([...departmentFromRecord]);
+  return container;
+}
