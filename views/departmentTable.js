@@ -1,4 +1,5 @@
 import { departmentFromRecord } from '../data/records.js';
+import {showCustomConfirm} from '../js/ui.js';
 
 let currentSort = { column: null, asc: true };
 
@@ -35,15 +36,39 @@ export function render() {
           <tbody class="table-body"></tbody>
         </table>
       </div>
+          
+        <div class="w-full flex justify-around items-center align-center ">
 
-      <button id="addBtnEmployee" class="add-Btn border-2 bg-blue-700 text-white border-black w-24 rounded-lg">Add</button>
+           <div id="totalDep" class="flex gap-10">
+              <span>Total Department: 0</span>
+         
+            </div>
+
+          <button id="addBtnEmployee" class="add-Btn border-2 bg-blue-700 text-white border-black w-24 rounded-lg">Add</button>
+
+        </div>
     </div>
+
+   
   `;
 
-  const tbody = container.querySelector('tbody');
+    const tbody = container.querySelector('tbody');
+
+        function updateDepartmentCount(data) {
+        const totalEmpContainer = container.querySelector('#totalDep');
+        const total = data.length;
+
+        totalEmpContainer.innerHTML = `
+          <span>Total Department: <strong> <u> ${total}</u> </strong></span>
+        `;
+      }
+
+
 
 function renderTableBody(data) {
   tbody.innerHTML = '';
+
+  updateDepartmentCount(departmentFromRecord);
   data.forEach((dep, index) => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -60,7 +85,7 @@ function renderTableBody(data) {
           ">
         </span>
       </td>
-      <td>${dep.depLenght}</td>
+      <td>${dep.depLength}</td>
       <td class="flex gap-5 w-auto">
         <button
           class="edit-btn bg-blue-800 w-auto p-1 rounded-lg border-2 border-blue-700 text-white 
@@ -79,6 +104,24 @@ function renderTableBody(data) {
     tbody.appendChild(row);
 
     // Attach event listener for remove button on this row
+
+
+
+            row.querySelector(".remove-btn").addEventListener("click", () => {
+      showCustomConfirm('Are you sure you want to remove this department?').then((confirmed) => {
+            if (confirmed) {
+              console.log('User clicked YES');
+              // Do your removal here
+            } else {
+
+              
+              console.log('User clicked CANCEL');
+              // Do nothing or cancel removal
+            }
+            });
+
+
+    });
 
   });
   

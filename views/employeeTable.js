@@ -66,12 +66,10 @@ export function render() {
         </div>
 
      </div>
-
-    
+  
   `;
 
-  const tbody = container.querySelector('tbody');
-
+const tbody = container.querySelector('tbody');
         function updateEmployeeCount(data) {
         const totalEmpContainer = container.querySelector('#totalEmp');
 
@@ -86,7 +84,7 @@ export function render() {
         `;
       }
 
-   function renderTableBody(data) {
+function renderTableBody(data) {
      tbody.innerHTML = '';
 
      updateEmployeeCount(employeesFromRecord);
@@ -166,7 +164,6 @@ export function render() {
 
           try {
             await new Promise((resolve) => setTimeout(resolve, 1000));
-
             const index = employeesFromRecord.findIndex((e) => e.id === emp.id);
            if (index === -1) {
               console.warn("Employee not found in record.");
@@ -366,25 +363,6 @@ addEmployeeBtn.addEventListener('click', () => {
    
 
   }
-/*    function populateDepartmentDropdown() {
-      const departmentSelect = document.getElementById('department');
-      if (!departmentSelect) return;
-
-      // Clear current options
-      departmentSelect.innerHTML = '<option value="">Select Department</option>';
-
-      // Get unique departments
-      const departments = [...new Set(employeesFromRecord.map(emp => emp.department))];
-
-      departments.forEach(dep => {
-        const option = document.createElement('option');
-        option.value = dep;
-        option.textContent = dep;
-        departmentSelect.appendChild(option );
-      });
-    } */
-  // Attach event listeners
-
 
 
   container.querySelector('#sortById').addEventListener('click', () => sortTable('id'));

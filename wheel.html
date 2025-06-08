@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Random Spin Wheel Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  h1 {
+    margin-bottom: 5px;
+  }
+  #points {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  #wheel-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+  }
+  svg {
+    transform-origin: 50% 50%;
+    filter: drop-shadow(0 0 5px purple);
+    cursor: pointer;
+  }
+  #pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    margin-left: -15px;
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #ff33cc;
+    filter: drop-shadow(0 0 5px #ff33cc);
+  }
+  #spinBtn {
+    background: #6a0dad;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+  }
+  #spinBtn:disabled {
+    background: #401a59;
+    cursor: not-allowed;
+  }
+  #betInput {
+    width: 100px;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    margin-left: 10px;
+    text-align: center;
+  }
+  #result {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    min-height: 1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎡 Spin & Win Game</h1>
+<div id="points">Points: 1000</div>
+<label>
+  Bet Points: 
+  <input type="number" id="betInput" min="1" value="100" />
+</label>
+
+<div id="wheel-container">
+  <div id="pointer"></div>
+  <svg id="wheel" width="320" height="320" viewBox="0 0 320 320"></svg>
+</div>
+
+<button id="spinBtn">Spin</button>
+<div id="result"></div>
+
+<script>
+  const segments = [
+    { value: +100, color: "#6a0dad" },
+    { value: +200, color: "#4b0082" },
+    { value: -150, color: "#30004a" },
+    { value: +50,  color: "#6a0dad" },
+    { value: -100, color: "#4b0082" },
+    { value: +300, color: "#30004a" },
+    { value: -50,  color: "#6a0dad" },
+    { value: +150, color: "#4b0082" }
+  ];
+  
+  const wheel = document.getElementById("wheel");
+  const pointsDisplay = document.getElementById("points");
+  const spinBtn = document.getElementById("spinBtn");
+  const betInput = document.getElementById("betInput");
+  const resultDisplay = document.getElementById("result");
+
+  let playerPoints = 1000;
+  let spinning = false;
+  const center = 160;
+  const radius = 150;
+  const segmentCount = segments.length;
+  const anglePerSegment = 360 / segmentCount;
+
+  function polarToCartesian(cx, cy, radius, angleInDegrees) {
+    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+    return {
+      x: cx + radius * Math.cos(angleInRadians),
+      y: cy + radius * Math.sin(angleInRadians)
+    };
+  }
+
+  function describeArc(cx, cy, radius, startAngle, endAngle){
+    const start = polarToCartesian(cx, cy, radius, endAngle);
+    const end = polarToCartesian(cx, cy, radius, startAngle);
+    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+    return [
+      "M", cx, cy,
+      "L", start.x, start.y,
+      "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+      "Z"
+    ].join(" ");
+  }
+
+  function drawWheel() {
+    wheel.innerHTML = "";
+    for(let i = 0; i < segmentCount; i++) {
+      const startAngle = i * anglePerSegment;
+      const endAngle = startAngle + anglePerSegment;
+
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", describeArc(center, center, radius, startAngle, endAngle));
+      path.setAttribute("fill", segments[i].color);
+      path.setAttribute("stroke", "#6a0dad");
+      path.setAttribute("stroke-width", "2");
+      wheel.appendChild(path);
+
+      // Add text label
+        const textAngle = startAngle + anglePerSegment / 2;
+        const textPos = polarToCartesian(center, center, radius * 0.65, textAngle);
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", textPos.x);
+        text.setAttribute("y", textPos.y);
+        text.setAttribute("fill", "#f0e6ff");
+        text.setAttribute("font-size", "20");
+        text.setAttribute("font-family", "Arial, sans-serif");
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("alignment-baseline", "middle");
+        text.textContent = (segments[i].value > 0 ? "+" : "") + segments[i].value;
+
+        // Counter rotate text by -textAngle degrees
+        text.setAttribute("transform", `rotate(${-textAngle} ${textPos.x} ${textPos.y})`);
+
+        wheel.appendChild(text);
+    }
+  }
+
+  function updatePoints() {
+    pointsDisplay.textContent = `Points: ${playerPoints}`;
+  }
+
+  function spinWheel(bet) {
+    if (spinning) return;
+    if (bet > playerPoints) {
+      alert("You don't have enough points to bet that much!");
+      return;
+    }
+    if (bet <= 0) {
+      alert("Bet must be positive!");
+      return;
+    }
+
+    spinning = true;
+    spinBtn.disabled = true;
+    resultDisplay.textContent = "";
+
+    // Deduct bet upfront
+    playerPoints -= bet;
+    updatePoints();
+
+    const spins = 4; // number of full rotations
+    const randomSegment = Math.floor(Math.random() * segmentCount);
+    const spinAngle = 360 * spins + (anglePerSegment * randomSegment) + anglePerSegment / 2;
+
+    wheel.style.transition = "transform 4s cubic-bezier(0.33, 1, 0.68, 1)";
+    wheel.style.transform = `rotate(${spinAngle}deg)`;
+
+    setTimeout(() => {
+      wheel.style.transition = "none";
+      const finalAngle = spinAngle % 360;
+      wheel.style.transform = `rotate(${finalAngle}deg)`;
+
+      const segmentResult = segments[randomSegment].value;
+      const earned = segmentResult * (bet / 100);
+
+      playerPoints += earned;
+      updatePoints();
+
+      resultDisplay.textContent = earned >= 0
+        ? `You won +${earned.toFixed(0)} points! 🎉`
+        : `You lost ${Math.abs(earned).toFixed(0)} points. 😢`;
+
+      spinning = false;
+      spinBtn.disabled = false;
+
+      if (playerPoints <= 0) {
+        resultDisplay.textContent = "Game Over! You ran out of points.";
+        spinBtn.disabled = true;
+      }
+    }, 4000);
+  }
+
+  spinBtn.addEventListener("click", () => {
+    const bet = parseInt(betInput.value);
+    spinWheel(bet);
+  });
+
+  drawWheel();
+  updatePoints();
+</script>
+
+</body>
+</html>
