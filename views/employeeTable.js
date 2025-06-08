@@ -109,7 +109,7 @@ export function render() {
       <td>${emp.firstName} ${emp.lastName}</td>
       <td>${emp.department}</td>
       <td class="statusCon">${statusCircle}</td>
-      <td>
+      <td class="flex gap-5">
         <button 
           class="edit-btn bg-blue-800 w-auto p-1 rounded-lg border-2 border-blue-700 text-white 
           shadow-lg hover:bg-blue-500 hover:text-white hover:scale-105 transition duration-300" 

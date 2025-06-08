@@ -129,3 +129,6 @@ function addNotification(message, type = "success", duration = 3000) {
   notif.addEventListener('click', () => notif.remove());
 }
 
+
+
+

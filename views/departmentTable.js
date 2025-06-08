@@ -27,9 +27,8 @@ export function render() {
                   <img class="w-8 h-8" src="./assets/imgs-icons/up-and-down-arrows-svgrepo-com.svg" alt="">
                 </button>
               </th>
-              <th>
-                  <span>Headcount</span>
-              </th>
+              <th><span>Color Code</span></th>
+              <th><span>Headcount</span></th>
               <th>Action</th>
             </tr>
           </thead>
@@ -43,25 +42,47 @@ export function render() {
 
   const tbody = container.querySelector('tbody');
 
-  function renderTableBody(data) {
-    tbody.innerHTML = '';
-    data.forEach(dep => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${dep.depID}</td>
-        <td>${dep.department}</td>
-        <td>${dep.depLenght}</td>
-        <td class="flex gap-5 w-auto" >
-            <button id="removeDep" class="remove-btn border-2 border-black p-1 rounded-lg hover:scale-105 hover:bg-white">
-            Remove
-            </button>
-        <!-- Future actions like view/edit/delete can be placed here -->
-        
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-  }
+function renderTableBody(data) {
+  tbody.innerHTML = '';
+  data.forEach((dep, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${dep.depID}</td>
+      <td>${dep.department}</td>
+      <td>
+        <span 
+          style="
+            display: inline-block; 
+            width: 16px; 
+            height: 16px; 
+            border-radius: 50%; 
+            background-color: ${dep.depColor};
+          ">
+        </span>
+      </td>
+      <td>${dep.depLenght}</td>
+      <td class="flex gap-5 w-auto">
+        <button
+          class="edit-btn bg-blue-800 w-auto p-1 rounded-lg border-2 border-blue-700 text-white 
+            shadow-lg hover:bg-blue-500 hover:text-white hover:scale-105 transition duration-300" 
+          data-depID="${dep.depID}">
+          Edit
+        </button>
+        <button 
+          class="remove-btn remove-dep-btn border-2 border-black p-1 rounded-lg hover:scale-105 hover:bg-white" 
+          data-index="${index}" 
+          data-name="${dep.department}">
+          Remove
+        </button>
+      </td>
+    `;
+    tbody.appendChild(row);
+
+    // Attach event listener for remove button on this row
+
+  });
+  
+}
 
   function sortTable(column) {
     const sorted = [...departmentFromRecord].sort((a, b) => {
@@ -96,3 +117,5 @@ export function render() {
   renderTableBody([...departmentFromRecord]);
   return container;
 }
+/*  */
+

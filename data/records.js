@@ -11,15 +11,43 @@ export const employeesFromRecord = [
     { id: 1010, firstName: "Ava", lastName: "Anderson", age: 31, gender: 'female', department: "Operations", dateHired: "2019-04-25", status: true, profile: "" }
 ];
 
-export const departmentFromRecord =
-
-[
-    {depLenght: 2, depID:111, department: "Human Resource", depAcronym: "HR", depColor: ""},
-    {depLenght: 2, depID:222, department: "Finance", depAcronym: "Finance", depColor: ""},
-    {depLenght: 2, depID:333, department: "Information Technology", depAcronym: "IT", depColor: ""},
-    {depLenght: 2, depID:444, department: "Operation", depAcronym: "Operation", depColor: ""},
-    {depLenght: 2, depID:555, department: "Marketing", depAcronym: "Marketing", depColor: ""}
-]
+export const departmentFromRecord = [
+  {
+    depLength: 2,
+    depID: 111,
+    department: "Human Resource",
+    depAcronym: "HR",
+    depColor: "#4B9CD3" // Soft blue
+  },
+  {
+    depLength: 2,
+    depID: 222,
+    department: "Finance",
+    depAcronym: "Finance",
+    depColor: "#28A745" // Green (commonly used for finance)
+  },
+  {
+    depLength: 2,
+    depID: 333,
+    department: "Information Technology",
+    depAcronym: "IT",
+    depColor: "#6F42C1" // Purple (modern tech color)
+  },
+  {
+    depLength: 2,
+    depID: 444,
+    department: "Operation",
+    depAcronym: "Operation",
+    depColor: "#FD7E14" // Orange (active operations feel)
+  },
+  {
+    depLength: 2,
+    depID: 555,
+    department: "Marketing",
+    depAcronym: "Marketing",
+    depColor: "#E83E8C" // Pink/magenta (creative branding)
+  }
+];
 
 
 export const assignDep = [
