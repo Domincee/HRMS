@@ -1,6 +1,6 @@
 import { employeesFromRecord } from '../data/records.js';
 import {populateDepartmentDropdown} from '../js/populateDropdownDep.js';
-
+import {addNotification} from '../js/ui.js';
 
 let currentSort = { column: null, asc: true };
 

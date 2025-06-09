@@ -10,6 +10,13 @@ function toggleTheme() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.querySelector(".btn-theme");
+  if (btn) {
+    btn.addEventListener("click", toggleTheme);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const isDark = savedTheme === "dark";
   const closeModalBtn = document.getElementById("closeEmployeeModal");
@@ -95,7 +102,7 @@ function showNotif(){
 
 
 
-function addNotification(message, type = "success", duration = 3000) {
+export function addNotification(message, type = "success", duration = 3000) {
   const notifList = document.querySelector('.notif-list');
 
   // Choose icon and background based on type
@@ -131,4 +138,34 @@ function addNotification(message, type = "success", duration = 3000) {
 
 
 
+export function showCustomConfirm(message = 'Are you sure?') {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('customConfirmModal');
+    const messageEl = document.getElementById('customConfirmMessage');
+    const yesBtn = document.getElementById('customConfirmYes');
+    const noBtn = document.getElementById('customConfirmNo');
 
+    if (!modal || !messageEl || !yesBtn || !noBtn) {
+      console.error('Custom confirm modal elements missing in DOM');
+      resolve(false);
+      return;
+    }
+
+    messageEl.textContent = message;
+    modal.classList.remove('hidden');
+
+    // Remove previous listeners if any
+    yesBtn.onclick = null;
+    noBtn.onclick = null;
+
+    yesBtn.onclick = () => {
+      modal.classList.add('hidden');
+      resolve(true);
+    };
+
+    noBtn.onclick = () => {
+      modal.classList.add('hidden');
+      resolve(false);
+    };
+  });
+}
