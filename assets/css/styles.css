@@ -1,5 +1,6 @@
 *{
   transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
 }
 
 .notif-text {
@@ -9,7 +10,10 @@
      color: black;
      border: 2px solid #000000;
 }
-
+a{
+}
+ul{
+}
 .notif-text.show {
   transform: translateY(0);
   opacity: 1;
